@@ -29,7 +29,7 @@ Grupo 1
 Autores: Alan Soares
          Bruno Cesar
          Daniel Caetano
-         Gerson Fernandes
+         Gerson Otavio Fernandes Moreira
          Guilherme Gomes
 
 Credenciais
@@ -46,10 +46,10 @@ Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
 Funções:Scrum Master e Analista de desenvolvimento
 
-Nome:
-email:
-Funções:
+Nome: Gerson Otavio Fernandes Moreira
+email: gersonofernandes@gmail.com
+Funções: Analista de Desenvolvimento - DBA
 
-Nome:
-email:
-Funções:
+Nome: Guilherme Gomes da Silva
+email: gomesguilherme.s@outlook.com
+Funções: Analista de desenvolvimento
