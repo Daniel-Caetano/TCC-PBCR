@@ -35,4 +35,4 @@ Funções: Analista de Desenvolvimento - DBA
 
 Nome: Guilherme Gomes da Silva
 email: gomesguilherme.s@outlook.com
-Funções: Analista de desenvolvimento:Back-End
+Funções: Analista de Desenvolvimento: Back-End
