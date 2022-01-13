@@ -34,9 +34,9 @@ Autores: Alan Soares
 
 Credenciais
 
-Nome:
-email:
-Funções:
+Nome: Bruno Cesar de Oliveira 
+email: brunocesardeoliveira2018@gmail.com
+Funções:Front End e Analista Desenvolvimento
 
 Nome:
 email:
