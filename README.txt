@@ -20,6 +20,7 @@
 //ou
 //git push -u origin master
 //se alguém tiver feito antes de vc terá que fazer o pull
+//git pull origin main
 
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
