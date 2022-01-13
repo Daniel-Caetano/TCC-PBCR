@@ -36,15 +36,20 @@ Credenciais
 
 Nome:
 email:
+Funções:
 
 Nome:
 email:
+Funções:
 
 Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
+Funções:Scrum Master e Analista de desenvolvimento
 
 Nome:
 email:
+Funções:
 
 Nome:
 email:
+Funções:
