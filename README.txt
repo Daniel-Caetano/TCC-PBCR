@@ -38,9 +38,9 @@ Nome: Bruno Cesar de Oliveira
 email: brunocesardeoliveira2018@gmail.com
 Funções:Front End e Analista Desenvolvimento
 
-Nome:
-email:
-Funções:
+Nome:Alan Soares da Costa
+email:alan.kostta14@gmail.com
+Função:Alanlista de Desenvolvimento-Back End
 
 Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
