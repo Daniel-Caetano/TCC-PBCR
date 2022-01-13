@@ -1,6 +1,6 @@
-//Logar no Visual studio a sua conta do GITHUB: > Arquivo>Configuração de conta> Adicionar Conta ( GitHUb)
+//Logar no Visual studio a sua conta do GITHUB: > Arquivo>ConfiguraÃ§Ã£o de conta> Adicionar Conta ( GitHUb)
 //Criar uma pasta onde vc quer que fique o projeto
-//Entrar nessa pasta atráves do gerenciador de projeto a direita do visual studio
+//Entrar nessa pasta atrÃ¡ves do gerenciador de projeto a direita do visual studio
 //No cmd do Visual studio configurar usuario global do git com seu nome e email do github 
 //git config --global user.name "APAGAR ESSE TEXTO E COLOCAR SEU NOME"
 //git config --global user.mail "APAGAR ESSE TEXTO E COLOCAR SEU EMAIL"
@@ -19,7 +19,7 @@
 //git push -u origin main
 //ou
 //git push -u origin master
-//se alguém tiver feito antes de vc terá que fazer o pull
+//se alguÃ©m tiver feito antes de vc terÃ¡ que fazer o pull
 //git pull origin main
 
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
@@ -29,27 +29,27 @@ Grupo 1
 Autores: Alan Soares
          Bruno Cesar
          Daniel Caetano
-         Gerson Otavio Fernandes Moreira
+         Gerson Otavio 
          Guilherme Gomes
 
 Credenciais
 
 Nome: Bruno Cesar de Oliveira 
 email: brunocesardeoliveira2018@gmail.com
-Funções:Front End e Analista Desenvolvimento
+FunÃ§Ãµes:Analista Desenvolvimento:Front-End
 
 Nome:Alan Soares da Costa
 email:alan.kostta14@gmail.com
-Função:Alanlista de Desenvolvimento-Back End
+FunÃ§Ã£o:Alanlista de Desenvolvimento - Back End
 
 Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
-Funções:Scrum Master e Analista de desenvolvimento
+FunÃ§Ãµes:Scrum Master e Analista de desenvolvimento
 
 Nome: Gerson Otavio Fernandes Moreira
 email: gersonofernandes@gmail.com
-Funções: Analista de Desenvolvimento - DBA
+FunÃ§Ãµes: Analista de Desenvolvimento - DBA
 
 Nome: Guilherme Gomes da Silva
 email: gomesguilherme.s@outlook.com
-Funções: Analista de desenvolvimento
+FunÃ§Ãµes: Analista de desenvolvimento:Back-End
