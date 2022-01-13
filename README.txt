@@ -50,6 +50,6 @@ Nome:
 email:
 Funções:
 
-Nome:
-email:
-Funções:
+Nome: Guilherme Gomes da Silva
+email: gomesguilherme.s@outlook.com
+Funções: Analista de desenvolvimento
