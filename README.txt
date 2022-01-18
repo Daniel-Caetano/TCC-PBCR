@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 //Comandos básicos testando
+=======
+//Comandos básicos testando back_end
+>>>>>>> 63909ca45d5c932bd892ac3fb05d73e749989e9f
 //git status
 //git add (nome dos arquivos mordificados)
 //git commit -m "Comentário"
