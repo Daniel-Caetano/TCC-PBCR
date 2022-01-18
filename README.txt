@@ -1,5 +1,6 @@
 //Comandos básicos
-//git add (nome dos arquivos)
+//git status
+//git add (nome dos arquivos mordificados)
 //git commit -m "Comentário"
 //--quando for enviar para o Master/Main
 //git pull origin main
