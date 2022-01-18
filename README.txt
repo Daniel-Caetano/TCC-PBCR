@@ -3,8 +3,8 @@
 //git add (nome dos arquivos mordificados)
 //git commit -m "Comentário"
 //--quando for enviar para o Master/Main
-//git pull origin main
-//git push -u origin main
+//git pull origin master
+//git push -u origin master
 
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
