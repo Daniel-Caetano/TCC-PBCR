@@ -1,4 +1,4 @@
-//Comandos básicos
+//Comandos básicos testando
 //git status
 //git add (nome dos arquivos mordificados)
 //git commit -m "Comentário"
