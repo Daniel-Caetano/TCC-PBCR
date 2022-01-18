@@ -2,6 +2,7 @@
 using ERP.Servicos;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace ERP.Servico.Servicos.Servico
@@ -15,15 +16,18 @@ namespace ERP.Servico.Servicos.Servico
         }
         public List<Pessoa> ConsultaDados(string cpf)
         {
-            if (cpf.Length != 11)
+            try 
             {
-                throw new Exception("CPF inválido");
+                _ = cpf.Length != 11;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CPF invalido!" + ex.Message);
             }
 
             var repo = new RepositorioRecibo(_stringConexao);
             var listaPessoas = repo.ConsultaDados(cpf);
             return listaPessoas;
-
         }
 
         public List<Recibo> GeraRecibo()
