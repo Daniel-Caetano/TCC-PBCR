@@ -19,7 +19,7 @@ namespace ERP.Servico.Servicos.Servico
             try
             {
                 _ = cpf.Length != 11;
-                new CPFValidator().AssertValid(cpf);
+                // new CPFValidator().AssertValid(cpf); // Validador do CPF
             }
 
             catch (Exception ex)
