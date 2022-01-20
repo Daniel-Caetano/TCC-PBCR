@@ -1,4 +1,4 @@
-﻿using ERP.View.Dominio.Clientes;
+﻿using ERP.View.Dominio.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,16 +34,15 @@ namespace ERP.View
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Clientes> listClientes = new List<Clientes>();
+            List<Recibos> listClientes = new List<Recibos>();
             for (int i = 0; i <= 30; i++)
             {
-                listClientes.Add(new Clientes()
+                listClientes.Add(new Recibos()
                 {
-                    Id = 1 + i,
-                    Name = "Cliente" + i,
-                    Cpf = "1234567878",
-                    Telefone = "62 9 1234-5789",
-                    Endereco = "Avenida Brasil"
+                    Numero = 1 + i,
+                    Tipo= "Cliente" + i,
+                   // Valor = 100.00,
+                   // Data=  "20/01/2022"
 
                 });
             }
@@ -98,5 +97,19 @@ namespace ERP.View
             document.Close();
 
         } 
+        
+        private void visualizar (object sender, RoutedEventArgs e)
+        {
+            PrintDialog obj = new PrintDialog(); 
+           obj.ShowDialog();    
+        
+
+        }
+
+        private void AdicionarRecibo(object sender, RoutedEventArgs e)
+        {
+            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();  
+            adicionar.ShowDialog(); 
+        }
     }
 }
