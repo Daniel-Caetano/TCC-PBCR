@@ -13,7 +13,7 @@ namespace ERP.Api.Controllers
     public class GeraRecibo : BaseController
     {
         [HttpGet]
-        [Route("Imprimir")]
+        [Route("Imprimir/json")]
         public IActionResult ImprimirRecibo()
         {
             var servico = new ServicoRecibo(_connectionString);

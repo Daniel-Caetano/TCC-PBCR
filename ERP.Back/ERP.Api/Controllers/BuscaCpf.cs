@@ -13,12 +13,15 @@ namespace ERP.Api.Controllers
     public class BuscaCpf : BaseController
     {
         [HttpGet]
-        [Route("BuscaPorNome/{cpf}")]
+        [Route("CPF/{cpf}/json")]
         public IActionResult BuscaPorNome(string cpf)
         {
             var servico = new ServicoRecibo(_connectionString);
             var pessoas = servico.ConsultaDados(cpf);
-            return Ok(pessoas);
+
+            return Ok(pessoas.FirstOrDefault());
+            // 97608972025
+            // 14120490084
         }
     }
 }

@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\daniel.ferreira\\Documents\\Protocolo Bicicleta de Rodinhas\\projetos\\spaceSistemas\\View.Api\\View.Api.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\daniel.ferreira\\Documents\\Protocolo Bicicleta de Rodinhas\\projetos\\spaceSistemas\\View.Api\\View.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\daniel.ferreira\\Documents\\Protocolo Bicicleta de Rodinhas\\projetos\\spaceSistemas\\View.Api\\View.Api.csproj",
+        "projectName": "View.Api",
+        "projectPath": "C:\\Users\\daniel.ferreira\\Documents\\Protocolo Bicicleta de Rodinhas\\projetos\\spaceSistemas\\View.Api\\View.Api.csproj",
+        "packagesPath": "C:\\Users\\daniel.ferreira\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\daniel.ferreira\\Documents\\Protocolo Bicicleta de Rodinhas\\projetos\\spaceSistemas\\View.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\daniel.ferreira\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Refit": {
+              "target": "Package",
+              "version": "[6.1.15, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
