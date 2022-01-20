@@ -10,6 +10,7 @@ namespace ERP.Servico.Servicos.Servico
     public class ServicoRecibo
     {
         private readonly string _stringConexao;
+
         public ServicoRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
@@ -19,7 +20,7 @@ namespace ERP.Servico.Servicos.Servico
             try
             {
                 _ = cpf.Length != 11;
-                // new CPFValidator().AssertValid(cpf); // Validador do CPF
+                new CPFValidator().AssertValid(cpf); // Validador do CPF
             }
 
             catch (Exception ex)

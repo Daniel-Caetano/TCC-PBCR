@@ -1,6 +1,4 @@
 ﻿using ERP.Servicos;
-using System;
-using System.Linq;
 
 namespace ERP.Console
 {
