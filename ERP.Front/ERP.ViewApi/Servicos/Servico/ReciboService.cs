@@ -1,10 +1,7 @@
 ﻿using ERP.ViewApi.Negocio;
 using ERP.ViewApi.Servicos.Interface;
 using Refit;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ERP.ViewApi.Servicos.Servico

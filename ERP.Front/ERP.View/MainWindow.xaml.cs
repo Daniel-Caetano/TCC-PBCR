@@ -1,23 +1,9 @@
-﻿using ERP.View.Dominio.Clientes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using iTextSharp;
+﻿using ERP.ViewApi.Servicos.Servico;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-using ERP.ViewApi.Servicos.Servico;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ERP.View
 {
@@ -26,7 +12,7 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,53 +21,16 @@ namespace ERP.View
 
         public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Clientes> listRecibos = new List<Clientes>();
+            //Criando lista que recebe o get dos recibos
             ReciboService serviceRecibo = new ReciboService();
+            //Imprimindo a os recibos na tela
+            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
 
-            var recibos = await serviceRecibo.GetAsync();
-
-            /*for (int i = 0; i <= 30; i++)
-            {
-                listRecibos.Add(new Clientes()
-                {
-                    Id = 1 + i,
-                    Name = "Cliente" + i,
-                    Cpf = "1234567878",
-                    Telefone = "62 9 1234-5789",
-                    Endereco = "Avenida Brasil"
-
-                });
-            }*/
-
-            //condição parada while
-            bool execute = true;
-            int i = 0;
-            //fim condição parada
-            do
-            {
-
-                listRecibos.Add(new Clientes()
-                {
-                    Id = recibos[i].Numero,
-                    Name = recibos[i].Observacao,
-                    Cpf = "***********",
-                    Telefone = "62 9 1234 - 5789",
-                    Endereco = recibos[i].Cidade
-                });
-                if (recibos[i].Numero == recibos.Last().Numero)
-                {
-                    execute = false;
-                }
-                i++;
-            } while (execute);
-            i = 0;
-            dataGridClientes.ItemsSource = listRecibos;
         }
 
         private void imprimir_pdf(object sender, RoutedEventArgs e)
         {
-           
-            
+
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
             FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
@@ -125,6 +74,19 @@ namespace ERP.View
             document.Add(paragrafo);
             document.Close();
 
-        } 
+        }
+
+        private void visualizar(object sender, RoutedEventArgs e)
+        {
+            PrintDialog obj = new PrintDialog();
+            obj.ShowDialog();
+
+        }
+
+        private void AdicionarRecibo(object sender, RoutedEventArgs e)
+        {
+            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();
+            adicionar.ShowDialog();
+        }
     }
 }
