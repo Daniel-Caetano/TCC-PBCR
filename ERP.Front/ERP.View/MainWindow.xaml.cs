@@ -1,23 +1,9 @@
-﻿using ERP.View.Dominio.Negocio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using iTextSharp;
+﻿using ERP.ViewApi.Servicos.Servico;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ERP.View
 {
@@ -26,33 +12,25 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Recibos> listClientes = new List<Recibos>();
-            for (int i = 0; i <= 30; i++)
-            {
-                listClientes.Add(new Recibos()
-                {
-                    Numero = 1 + i,
-                    Tipo= "Cliente" + i,
-                   // Valor = 100.00,
-                   // Data=  "20/01/2022"
+            //Criando lista que recebe o get dos recibos
+            ReciboService serviceRecibo = new ReciboService();
+            //Imprimindo a os recibos na tela
+            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
 
-                });
-            }
-            dataGridClientes.ItemsSource = listClientes;
         }
 
         private void imprimir_pdf(object sender, RoutedEventArgs e)
         {
-      
-            
+
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
             FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
@@ -96,20 +74,19 @@ namespace ERP.View
             document.Add(paragrafo);
             document.Close();
 
-        } 
-        
-        private void visualizar (object sender, RoutedEventArgs e)
+        }
+
+        private void visualizar(object sender, RoutedEventArgs e)
         {
-            PrintDialog obj = new PrintDialog(); 
-           obj.ShowDialog();    
-        
+            PrintDialog obj = new PrintDialog();
+            obj.ShowDialog();
 
         }
 
         private void AdicionarRecibo(object sender, RoutedEventArgs e)
         {
-            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();  
-            adicionar.ShowDialog(); 
+            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();
+            adicionar.ShowDialog();
         }
     }
 }
