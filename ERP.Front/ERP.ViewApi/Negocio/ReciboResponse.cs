@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERP.ViewApi.Negocio
 {
@@ -12,6 +8,9 @@ namespace ERP.ViewApi.Negocio
 
         [JsonProperty("numero")]
         public int Numero { get; set; }
+
+        [JsonProperty("tipo")]
+        public string Tipo { get; set; }
 
         [JsonProperty("valor")]
         public decimal Valor { get; set; }
@@ -31,7 +30,6 @@ namespace ERP.ViewApi.Negocio
         [JsonProperty("data")]
         public DateTime Data { get; set; }
 
-        [JsonProperty("tipo")]
-        public string Tipo { get; set; }
+
     }
 }

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.View", "ERP.View.csproj", "{622CB453-B960-4970-8994-130996D15C2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.ViewApi", "..\ERP.ViewApi\ERP.ViewApi.csproj", "{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReciboJanela", "..\ReciboJanela\ReciboJanela\ReciboJanela.csproj", "{4056D16E-25B1-4465-8981-C99EE3C9A9CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{622CB453-B960-4970-8994-130996D15C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{622CB453-B960-4970-8994-130996D15C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{622CB453-B960-4970-8994-130996D15C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4056D16E-25B1-4465-8981-C99EE3C9A9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4056D16E-25B1-4465-8981-C99EE3C9A9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4056D16E-25B1-4465-8981-C99EE3C9A9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4056D16E-25B1-4465-8981-C99EE3C9A9CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
