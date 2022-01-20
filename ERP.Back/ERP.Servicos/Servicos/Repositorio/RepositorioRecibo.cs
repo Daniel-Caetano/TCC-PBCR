@@ -61,6 +61,7 @@ namespace ERP.Servicos
                 {
                     var recibo = new Recibo();
 
+                    // Não tem "Reci_NUMERO_PK"
                     recibo.Numero = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
                     recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
                     recibo.Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
