@@ -51,7 +51,7 @@ namespace ERP.View
 
         private void imprimir_pdf(object sender, RoutedEventArgs e)
         {
-           
+      
             
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
