@@ -113,6 +113,12 @@
   <ItemGroup>
     <Folder Include="Pdf\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ERP.ViewApi\ERP.ViewApi.csproj">
+      <Project>{736D1546-1C61-44BE-8DB3-F1F37E6C3DD8}</Project>
+      <Name>ERP.ViewApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

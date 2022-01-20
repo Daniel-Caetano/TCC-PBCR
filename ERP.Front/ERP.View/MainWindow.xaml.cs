@@ -17,7 +17,7 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-
+using ERP.ViewApi.Servicos.Servico;
 
 namespace ERP.View
 {
@@ -26,18 +26,23 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Clientes> listClientes = new List<Clientes>();
-            for (int i = 0; i <= 30; i++)
+            List<Clientes> listRecibos = new List<Clientes>();
+            ReciboService serviceRecibo = new ReciboService();
+
+            var recibos = await serviceRecibo.GetAsync();
+
+            /*for (int i = 0; i <= 30; i++)
             {
-                listClientes.Add(new Clientes()
+                listRecibos.Add(new Clientes()
                 {
                     Id = 1 + i,
                     Name = "Cliente" + i,
@@ -46,8 +51,31 @@ namespace ERP.View
                     Endereco = "Avenida Brasil"
 
                 });
-            }
-            dataGridClientes.ItemsSource = listClientes;
+            }*/
+
+            //condição parada while
+            bool execute = true;
+            int i = 0;
+            //fim condição parada
+            do
+            {
+
+                listRecibos.Add(new Clientes()
+                {
+                    Id = recibos[i].Numero,
+                    Name = recibos[i].Observacao,
+                    Cpf = "***********",
+                    Telefone = "62 9 1234 - 5789",
+                    Endereco = recibos[i].Cidade
+                });
+                if (recibos[i].Numero == recibos.Last().Numero)
+                {
+                    execute = false;
+                }
+                i++;
+            } while (execute);
+            i = 0;
+            dataGridClientes.ItemsSource = listRecibos;
         }
 
         private void imprimir_pdf(object sender, RoutedEventArgs e)
