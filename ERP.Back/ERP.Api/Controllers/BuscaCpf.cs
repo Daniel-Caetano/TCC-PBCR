@@ -16,8 +16,6 @@ namespace ERP.Api.Controllers
             var pessoas = servico.ConsultaDados(cpf);
 
             return Ok(pessoas.FirstOrDefault());
-            // 97608972025
-            // 14120490084
         }
     }
 }

@@ -30,11 +30,13 @@ namespace ERP.Servicos
 
                 while (reader.Read())
                 {
-                    var pessoa = new Pessoa();
-                    pessoa.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK"));
-                    pessoa.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM"));
-                    pessoa.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"));
-                    pessoa.Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"));
+                    var pessoa = new Pessoa
+                    {
+                        ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
+                        Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
+                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
+                        Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"))
+                    };
 
                     pessoas.Add(pessoa);
                 }
