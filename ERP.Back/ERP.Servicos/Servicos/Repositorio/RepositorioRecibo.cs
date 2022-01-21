@@ -76,5 +76,34 @@ namespace ERP.Servicos
             return recibos;
 
         }
+
+        //public List<Pessoa> ConsultaDados(string cpf)
+        //{
+        //    var pessoas = new List<Pessoa>();
+        //    var sql = new StringBuilder()
+        //        .AppendLine("SELECT * FROM PESSOAS PE WHERE PE.[PESS_CPF] = @cpf");
+
+        //    using (var conn = new SqlConnection(_stringConexao))
+        //    {
+        //        conn.Open();
+        //        var command = new SqlCommand(sql.ToString(), conn);
+        //        command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+        //        var reader = command.ExecuteReader();
+
+        //        while (reader.Read())
+        //        {
+        //            //var pessoa = new Pessoa
+        //            {
+        //                pessoas.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
+        //                pessoas.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
+        //                pessoas.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
+        //                pessoas.Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"))
+        //            };
+
+        //            //pessoas.Add(pessoa);
+        //        }
+        //    }
+        //    return pessoas;
+        //}
     }
 }

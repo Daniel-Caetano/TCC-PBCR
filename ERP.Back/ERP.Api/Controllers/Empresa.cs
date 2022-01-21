@@ -9,13 +9,12 @@ namespace ERP.Api.Controllers
     public class Empresa : BaseController
     {
         [HttpGet]
-        [Route("BuscaPorCNPJ/{cnpj}/json")]
+        [Route("CNPJ/{cnpj}/json")]
         public IActionResult BuscaCnpj(string cnpj)
         {
             var servico = new ServicoEmpresa(_connectionString);
-            var empresa = servico.BuscaCnpj(cnpj);
 
-            return Ok(empresa.FirstOrDefault());
+            return Ok(servico.BuscaCnpj(cnpj));
         }
     }
 }
