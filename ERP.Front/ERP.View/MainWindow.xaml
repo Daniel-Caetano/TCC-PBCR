@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP.View"
+     
         mc:Ignorable="d"        
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -43,38 +45,49 @@
                     <MenuItem Header="_Inserir"></MenuItem>
                     <MenuItem Header="_Clientes"></MenuItem>
                     <MenuItem Header="_Relatários"></MenuItem>
-                    <MenuItem Header="R_ecibo">
+                    <MenuItem Header="R_ecibo" Click="AdicionarRecibo">
                         <MenuItem Header="Adicionar"></MenuItem>
                         <Separator/>
                         <MenuItem Header="Pesquisar"></MenuItem>
-                      
+
                     </MenuItem>
                 </Menu>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left" Width="160" Height="Auto">
 
             </StackPanel>
+
             <Grid Width="Auto" Height="550" >
+
                 <DataGrid x:Name="dataGridClientes" AutoGenerateColumns="False" IsReadOnly="true" AlternatingRowBackground="LightBlue" AlternationCount="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
-                        <DataGridTextColumn Header="Cpf" Binding="{Binding Cpf}"/>
-                        <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}"/>
-                        <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}"/>
+                        <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
+                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
+                        <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
+                       
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="imprimir_pdf">Gerar PDF</Button>                                    
+                                    <Button Click="imprimir_pdf">Gerar PDF</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="visualizar">Imprimir Recibo</Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
+                
+                <TextBlock Grid.Column="1"></TextBlock>
             </Grid>
             <StackPanel DockPanel.Dock="Bottom" Width="Auto" Height="30">
-             
+
             </StackPanel>
         </DockPanel>
 

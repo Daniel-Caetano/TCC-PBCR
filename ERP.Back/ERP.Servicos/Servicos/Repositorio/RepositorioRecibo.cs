@@ -60,7 +60,7 @@ namespace ERP.Servicos
                 while (reader.Read())
                 {
                     var recibo = new Recibo();
-
+                  
                     recibo.Numero = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
                     recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
                     recibo.Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
