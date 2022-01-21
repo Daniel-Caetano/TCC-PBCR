@@ -1,6 +1,4 @@
-﻿using ERP.View.Dominio.Clientes;
-using ERP.ViewApi.Servicos;
-using ERP.ViewApi.Negocio;
+﻿using ERP.View.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +19,7 @@ using iTextSharp.text.pdf;
 using System.IO;
 
 
+
 namespace ERP.View
 {
     /// <summary>
@@ -34,26 +33,29 @@ namespace ERP.View
             Loaded += MainWindow_Loaded;
         }
 
-        private  void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            /*
-            List<Clientes> listClientes = new List<Clientes>();
+           
+            List<ReciboResponse> Recibo = new List<ReciboResponse>();
             for (int i = 0; i <= 30; i++)
             {
-                listClientes.Add(new Clientes()
+                Recibo.Add(new ReciboResponse()
                 {
-                    Id = 1 + i,
-                    Name = "Cliente" + i,
-                    Cpf = "000.000.000-0"+i,
-                    Telefone = "62 9 1234-5789",
-                    Endereco = "Avenida Brasil"
+                    Numero = 1 + i,
+                    Tipo = "Pagar",
+                    Valor = 100,
+                    ValorExtenso = "Cem reais",
+                    Observacao = "Valor do recibo pago a Bruno Cesar",
+                    Cidade = "Aparecida de Goiânia",
+                    Estado = "Goiás",
+                    Data = "21-01-2022"
 
-                });
+                }) ;
             }
-            dataGridClientes.ItemsSource = listClientes;
-            */
-            List<ReciboResponse> list = new List<ReciboResponse>();
-            dataGridClientes.ItemsSource = list;    
+            dataGridRecibo.ItemsSource = Recibo;
+
+            //List<ReciboResponse> listRecibo = new List<ReciboResponse>();
+            //  dataGridClientes.ItemsSource = listRecibo;    
 
         }
 
@@ -111,13 +113,13 @@ namespace ERP.View
             MessageBox.Show("Visualizar");
 
         }
-      
+
         private void Deletar(object sender, RoutedEventArgs e)
         {
-            var deletarCliente = dataGridClientes.SelectedItem as Clientes;
-            if (deletarCliente != null)
+            var deletarRecibo = dataGridRecibo.SelectedItem as  ReciboResponse;
+            if (deletarRecibo != null)
             {
-                MessageBox.Show("Deletar"+deletarCliente.Cpf.ToString());
+                MessageBox.Show("Deletar" + deletarRecibo.Numero.ToString());
 
             }
         }

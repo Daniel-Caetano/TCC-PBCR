@@ -55,21 +55,28 @@
 
             </StackPanel>
 
+            <Grid Width="auto" Height="60" >
+                
+            </Grid>
+            
             <Grid Width="Auto" Height="550" >
                 <TextBlock x:Name="txtRegistro"></TextBlock>
-                <DataGrid x:Name="dataGridClientes"
+                <DataGrid x:Name="dataGridRecibo"
                           AutoGenerateColumns="False"
                           IsReadOnly="true"
                           AlternatingRowBackground="LightBlue"
                           AlternationCount="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Cpf" Binding="{Binding Cpf}"/>
-                        <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}"/>
-                        <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}"/>
+                        <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
+                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
+                        <DataGridTextColumn Header="Valor por Extenso" Binding="{Binding ValorExtenso}"/>
+                        <DataGridTextColumn Header="Observação" Binding="{Binding Observacao}"/>
+                        <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}"/>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
+                        <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
                         <DataGridTemplateColumn Header="Ações">
-                            <DataGridTemplateColumn.CellTemplate>                                
+                            <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
@@ -86,8 +93,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        
-
                     </DataGrid.Columns>
                 </DataGrid>
 
