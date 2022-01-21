@@ -27,9 +27,9 @@ namespace ERP.Api.Controllers
         public IActionResult BuscaPorNome(string nome)
         {
             var pessoa = new ServicoPessoa(_connectionString);
-            pessoa.BuscaCpf(nome);
+            pessoa.BuscaNome(nome);
 
-            return Ok(pessoa.BuscaCpf(nome));
+            return Ok(pessoa.BuscaNome(nome));
 
         }
     }

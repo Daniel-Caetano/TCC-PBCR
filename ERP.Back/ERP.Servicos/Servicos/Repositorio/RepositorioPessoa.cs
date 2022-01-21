@@ -43,5 +43,33 @@ namespace ERP.Servico.Servicos.Repositorio
             }
             return pessoa;
         }
+
+        public Pessoa BuscaNome(string nome)
+        {
+            var pessoa = new Pessoa();
+            var sql = new StringBuilder()
+                .AppendLine("SELECT * FROM PESSOAS PE WHERE PE.[PESS_NOM] = @nome");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    //var pessoa = new Pessoa();
+                    pessoa.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM"));
+                    pessoa.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK"));
+                    pessoa.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"));
+                    pessoa.Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"));
+
+                    //pessoas.Add(pessoa);
+                }
+            }
+            return pessoa;
+        }
+
     }
 }
