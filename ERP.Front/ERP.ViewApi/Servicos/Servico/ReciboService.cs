@@ -22,6 +22,5 @@ namespace ERP.ViewApi.Servicos.Servico
         {
             return await _customerService.GetAsync();
         }
-
     }
 }
