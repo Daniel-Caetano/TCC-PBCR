@@ -32,5 +32,12 @@ namespace ERP.Servico.Servicos.Servico
             var listEmpresa = repo.BuscaCnpj(cnpj);
             return listEmpresa;
         }
+
+        public void Adicionar(string razao, string cnpj)
+        {
+            var repo = new RepositorioEmpresa(_stringConexao);
+            repo.Adicionar(razao,cnpj);
+           // return listEmpresa;
+        }
     }
 }

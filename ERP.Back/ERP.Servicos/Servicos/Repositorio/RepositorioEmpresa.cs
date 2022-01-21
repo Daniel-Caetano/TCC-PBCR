@@ -43,5 +43,22 @@ namespace ERP.Servico.Servicos.Repositorio
             }
             return empresa;
         }
+
+        public void Adicionar(string razao, string cnpj)
+        {
+            //var  novaEmpresa = new Empresa();
+            var sql = new StringBuilder()
+                .AppendLine("INSERT INTO EMPRESAS ( EMPR_RAZ, EMPR_CNPJ ) " +
+                                          "VALUES ( @razao, @cnpj) ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@razao", razao);
+                command.Parameters.AddWithValue("@cnpj", cnpj);
+                var reader = command.ExecuteNonQuery();
+            }
+        }
     }
 }
