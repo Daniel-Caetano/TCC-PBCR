@@ -16,35 +16,6 @@ namespace ERP.Servicos
             _stringConexao = stringConexao;
         }
 
-        public List<Pessoa> ConsultaDados(string cpf)
-        {
-            var pessoas = new List<Pessoa>();
-            var sql = new StringBuilder()
-                .AppendLine("SELECT * FROM PESSOA PE WHERE PE.[CPF_PESSOA] = @cpf");
-
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    var pessoa = new Pessoa();
-                    pessoa.Nome = reader.GetString(reader.GetOrdinal("NOME_PESSOA"));
-                    pessoa.ID = reader.GetInt32(reader.GetOrdinal("ID_PESSOA"));
-                    pessoa.CPF = reader.GetString(reader.GetOrdinal("CPF_PESSOA"));
-                    pessoa.Endereco = reader.GetString(reader.GetOrdinal("ENDERECO_PESSOA"));
-                    pessoa.Telefone = reader.GetString(reader.GetOrdinal("TELEFONE_PESSOA"));
-
-                    pessoas.Add(pessoa);
-                }
-            }
-
-            return pessoas;
-        }
-
         public List<Recibo> GeraRecibo()
         {
             var recibos = new List<Recibo>();
