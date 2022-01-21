@@ -10,6 +10,7 @@ namespace ERP.Servico.Servicos.Servico
     public class ServicoRecibo
     {
         private readonly string _stringConexao;
+
         public ServicoRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
