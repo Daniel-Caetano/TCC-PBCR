@@ -116,28 +116,3 @@ namespace ERP.View
 
     }
 }
-
-
-/*       public async Task MainWindow_Loaded(object sender, RoutedEventArgs e)
-       {
-           //Criando lista que recebe o get dos recibos
-           //ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
-           //Imprimindo a os recibos na tela
-           //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
-
-           //Criando lista que recebe o get dos recibos
-           ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
-           //Imprimindo a os recibos na tela
-           dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
-
-           //string Data = DateTime.Now.ToString("dd/MM/yyyy");
-
-           // ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
-           //List<Recibo> listRecibo = new List<Recibo>();
-
-           //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
-
-           ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
-           List<Recibo> listRecibo = new List<Recibo>();
-
-           dataGridClientes.ItemsSource = serviceRecibo.GetAsync();*/
