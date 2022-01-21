@@ -14,7 +14,6 @@ namespace ERP.Api.Controllers
             var servico = new ServicoRecibo(_connectionString);
             var recibo = servico.ListaRecibos();
             return Ok(recibo);
-            //.FirstOrDefault() 
         }
 
         [HttpGet]
@@ -26,6 +25,16 @@ namespace ERP.Api.Controllers
 
             return Ok(recibo.BuscaRecibo(id));
         }
+
+        //[HttpGet]
+        //[Route("ReciboReceber/{id}json")]
+        //public IActionResult ReceberRecibo(int id)
+        //{
+        //    var recibo = new ServicoRecibo(_connectionString);
+        //    recibo.ReceberRecibo(id);
+
+        //    return Ok(recibo.ReceberRecibo(id));
+        //}
     }
 
 }
