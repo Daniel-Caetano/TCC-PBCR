@@ -1,7 +1,8 @@
-﻿using ERP.ViewApi.Servicos.Servico;
+﻿
 using ERP.View.Dominio.Negocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,24 +21,37 @@ namespace ERP.View
             Loaded += MainWindow_Loaded;
         }
 
-        public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Criando lista que recebe o get dos recibos
-            ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
+            //ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
             //Imprimindo a os recibos na tela
-            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();             
-           
+            //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
+
+            //string Data = DateTime.Now.ToString("dd/MM/yyyy");
+
+            List<Recibo> listRecibo = new List<Recibo>();
+
+            for (int i = 0; i <= 20; i++)
+            {
+                listRecibo.Add(new Recibo()
+                {
+                    Numero = 1 + i,
+                    Tipo = "Recibo Pago",
+                    Valor = "142,25",
+                    Data = "21/01/2022"
+
+                });
+            }
+            dataGridClientes.ItemsSource = listRecibo;
         }
-
-
-    
-
-    private void imprimir_pdf(object sender, RoutedEventArgs e)
+        //Crie a pasta Pdf no C:\
+        private void GerarPdf(object sender, RoutedEventArgs e)
         {
-
+            
 
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-            string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
+            string nomeArquivo = @"C:\Pdf\cliente.pdf";
             FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
             Document document = new Document(PageSize.A4);
             PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
