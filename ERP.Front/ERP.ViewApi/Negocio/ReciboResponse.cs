@@ -30,6 +30,5 @@ namespace ERP.ViewApi.Negocio
         [JsonProperty("data")]
         public DateTime Data { get; set; }
 
-
     }
 }

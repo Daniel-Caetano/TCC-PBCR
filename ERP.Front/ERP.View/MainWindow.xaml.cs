@@ -1,9 +1,25 @@
-﻿using ERP.ViewApi.Servicos.Servico;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using ERP.View.Negocio;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using ERP.ViewApi.Negocio;
+using ERP.ViewApi.Servicos.Servico;
+using System.Collections.ObjectModel;
 
 namespace ERP.View
 {
@@ -12,27 +28,33 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
+        List<Recibo> listaRecibos = new List<Recibo>();
+        ReciboService serviceRecibo = new ReciboService();
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-        public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            //Criando lista que recebe o get dos recibos
-            ReciboService serviceRecibo = new ReciboService();
-            //Imprimindo a os recibos na tela
-            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
-        private void imprimir_pdf(object sender, RoutedEventArgs e)
+        public async Task CarregarGrid()
+        {
+            var recibos = await serviceRecibo.GetAsync();
+            dataGridRecibo.ItemsSource = recibos;
+        }
+ 
+        private void GerarPdf(object sender, RoutedEventArgs e)
         {
 
+
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-            string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
+            string nomeArquivo = @"C:\Pdf\cliente.pdf";
             FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
             Document document = new Document(PageSize.A4);
             PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
@@ -76,17 +98,21 @@ namespace ERP.View
 
         }
 
-        private void visualizar(object sender, RoutedEventArgs e)
+        private void Visualizar(object sender, RoutedEventArgs e)
         {
-            PrintDialog obj = new PrintDialog();
-            obj.ShowDialog();
+            MessageBox.Show("Visualizar");
 
         }
 
-        private void AdicionarRecibo(object sender, RoutedEventArgs e)
+        private void Deletar(object sender, RoutedEventArgs e)
         {
-            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();
-            adicionar.ShowDialog();
+            var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+            if (deletarRecibo != null)
+            {
+                MessageBox.Show("Deletar" + deletarRecibo.Numero.ToString());
+
+            }
         }
+
     }
 }
