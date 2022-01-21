@@ -1,4 +1,6 @@
 ﻿using ERP.View.Dominio.Clientes;
+using ERP.ViewApi.Servicos;
+using ERP.ViewApi.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +34,9 @@ namespace ERP.View
             Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private  void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            /*
             List<Clientes> listClientes = new List<Clientes>();
             for (int i = 0; i <= 30; i++)
             {
@@ -48,6 +51,10 @@ namespace ERP.View
                 });
             }
             dataGridClientes.ItemsSource = listClientes;
+            */
+            List<ReciboResponse> list = new List<ReciboResponse>();
+            dataGridClientes.ItemsSource = list;    
+
         }
 
         private void GerarPdf(object sender, RoutedEventArgs e)
