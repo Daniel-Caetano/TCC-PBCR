@@ -2,7 +2,7 @@
 
 namespace ERP.View.Dominio.Negocio
 {
-    public class Recibos
+    public class ReciboService
     {
         public int Numero { get; set; }
         public string Tipo { get; set; }
