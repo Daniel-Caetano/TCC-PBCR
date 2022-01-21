@@ -8,7 +8,7 @@ namespace ERP.ViewApi.Servicos.Interface
 
     public interface IReciboService
     {
-        [Get("/Recibo/Imprimir/json")]
+        [Get("/Recibo/Lista/json")]
         Task<IList<ReciboResponse>> GetAsync();
     }
 
