@@ -1,11 +1,23 @@
-﻿
-using ERP.View.Dominio.Negocio;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using ERP.View.Dominio.Clientes;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+
 
 namespace ERP.View
 {
@@ -14,41 +26,33 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //Criando lista que recebe o get dos recibos
-            //ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
-            //Imprimindo a os recibos na tela
-            //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
-
-            //string Data = DateTime.Now.ToString("dd/MM/yyyy");
-
-            List<Recibo> listRecibo = new List<Recibo>();
-
-            for (int i = 0; i <= 20; i++)
+            List<Clientes> listClientes = new List<Clientes>();
+            for (int i = 0; i <= 30; i++)
             {
-                listRecibo.Add(new Recibo()
+                listClientes.Add(new Clientes()
                 {
-                    Numero = 1 + i,
-                    Tipo = "Recibo Pago",
-                    Valor = "142,25",
-                    Data = "21/01/2022"
+                    Id = 1 + i,
+                    Name = "Cliente" + i,
+                    Cpf = "000.000.000-0"+i,
+                    Telefone = "62 9 1234-5789",
+                    Endereco = "Avenida Brasil"
 
                 });
             }
-            dataGridClientes.ItemsSource = listRecibo;
+            dataGridClientes.ItemsSource = listClientes;
         }
-        //Crie a pasta Pdf no C:\
+
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
-            
+
 
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Pdf\cliente.pdf";
@@ -95,17 +99,22 @@ namespace ERP.View
 
         }
 
-        private void visualizar(object sender, RoutedEventArgs e)
+        private void Visualizar(object sender, RoutedEventArgs e)
         {
-            PrintDialog obj = new PrintDialog();
-            obj.ShowDialog();
+            MessageBox.Show("Visualizar");
 
         }
-
-        private void AdicionarRecibo(object sender, RoutedEventArgs e)
+      
+        private void Deletar(object sender, RoutedEventArgs e)
         {
-            ReciboJanela.MainWindow adicionar = new ReciboJanela.MainWindow();
-            adicionar.ShowDialog();
+            var deletarCliente = dataGridClientes.SelectedItem as Clientes;
+            if (deletarCliente != null)
+            {
+                MessageBox.Show("Deletar"+deletarCliente.Cpf.ToString());
+
+            }
         }
+
+
     }
 }

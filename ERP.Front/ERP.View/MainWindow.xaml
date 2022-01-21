@@ -4,13 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP.View"
-     
         mc:Ignorable="d"        
-        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
+        TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
@@ -30,15 +28,13 @@
                         <ColumnDefinition Width="267*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <Button x:Name="menu_bar" Width="103" Height="40"   HorizontalAlignment="Center"
-                                VerticalAlignment="Center" BorderThickness="0,0,0,1" Background="#FF107C42" >
+                        <Button x:Name="menu_bar" Width="103" Height="40"   HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,1" Background="#FF107C42" >
                             <materialDesign:PackIcon Kind="Menu" Width="100" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
                 </Grid>
             </StackPanel>
-
             <StackPanel DockPanel.Dock="top" Height="40">
                 <Menu FontSize="16" Padding="0" Height="40" >
                     <MenuItem Header="_Arquivo">
@@ -47,7 +43,7 @@
                     <MenuItem Header="_Inserir"></MenuItem>
                     <MenuItem Header="_Clientes"></MenuItem>
                     <MenuItem Header="_Relatários"></MenuItem>
-                    <MenuItem Header="R_ecibo" Click="AdicionarRecibo">
+                    <MenuItem Header="R_ecibo">
                         <MenuItem Header="Adicionar"></MenuItem>
                         <Separator/>
                         <MenuItem Header="Pesquisar"></MenuItem>
@@ -55,30 +51,46 @@
                     </MenuItem>
                 </Menu>
             </StackPanel>
-
             <StackPanel DockPanel.Dock="Left" Width="160" Height="Auto">
 
             </StackPanel>
 
-            <Grid Width="auto" Height="550" >
-                <DataGrid x:Name="dataGridClientes" AutoGenerateColumns="False" IsReadOnly="true"
-                          AlternatingRowBackground="LightBlue" AlternationCount="2">
+            <Grid Width="Auto" Height="550" >
+                <TextBlock x:Name="txtRegistro"></TextBlock>
+                <DataGrid x:Name="dataGridClientes"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="true"
+                          AlternatingRowBackground="LightBlue"
+                          AlternationCount="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
-                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
-                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Cpf" Binding="{Binding Cpf}"/>
+                        <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}"/>
+                        <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}"/>
+                        <DataGridTemplateColumn Header="Ações">
+                            <DataGridTemplateColumn.CellTemplate>                                
                                 <DataTemplate>
-                                    
-                                    <Button Click="GerarPdf">Gerar Pdf</Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
+                                                Content="{materialDesign:PackIcon Kind=FilePdfBox}"
+                                                ToolTip="Gerar Pdf" Click="GerarPdf"/>-->
+                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
+                                                Content="{materialDesign:PackIcon Kind= Eye}"
+                                                ToolTip="Visualizar" Click="Visualizar"/>
+                                        <!--
+                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
+                                                Content="{materialDesign:PackIcon Kind=Delete}"
+                                                ToolTip="Visualizar" Click="Deletar"/>-->
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>                        
-                    </DataGrid.Columns>                    
-                </DataGrid>               
-                
+                        </DataGridTemplateColumn>
+                        
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </Grid>
             <StackPanel DockPanel.Dock="Bottom" Width="Auto" Height="30">
 
