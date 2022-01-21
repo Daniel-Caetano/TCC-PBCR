@@ -33,5 +33,12 @@ namespace ERP.Servico.Servicos.Servico
             return pessoa;
         }
 
+        public Pessoa BuscaNome(string nome)
+        {
+            var repo = new RepositorioPessoa(_stringConexao);
+            var pessoa = repo.BuscaNome(nome);
+            return pessoa;
+        }
+
     }
 }
