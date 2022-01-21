@@ -51,52 +51,83 @@
                     </MenuItem>
                 </Menu>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Left" Width="160" Height="Auto">
+
+            <!--- ESQUERDA-->
+            <StackPanel DockPanel.Dock="Left" Width="81" Height="Auto" RenderTransformOrigin="0.5,0.5">
+                <StackPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-1.586"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-1.841"/>
+                    </TransformGroup>
+                </StackPanel.RenderTransform>
 
             </StackPanel>
 
-            <Grid Width="auto" Height="60" >
-                
-            </Grid>
-            
-            <Grid Width="Auto" Height="550" >
-                <TextBlock x:Name="txtRegistro"></TextBlock>
-                <DataGrid x:Name="dataGridRecibo"
+
+
+            <!--CENTRO-->
+            <StackPanel>
+                <Grid Width="Auto" Height="60" Margin="0,15,0,1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="189*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
+                        <TextBox Width="600" Height="40" BorderBrush="#FF107C41" Margin="0,0,4,0" BorderThickness="1,1,1,1" FontSize="18"/>
+                        <Button Height="42">
+                            <materialDesign:PackIcon Kind="Magnify" Width="35" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Width="Auto" Height="550" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="143*"/>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="439*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dataGridRecibo"
                           AutoGenerateColumns="False"
                           IsReadOnly="true"
                           AlternatingRowBackground="LightBlue"
-                          AlternationCount="2">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
-                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
-                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
-                        <DataGridTextColumn Header="Valor por Extenso" Binding="{Binding ValorExtenso}"/>
-                        <DataGridTextColumn Header="Observação" Binding="{Binding Observacao}"/>
-                        <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}"/>
-                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
-                        <DataGridTemplateColumn Header="Ações">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
+                          AlternationCount="2" Grid.ColumnSpan="4">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
+                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
+                            <DataGridTextColumn Header="Valor por Extenso" Binding="{Binding ValorExtenso}"/>
+                            <DataGridTextColumn Header="Observação" Binding="{Binding Observacao}"/>
+                            <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
+                            <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
+                            <DataGridTemplateColumn Header="Ações">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
                                                 Content="{materialDesign:PackIcon Kind=FilePdfBox}"
                                                 ToolTip="Gerar Pdf" Click="GerarPdf"/>-->
-                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
+                                            <Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
                                                 Content="{materialDesign:PackIcon Kind= Eye}"
                                                 ToolTip="Visualizar" Click="Visualizar"/>
-                                        <!--
+                                            <!--
                                         <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
                                                 Content="{materialDesign:PackIcon Kind=Delete}"
                                                 ToolTip="Visualizar" Click="Deletar"/>-->
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
 
-            </Grid>
+            </StackPanel>
+
+            <!--RODAPÉ-->
             <StackPanel DockPanel.Dock="Bottom" Width="Auto" Height="30">
 
             </StackPanel>
