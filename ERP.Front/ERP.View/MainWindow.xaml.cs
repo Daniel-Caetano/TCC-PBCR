@@ -4,6 +4,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,29 +22,29 @@ namespace ERP.View
             Loaded += MainWindow_Loaded;
         }
 
-        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public async Task MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Criando lista que recebe o get dos recibos
             //ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
             //Imprimindo a os recibos na tela
             //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
 
+            //Criando lista que recebe o get dos recibos
+            ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
+            //Imprimindo a os recibos na tela
+            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
+
             //string Data = DateTime.Now.ToString("dd/MM/yyyy");
 
+            // ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
+            //List<Recibo> listRecibo = new List<Recibo>();
+
+            //dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
+
+            ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
             List<Recibo> listRecibo = new List<Recibo>();
 
-            for (int i = 0; i <= 20; i++)
-            {
-                listRecibo.Add(new Recibo()
-                {
-                    Numero = 1 + i,
-                    Tipo = "Recibo Pago",
-                    Valor = "142,25",
-                    Data = "21/01/2022"
-
-                });
-            }
-            dataGridClientes.ItemsSource = listRecibo;
+            dataGridClientes.ItemsSource = serviceRecibo.GetAsync();
         }
         //Crie a pasta Pdf no C:\
         private void GerarPdf(object sender, RoutedEventArgs e)
