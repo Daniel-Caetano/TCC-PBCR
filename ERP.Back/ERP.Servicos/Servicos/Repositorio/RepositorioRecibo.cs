@@ -16,7 +16,7 @@ namespace ERP.Servicos
             _stringConexao = stringConexao;
         }
 
-        public List<Recibo> GeraRecibo()
+        public List<Recibo> ListaRecibos()
         {
             var recibos = new List<Recibo>();
             var sql = new StringBuilder()

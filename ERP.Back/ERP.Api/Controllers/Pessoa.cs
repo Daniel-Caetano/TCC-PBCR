@@ -13,15 +13,24 @@ namespace ERP.Api.Controllers
     public class Pessoa : BaseController
     {
         [HttpGet]
-        [Route("CPF/{cpf}/json")]
-        public IActionResult BuscaPorNome(string cpf)
+        [Route("Cpf/{cpf}/json")]
+        public IActionResult BuscaPorCpf(string cpf)
         {
             var pessoa = new ServicoPessoa(_connectionString);
-            var pessoas = pessoa.ConsultaDados(cpf);
-
-            return Ok(pessoas.FirstOrDefault());
+            return Ok(pessoa.BuscaCpf(cpf));
             // 97608972025
             // 14120490084
+        }
+
+        [HttpGet]
+        [Route("Nome/{nome}/json")]
+        public IActionResult BuscaPorNome(string nome)
+        {
+            var pessoa = new ServicoPessoa(_connectionString);
+            pessoa.BuscaCpf(nome);
+
+            return Ok(pessoa.BuscaCpf(nome));
+
         }
     }
 }
