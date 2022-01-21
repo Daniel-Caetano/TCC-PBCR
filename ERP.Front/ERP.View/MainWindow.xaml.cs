@@ -1,4 +1,5 @@
 ﻿using ERP.ViewApi.Servicos.Servico;
+using ERP.View.Dominio.Negocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
@@ -22,14 +23,18 @@ namespace ERP.View
         public async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Criando lista que recebe o get dos recibos
-            ReciboService serviceRecibo = new ReciboService();
+            ViewApi.Servicos.Servico.ReciboService serviceRecibo = new ViewApi.Servicos.Servico.ReciboService();
             //Imprimindo a os recibos na tela
-            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();
-
+            dataGridClientes.ItemsSource = await serviceRecibo.GetAsync();             
+           
         }
 
-        private void imprimir_pdf(object sender, RoutedEventArgs e)
+
+    
+
+    private void imprimir_pdf(object sender, RoutedEventArgs e)
         {
+
 
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Users\bruno.oliveira\Desktop\brunoCesar\ERP.View\Pdf\cliente.pdf";
