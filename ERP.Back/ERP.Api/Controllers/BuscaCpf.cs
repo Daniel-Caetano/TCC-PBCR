@@ -10,14 +10,14 @@ namespace ERP.Api.Controllers
 {
     [ApiController]
     [Route("Pessoa")]
-    public class BuscaCpf : BaseController
+    public class Pessoa : BaseController
     {
         [HttpGet]
         [Route("CPF/{cpf}/json")]
         public IActionResult BuscaPorNome(string cpf)
         {
-            var servico = new ServicoRecibo(_connectionString);
-            var pessoas = servico.ConsultaDados(cpf);
+            var pessoa = new ServicoPessoa(_connectionString);
+            var pessoas = pessoa.ConsultaDados(cpf);
 
             return Ok(pessoas.FirstOrDefault());
             // 97608972025
