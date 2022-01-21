@@ -1,10 +1,5 @@
 ﻿using ERP.Servico.Servicos.Servico;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ERP.Api.Controllers
 {
@@ -13,12 +8,13 @@ namespace ERP.Api.Controllers
     public class Recibo : BaseController
     {
         [HttpGet]
-        [Route("Imprimir/json")]
-        public IActionResult ImprimirRecibo()
+        [Route("Lista/json")]
+        public IActionResult ListaRecibos()
         {
             var servico = new ServicoRecibo(_connectionString);
-            var recibo = servico.GeraRecibo();
+            var recibo = servico.ListaRecibos();
             return Ok(recibo);
+            //.FirstOrDefault()
         }
     }
 }

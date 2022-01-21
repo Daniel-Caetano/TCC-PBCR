@@ -17,11 +17,11 @@ namespace ERP.Servico.Servicos.Repositorio
             _stringConexao = stringConexao;
         }
 
-        public List<Pessoa> ConsultaDados(string cpf)
+        public Pessoa BuscaCpf(string cpf)
         {
-            var pessoas = new List<Pessoa>();
+            var pessoa = new Pessoa();
             var sql = new StringBuilder()
-                .AppendLine("SELECT * FROM PESSOA PE WHERE PE.[CPF_PESSOA] = @cpf");
+                .AppendLine("SELECT * FROM PESSOAS PE WHERE PE.[PESS_CPF] = @cpf");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -32,17 +32,16 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 while (reader.Read())
                 {
-                    var pessoa = new Pessoa();
-                    pessoa.Nome = reader.GetString(reader.GetOrdinal("NOME_PESSOA"));
-                    pessoa.ID = reader.GetInt32(reader.GetOrdinal("ID_PESSOA"));
-                    pessoa.CPF = reader.GetString(reader.GetOrdinal("CPF_PESSOA"));
-                    pessoa.Endereco = reader.GetString(reader.GetOrdinal("ENDERECO_PESSOA"));
-                    pessoa.Telefone = reader.GetString(reader.GetOrdinal("TELEFONE_PESSOA"));
+                    //var pessoa = new Pessoa();
+                    pessoa.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK"));
+                    pessoa.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM"));
+                    pessoa.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"));
+                    pessoa.Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"));
 
-                    pessoas.Add(pessoa);
+                    //pessoas.Add(pessoa);
                 }
             }
-            return pessoas;
+            return pessoa;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ERP.Servico.Negocio
 {
@@ -8,7 +6,7 @@ namespace ERP.Servico.Negocio
     {
         public int Numero { get; set; }
         public string Tipo { get; set; }
-        public decimal Valor { get; set; } 
+        public decimal Valor { get; set; }
         public string ValorExtenso { get; set; }
         public string Observacao { get; set; }
         public string Cidade { get; set; }

@@ -1,6 +1,4 @@
 ﻿using ERP.Servicos;
-using System;
-using System.Linq;
 
 namespace ERP.Console
 {
@@ -11,7 +9,7 @@ namespace ERP.Console
             while (true)
             {
                 var cpf = System.Console.ReadLine();
-                string connectionString = "Server=(localdb)\\mssqllocaldb;Database=ERP;Trusted_Connection=True";
+                string connectionString = @"Server=(localdb)\mssqllocaldb;Database=ERP;Trusted_Connection=True";
                 var repo = new RepositorioRecibo(connectionString);
                 var listaPessoas = repo.ConsultaDados(cpf);
 

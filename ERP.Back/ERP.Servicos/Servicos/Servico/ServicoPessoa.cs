@@ -15,7 +15,7 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
-        public List<Pessoa> ConsultaDados(string cpf)
+        public Pessoa BuscaCpf(string cpf)
         {
             try
             {
@@ -29,8 +29,8 @@ namespace ERP.Servico.Servicos.Servico
             }
 
             var repo = new RepositorioPessoa(_stringConexao);
-            var listaPessoas = repo.ConsultaDados(cpf);
-            return listaPessoas;
+            var pessoa = repo.BuscaCpf(cpf);
+            return pessoa;
         }
 
     }

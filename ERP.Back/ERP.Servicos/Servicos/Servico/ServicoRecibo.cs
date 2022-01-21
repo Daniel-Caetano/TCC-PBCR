@@ -10,17 +10,17 @@ namespace ERP.Servico.Servicos.Servico
     public class ServicoRecibo
     {
         private readonly string _stringConexao;
+
         public ServicoRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
         }
-        public List<Recibo> GeraRecibo()
+        public List<Recibo> ListaRecibos()
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var listaRecibos = repo.GeraRecibo();
+            var listaRecibos = repo.ListaRecibos();
 
             return listaRecibos;
         }
-
     }
 }
