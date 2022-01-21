@@ -32,5 +32,13 @@ namespace ERP.Api.Controllers
             return Ok(pessoa.BuscaNome(nome));
 
         }
+
+        [HttpGet]
+        [Route("Endereco/{cpf}/json")]
+        public IActionResult BuscaPessoaEndereco(string cpf)
+        {
+            var repo = new ServicoPessoa(_connectionString);
+            return Ok(repo.BuscaPessoaEndereco(cpf));
+        }
     }
 }

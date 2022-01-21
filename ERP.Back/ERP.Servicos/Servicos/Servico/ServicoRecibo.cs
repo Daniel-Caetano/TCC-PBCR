@@ -15,12 +15,20 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
+
         public List<Recibo> ListaRecibos()
         {
             var repo = new RepositorioRecibo(_stringConexao);
             var listaRecibos = repo.ListaRecibos();
 
             return listaRecibos;
+        }
+
+        public Recibo BuscaRecibo(int id)
+        {
+            var repo = new RepositorioRecibo(_stringConexao);
+            var recibo = repo.BuscaRecibo(id);
+            return recibo;
         }
     }
 }

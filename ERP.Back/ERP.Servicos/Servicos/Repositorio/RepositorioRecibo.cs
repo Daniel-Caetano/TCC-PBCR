@@ -48,33 +48,36 @@ namespace ERP.Servicos
 
         }
 
-        //public List<Pessoa> ConsultaDados(string cpf)
-        //{
-        //    var pessoas = new List<Pessoa>();
-        //    var sql = new StringBuilder()
-        //        .AppendLine("SELECT * FROM PESSOAS PE WHERE PE.[PESS_CPF] = @cpf");
+        public Recibo BuscaRecibo(int id)
+        {
+            var recibo = new Recibo();
+            var sql = new StringBuilder()
+                .AppendLine("SELECT * FROM RECIBOS RE WHERE RE.[RECI_ID_PK] = @id");
 
-        //    using (var conn = new SqlConnection(_stringConexao))
-        //    {
-        //        conn.Open();
-        //        var command = new SqlCommand(sql.ToString(), conn);
-        //        command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
-        //        var reader = command.ExecuteReader();
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
+                var reader = command.ExecuteReader();
 
-        //        while (reader.Read())
-        //        {
-        //            //var pessoa = new Pessoa
-        //            {
-        //                pessoas.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
-        //                pessoas.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-        //                pessoas.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-        //                pessoas.Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK"))
-        //            };
+                while (reader.Read())
+                {
+                    //var pessoa = new Pessoa();
+                    recibo.Numero = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
+                    recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
+                    recibo.Valor = reader.GetDecimal (reader.GetOrdinal("RECI_VAL"));
+                    recibo.ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT"));
+                    recibo.Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"));
+                    recibo.Cidade = reader.GetString(reader.GetOrdinal("RECI_CID"));
+                    recibo.Estado = reader.GetString(reader.GetOrdinal("RECI_UF"));
+                    recibo.Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"));
 
-        //            //pessoas.Add(pessoa);
-        //        }
-        //    }
-        //    return pessoas;
-        //}
+                    //pessoas.Add(pessoa);
+                }
+            }
+            return recibo;
+        }
+
     }
 }
