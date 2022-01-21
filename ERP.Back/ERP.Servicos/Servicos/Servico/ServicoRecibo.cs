@@ -15,31 +15,12 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
-        public List<Pessoa> ConsultaDados(string cpf)
-        {
-            try
-            {
-                _ = cpf.Length != 11;
-                // new CPFValidator().AssertValid(cpf); // Validador do CPF
-            }
-
-            catch (Exception ex)
-            {
-                Debug.WriteLine("CPF invalido!" + ex.Message);
-            }
-
-            var repo = new RepositorioRecibo(_stringConexao);
-            var listaPessoas = repo.ConsultaDados(cpf);
-            return listaPessoas;
-        }
-
-        public List<Recibo> GeraRecibo()
+        public List<Recibo> ListaRecibos()
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var listaRecibos = repo.GeraRecibo();
+            var listaRecibos = repo.ListaRecibos();
 
             return listaRecibos;
         }
-
     }
 }

@@ -15,6 +15,7 @@ namespace ERP.Servicos
             _stringConexao = stringConexao;
         }
 
+<<<<<<< HEAD
         public List<Pessoa> ConsultaDados(string cpf)
         {
             var pessoas = new List<Pessoa>();
@@ -45,6 +46,9 @@ namespace ERP.Servicos
         }
 
         public List<Recibo> GeraRecibo()
+=======
+        public List<Recibo> ListaRecibos()
+>>>>>>> d8c217f2a346c27dcf6e244d94ab444a809eaf87
         {
             var recibos = new List<Recibo>();
             var sql = new StringBuilder()

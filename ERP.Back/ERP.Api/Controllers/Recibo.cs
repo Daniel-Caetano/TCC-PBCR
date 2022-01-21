@@ -5,15 +5,16 @@ namespace ERP.Api.Controllers
 {
     [ApiController]
     [Route("Recibo")]
-    public class GeraRecibo : BaseController
+    public class Recibo : BaseController
     {
         [HttpGet]
-        [Route("Imprimir/json")]
-        public IActionResult ImprimirRecibo()
+        [Route("Lista/json")]
+        public IActionResult ListaRecibos()
         {
             var servico = new ServicoRecibo(_connectionString);
-            var recibo = servico.GeraRecibo();
+            var recibo = servico.ListaRecibos();
             return Ok(recibo);
+            //.FirstOrDefault()
         }
     }
 }
