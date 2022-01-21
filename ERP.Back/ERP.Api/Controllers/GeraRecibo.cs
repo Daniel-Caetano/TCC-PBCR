@@ -10,7 +10,7 @@ namespace ERP.Api.Controllers
 {
     [ApiController]
     [Route("Recibo")]
-    public class GeraRecibo : BaseController
+    public class Recibo : BaseController
     {
         [HttpGet]
         [Route("Imprimir/json")]

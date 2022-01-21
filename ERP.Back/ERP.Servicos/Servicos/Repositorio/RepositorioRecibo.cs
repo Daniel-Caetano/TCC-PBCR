@@ -32,14 +32,14 @@ namespace ERP.Servicos
                 {
                     var recibo = new Recibo();
 
-                    recibo.Numero = reader.GetInt32(reader.GetOrdinal("RECI_NUME_RECIBO_PK"));
-                    recibo.Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VALOR"));
-                    recibo.ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VALOR_EXTENSO"));
-                    recibo.Observacao = reader.GetString(reader.GetOrdinal("RECI_OBSERVACAO"));
-                    recibo.Cidade = reader.GetString(reader.GetOrdinal("RECI_CIDADE"));
-                    recibo.Estado = reader.GetString(reader.GetOrdinal("RECI_ESTADO"));
-                    recibo.Data = reader.GetDateTime(reader.GetOrdinal("RECI_DATA"));
-                    recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIPO"));
+                    recibo.Numero = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
+                    recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
+                    recibo.Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
+                    recibo.ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT"));
+                    recibo.Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"));
+                    recibo.Cidade = reader.GetString(reader.GetOrdinal("RECI_CID"));
+                    recibo.Estado = reader.GetString(reader.GetOrdinal("RECI_UF"));
+                    recibo.Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"));
 
                     recibos.Add(recibo);
                 }
