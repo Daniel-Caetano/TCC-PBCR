@@ -21,15 +21,10 @@
             <materialDesign:ColorZone
                 Mode="SecondaryMid"
                 Padding="16" Background="#FF107C41" Foreground="#FFFDF4F4" Height="65" Width="800">
-                <StackPanel
-                    Orientation="Horizontal" Margin="0,0,724,1">
-                    <ToggleButton
-                    Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                    <TextBlock
-                    VerticalAlignment="Center"
-                    Margin="15 0 0 0"
-                    Text="Material Design In XAML Toolkit" />
+                <StackPanel Margin="-14,-22,649,3">
+                    <Image Source="/Logo.png" Height="67" Width="156"/>
                 </StackPanel>
+
             </materialDesign:ColorZone>
         </StackPanel>
 
@@ -51,26 +46,20 @@
                 </StackPanel>
             </Button>
 
-            <Button x:Name="butSalvar" Margin="0 2" Height="40">
+            <Button x:Name="butSalvar" Margin="0 2" Height="40" Click="butSalvar_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" Padding="10" Height="24">SALVAR</TextBlock>
                 </StackPanel>
             </Button>
 
-            <Button x:Name="butOpcao" Margin="0 2"  Height="43">
+            <Button x:Name="butImp" Margin="0 2"  Height="43" Click="butImp_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="14" Padding="10">OPÇÕES</TextBlock>
+                    <TextBlock FontSize="14" Padding="10">IMPRIMIR</TextBlock>
 
                 </StackPanel>
             </Button>
 
         </StackPanel>
-
-        <StackPanel DockPanel.Dock="Top">
-        </StackPanel>
-
-
-
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -89,17 +78,20 @@
         </Grid>
 
         <Grid>
-            <TextBox x:Name="txbValor" HorizontalAlignment="Left" Height="32" Margin="107,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
-            <Label Content="CPF/CNPJ" HorizontalAlignment="Left" Height="32" Margin="16,160,0,0" VerticalAlignment="Top" Width="106"/>
+            <TextBox x:Name="txtValor" HorizontalAlignment="Left" Height="27" Margin="128,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Cursor="Arrow"/>
+            <Label Content="CPF:" HorizontalAlignment="Left" Height="32" Margin="16,145,0,0" VerticalAlignment="Top" Width="35"/>
             <Label Content="Recebi (emos) de" HorizontalAlignment="Left" Height="32" Margin="10,89,0,0" VerticalAlignment="Top" Width="118"/>
             <Label Content="a importancia de " HorizontalAlignment="Left" Height="32" Margin="10,224,0,0" VerticalAlignment="Top" Width="106"/>
             <Label Content="referente á " HorizontalAlignment="Left" Height="32" Margin="10,290,0,0" VerticalAlignment="Top" Width="106"/>
-            <TextBox x:Name="txtExtenso" HorizontalAlignment="Left" Height="32" Margin="149,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-            <TextBox x:Name="txtImpor" HorizontalAlignment="Left" Height="32" Margin="149,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-            <wpfTool:MaskedTextBox x:Name="txtCpf" HorizontalAlignment="Left" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Margin="149,160,0,0" Mask="000\.000\.000-00" TextChanged="txtCpf_TextChanged"/>
-            <TextBox x:Name="txtRef" HorizontalAlignment="Left" Height="32" Margin="149,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-            <DatePicker x:Name="txtData" HorizontalAlignment="Left" Height="32" Margin="465,290,0,0" VerticalAlignment="Top" Width="142"/>
+            <TextBox x:Name="txtExtenso" HorizontalAlignment="Left" Height="27" Margin="125,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Cursor="Arrow"/>
+            <TextBox x:Name="txtImpor" HorizontalAlignment="Left" Height="32" Margin="121,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+            <wpfTool:MaskedTextBox x:Name="txtCpf" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Margin="74,145,0,0" Mask="000\.000\.000-00"/>
+            <TextBox x:Name="txtRef" HorizontalAlignment="Left" Height="32" Margin="121,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+            <DatePicker x:Name="txtData" HorizontalAlignment="Left" Height="32" Margin="461,274,0,0" VerticalAlignment="Top" Width="142"/>
             <Label Content="Valor do Recibo" HorizontalAlignment="Left" Height="26" Margin="10,47,0,0" VerticalAlignment="Top" Width="118"/>
+            <Label x:Name="CNPJ" Content="CNPJ:" HorizontalAlignment="Left" Margin="193,148,0,0" VerticalAlignment="Top" Width="45" Height="26"/>
+            <wpfTool:MaskedTextBox x:Name="txtCnpj" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="255,145,0,0" Mask="00\.000\.000/0000-00"/>
+
         </Grid>
 
     </DockPanel>
