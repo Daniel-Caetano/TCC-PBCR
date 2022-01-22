@@ -17,10 +17,8 @@ using System.Windows.Shapes;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using ERP.ViewApi.Negocio;
-using ERP.ViewApi.Servicos.Servico;
 using System.Collections.ObjectModel;
-
+using ERP.View;
 namespace ERP.View
 {
     /// <summary>
@@ -28,14 +26,16 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
-        List<Recibo> listaRecibos = new List<Recibo>();
-        ReciboService serviceRecibo = new ReciboService();
+        //  ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
+        //  List<Recibo> listaRecibos = new List<Recibo>();
+        //  ReciboService serviceRecibo = new ReciboService();
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
         }
+
 
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -45,10 +45,10 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-            var recibos = await serviceRecibo.GetAsync();
-            dataGridRecibo.ItemsSource = recibos;
+            // var recibos = await serviceRecibo.GetAsync();
+            //  dataGridRecibo.ItemsSource = recibos;
         }
- 
+
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
 
@@ -106,13 +106,15 @@ namespace ERP.View
 
         private void Deletar(object sender, RoutedEventArgs e)
         {
-            var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
-            if (deletarRecibo != null)
-            {
-                MessageBox.Show("Deletar" + deletarRecibo.Numero.ToString());
 
-            }
+            /* var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+             if (deletarRecibo != null)
+             {
+                 MessageBox.Show("Deletar" + deletarRecibo.Numero.ToString());
+             }
+            */
         }
 
     }
+
 }

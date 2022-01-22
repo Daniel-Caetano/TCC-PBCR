@@ -8,80 +8,187 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
+        TextElement.FontSize="16"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="700" Width="800">
+        Title="Ali-Finance" 
+        MinHeight="700" 
+        MinWidth="800" 
+        MaxHeight="900"
+        MaxWidth="1620"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        ToolTip="Janela Principal"
+        Icon="/logo-janela.png"      
+        
+        >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="459*"/>
-            <ColumnDefinition Width="341*"/>
+            <ColumnDefinition Width="1620"/>
+            <ColumnDefinition Width="1620"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2">
-            <StackPanel DockPanel.Dock="Top" Width="Auto" Height="37" Background="#FF107C41" >
-                <Grid>
+        <DockPanel>
+            <!-- Primeiro Menu Top-->
+            <StackPanel DockPanel.Dock="Top" 
+                        Width="Auto" Height="60"
+                        Background="#FF107C41" >
+                <Grid HorizontalAlignment="Stretch"  Height="60">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="106*"/>
-                        <ColumnDefinition Width="427*"/>
-                        <ColumnDefinition Width="267*"/>
+                        <ColumnDefinition Width="103"/>
+                        <ColumnDefinition Width="185"/>
+                        <ColumnDefinition Width="688*"/>
+                        <ColumnDefinition Width="276"/>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <Button x:Name="menu_bar" Width="103" Height="40"   HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,1" Background="#FF107C42" >
-                            <materialDesign:PackIcon Kind="Menu" Width="100" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center"/>
-                        </Button>
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                ToolTip="Categorias"
+                                Width="40" Height="40"
+                                Margin="34,12,0,0">
+                        <ToggleButton  HorizontalAlignment="Left"
+                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}">
+                            <materialDesign:PackIcon Kind="Backburger" Height="20" Width="20"/>
+                        </ToggleButton>
                     </StackPanel>
 
+                    <StackPanel Grid.Column="1" Margin="10 10 5 5">
+                        <TextBlock FontSize="36" 
+                                   Text="Finance"
+                                   FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+                        <Grid Width="1300" Height="60" Margin="0,15,0,1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="131*"/>
+                                <ColumnDefinition Width="189*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,6,0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                                <TextBlock Margin="10,4,36,0" Foreground="Orange" FontStyle="Italic" FontSize="14">10:15:16</TextBlock>
+                                <TextBlock FontSize="15" FontStyle="Italic"  Margin="10,4,0,0" Foreground="Orange" TextAlignment="Left">Bruno Cesar</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="5">
+                                <ToggleButton
+                            Margin="0 10 0 10"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource MaterialDesignActionDarkToggleButton}"
+                            Width="40"
+                            Height="40"
+                            >
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <materialDesign:PackIcon Kind="AccountBox"/>
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                </ToggleButton>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
             </StackPanel>
-            <StackPanel DockPanel.Dock="top" Height="40">
-                <Menu FontSize="16" Padding="0" Height="40" >
-                    <MenuItem Header="_Arquivo">
-                        <MenuItem Header="Sair do Sistema"></MenuItem>
+            <!--             
+
+                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
+                                <materialDesign:ColorZone   Mode="PrimaryMid" Padding="16">
+                                    <DockPanel>
+                                        <materialDesign:ColorZone
+                                                Mode="Standard"
+                                                Padding="8 4 8 4"
+                                                CornerRadius="2"
+                                                Panel.ZIndex="1"
+                                                Margin="16 0 0 0"
+                                                materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                           <Grid>
+                                                <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                                    <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                                                </Button>
+
+                                                <TextBox 
+                                                    x:Name="txtSearch" 
+                                                    Width="613" 
+                                                    Height="40"
+                                                    BorderBrush="#FFD9E4DE"
+                                                    Margin="0,0,4,0"                                             
+                                                    FontSize="18" MaxLines="100" 
+                                                    MaxLength="100"                                                    
+                                                     IsUndoEnabled="False"                                       
+                                                    materialDesign:HintAssist.Hint="Build a search bar"
+                                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                    BorderThickness="0"
+                                                    MinWidth="200"
+                                                    VerticalAlignment="Center" 
+                                                />
+
+                                                <Button
+                                                        Style="{DynamicResource MaterialDesignToolButton}"
+                                                        Grid.Column="2">
+                                                       <materialDesign:PackIcon
+                                                       Kind="Microphone"
+                                                       Opacity=".56"
+                                                       Margin="8 0 0 0" />
+                                                </Button>
+                                             </Grid>    
+                                         </materialDesign:ColorZone>
+                                     </DockPanel
+                                  </materialDesign:ColorZone>
+                                -->
+
+            <!--SEGUNDO MENU-->
+
+            <StackPanel DockPanel.Dock="Top">
+
+                <Menu FontSize="16" Padding="0" Height="40" Margin="10 0 0 0">
+                    <MenuItem Header="_Arquivo" Margin="0 0 0 -7">
+                        <MenuItem Header="Inicio" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Novo" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Abrir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <Separator/>
+                        <MenuItem Header="Informações" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Salvar como" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Compartilhar" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Opções" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Sobre" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <Separator/>
+
                     </MenuItem>
                     <MenuItem Header="_Inserir"></MenuItem>
                     <MenuItem Header="_Clientes"></MenuItem>
                     <MenuItem Header="_Relatários"></MenuItem>
-                    <MenuItem Header="R_ecibo">
-                        <MenuItem Header="Adicionar"></MenuItem>
-                        <Separator/>
-                        <MenuItem Header="Pesquisar"></MenuItem>
+                    <MenuItem Header="R_ecibo" Margin=" 0 0 0 -7" >
+                        <StackPanel Width="400" Height="35" HorizontalAlignment="Left">
+                            <ListBox
+                                  Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
+                                  x:Name="RadioButtonGroupChoiceChipPrimaryOutline">
+                                <ListBoxItem Content="Mercury" />
+                                <ListBoxItem IsSelected="True" Content="Venus" />
+                                <ListBoxItem Content="Earth" />
+                                <ListBoxItem IsEnabled="False" Content="Pluto" />
+                            </ListBox>
+                        </StackPanel>
 
                     </MenuItem>
                 </Menu>
             </StackPanel>
+            <StackPanel DockPanel.Dock="Left"></StackPanel>
 
-            <!--- ESQUERDA-->
-            <StackPanel DockPanel.Dock="Left" Width="81" Height="Auto" RenderTransformOrigin="0.5,0.5">
-                <StackPanel.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="-1.586"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-1.841"/>
-                    </TransformGroup>
-                </StackPanel.RenderTransform>
-
-            </StackPanel>
-
-
-
-            <!--CENTRO-->
+            <!--PRINCIAPL-->
             <StackPanel>
-                <Grid Width="Auto" Height="60" Margin="0,15,0,1" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="131*"/>
-                        <ColumnDefinition Width="189*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
-                        <TextBox Width="600" Height="40" BorderBrush="#FF107C41" Margin="0,0,4,0" BorderThickness="1,1,1,1" FontSize="18"/>
-                        <Button Height="42">
-                            <materialDesign:PackIcon Kind="Magnify" Width="35" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-                <Grid Width="Auto" Height="550" >
+                <StackPanel DockPanel.Dock="Left" Width="81" Height="Auto" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="-1.586"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-1.841"/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+
+                </StackPanel>
+                <Grid MinHeight="700" MinWidth="800"  MaxHeight="800" MaxWidth="1300">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="143*"/>
                         <ColumnDefinition Width="99*"/>
@@ -95,6 +202,21 @@
                           AlternatingRowBackground="LightBlue"
                           AlternationCount="2" Grid.ColumnSpan="4">
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}"                                                
+                                                Content="{materialDesign:PackIcon Kind=FilePdfBox}"
+                                                ToolTip="Gerar Pdf" Click="GerarPdf"/>
+                                            <Button 
+                                                Style="{StaticResource MaterialDesignFlatButton}"                                                    
+                                                Content="{materialDesign:PackIcon Kind= SquareEditOutline}"
+                                                ToolTip="Visualizar" Click="Visualizar" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
                             <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
                             <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
@@ -107,16 +229,12 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
-                                                Content="{materialDesign:PackIcon Kind=FilePdfBox}"
-                                                ToolTip="Gerar Pdf" Click="GerarPdf"/>-->
-                                            <Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}"                                                
                                                 Content="{materialDesign:PackIcon Kind= Eye}"
                                                 ToolTip="Visualizar" Click="Visualizar"/>
-                                            <!--
-                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
-                                                Content="{materialDesign:PackIcon Kind=Delete}"
-                                                ToolTip="Visualizar" Click="Deletar"/>-->
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}"                                                
+                                                    Content="{materialDesign:PackIcon Kind=Delete}"                                                    
+                                                    ToolTip="Visualizar" Click="Deletar"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -124,13 +242,12 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-
             </StackPanel>
 
-            <!--RODAPÉ-->
-            <StackPanel DockPanel.Dock="Bottom" Width="Auto" Height="30">
 
-            </StackPanel>
+
+            <!--FOOTER-->
+            <StackPanel DockPanel.Dock="Bottom"></StackPanel>
         </DockPanel>
 
     </Grid>
