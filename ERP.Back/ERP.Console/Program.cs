@@ -12,12 +12,6 @@ namespace ERP.Console
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-            var novaEmpresa = new Empresa();
-            //var repo = new RepositorioEmpresa();
-
-           // repo.Adicionar(novaEmpresa);
-=======
             /*while (true)
             {
                 var cpf = System.Console.ReadLine();
@@ -29,7 +23,6 @@ namespace ERP.Console
 
                 System.Console.WriteLine();
             }*/
->>>>>>> c04639bc01de0a91e53176a19eb66bb95afb7697
         }
     }
 }

@@ -26,15 +26,14 @@ namespace ERP.Api.Controllers
             return Ok(recibo.BuscaRecibo(id));
         }
 
-        //[HttpGet]
-        //[Route("ReciboReceber/{id}json")]
-        //public IActionResult ReceberRecibo(int id)
-        //{
-        //    var recibo = new ServicoRecibo(_connectionString);
-        //    recibo.ReceberRecibo(id);
+        [HttpGet]
+        [Route("ReciboReceberCPF/{id}json")]
+        public IActionResult ReciboReceberCPF(int id)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.ReciboReceberCPF(id);
 
-        //    return Ok(recibo.ReceberRecibo(id));
-        //}
+            return Ok(recibo.ReciboReceberCPF(id));
+        }
     }
-
 }

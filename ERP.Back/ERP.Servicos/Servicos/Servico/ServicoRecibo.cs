@@ -15,7 +15,6 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
-
         public List<Recibo> ListaRecibos()
         {
             var repo = new RepositorioRecibo(_stringConexao);
@@ -23,12 +22,17 @@ namespace ERP.Servico.Servicos.Servico
 
             return listaRecibos;
         }
-
         public Recibo BuscaRecibo(int id)
         {
             var repo = new RepositorioRecibo(_stringConexao);
             var recibo = repo.BuscaRecibo(id);
             return recibo;
+        }
+        public Recibo ReciboReceberCPF(int id)
+        {
+            var reci = new RepositorioRecibo(_stringConexao);
+            var receberCPF = reci.ReciboReceberCPF(id);
+            return receberCPF;
         }
     }
 }
