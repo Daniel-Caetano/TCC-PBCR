@@ -18,8 +18,6 @@ namespace ERP.Api.Controllers
         {
             var pessoa = new ServicoPessoa(_connectionString);
             return Ok(pessoa.BuscaCpf(cpf));
-            // 97608972025
-            // 14120490084
         }
 
         [HttpGet]
@@ -30,7 +28,6 @@ namespace ERP.Api.Controllers
             pessoa.BuscaNome(nome);
 
             return Ok(pessoa.BuscaNome(nome));
-
         }
 
         [HttpGet]

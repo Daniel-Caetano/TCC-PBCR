@@ -27,13 +27,23 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("ReciboReceberCPF/{id}json")]
+        [Route("ReciboReceberCPF/{id}/json")]
         public IActionResult ReciboReceberCPF(int id)
         {
             var recibo = new ServicoRecibo(_connectionString);
             recibo.ReciboReceberCPF(id);
 
             return Ok(recibo.ReciboReceberCPF(id));
+        }
+
+        [HttpGet]
+        [Route("ReciboReceberCNPJ/{id}/json")]
+        public IActionResult ReciboRecebercnpj(int id)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.ReciboRecebercnpj(id);
+
+            return Ok(recibo.ReciboRecebercnpj(id));
         }
     }
 }
