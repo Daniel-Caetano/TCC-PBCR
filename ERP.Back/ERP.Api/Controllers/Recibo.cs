@@ -27,6 +27,16 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
+        [Route("ReciboReceberCNPJ/{id}/json")]
+        public IActionResult ReciboReceberCnpj(int id)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.ReciboReceberCNPJ(id);
+
+            return Ok(recibo.ReciboReceberCNPJ(id));
+        }
+
+        [HttpGet]
         [Route("ReciboReceberCPF/{id}/json")]
         public IActionResult ReciboReceberCPF(int id)
         {
@@ -37,13 +47,23 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("ReciboReceberCNPJ/{id}/json")]
-        public IActionResult ReciboRecebercnpj(int id)
+        [Route("ReciboPagarCPNJ/{id}/jnson")]
+        public IActionResult ReciboPagarCNPJ(int id)
         {
             var recibo = new ServicoRecibo(_connectionString);
-            recibo.ReciboRecebercnpj(id);
+            recibo.ReciboPagarCNPJ(id);
 
-            return Ok(recibo.ReciboRecebercnpj(id));
+            return Ok(recibo.ReciboPagarCNPJ(id));
+        }
+
+        [HttpGet]
+        [Route("ReciboPagarCPF/{id}/json")]
+        public IActionResult ReciboPagarCPF(int id)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.ReciboPagarCPF(id);
+
+            return Ok(recibo.ReciboPagarCPF(id));
         }
     }
 }

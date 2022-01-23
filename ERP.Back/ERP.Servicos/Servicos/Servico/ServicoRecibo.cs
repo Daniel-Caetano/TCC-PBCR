@@ -34,12 +34,23 @@ namespace ERP.Servico.Servicos.Servico
             var receberCPF = reci.ReciboReceberCPF(id);
             return receberCPF;
         }
-
-        public Recibo ReciboRecebercnpj(int id)
+        public Recibo ReciboReceberCNPJ(int id)
         {
             var reci = new RepositorioRecibo(_stringConexao);
             var receberCNPJ = reci.ReciboReceberCNPJ(id);
             return receberCNPJ;
+        }
+        public Recibo ReciboPagarCNPJ(int id)
+        {
+            var reci = new RepositorioRecibo(_stringConexao);
+            var pagarCNPJ = reci.ReciboPagarCNPJ(id);
+            return pagarCNPJ;
+        }
+        public Recibo ReciboPagarCPF(int id)
+        {
+            var reci = new RepositorioRecibo (_stringConexao);
+            var pagarCPF = reci.ReciboPagarCPF(id);
+            return pagarCPF;
         }
     }
 }
