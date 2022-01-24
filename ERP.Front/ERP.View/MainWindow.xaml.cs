@@ -49,18 +49,16 @@ namespace ERP.View
 
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
-
             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (infoRecibo != null)
             {
-
-
 
                 //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
                 string nomeArquivo = @"C:\Pdf\cliente.pdf";
                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
                 Document document = new Document(PageSize.A4);
                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+
 
                 document.Open();
                 string dados = "";
