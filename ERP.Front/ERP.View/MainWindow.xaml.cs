@@ -165,7 +165,7 @@ namespace ERP.View
         private void listCliente(object sender, RoutedEventArgs e)
         {
             ClienteList ListCliente = new ClienteList();
-             ListCliente.Show();
+           //  ListCliente.Show();
         }
 
   

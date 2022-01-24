@@ -12,15 +12,12 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        
+        FontFamily="{DynamicResource MaterialDesignFont}"       
         
         Title="ClienteForm" 
         Height="831"
         Width="704"  
       >
-
-
 
     <DockPanel
         Height="515"
@@ -29,8 +26,7 @@
         <StackPanel  
             DockPanel.Dock="top"
             Width="432"
-            Height="82" Background="#FFF" 
-            
+            Height="82" Background="#FFF"             
             >
             <Grid Height="82" Margin="10,0,10,0" Width="400">
                 <Grid.ColumnDefinitions>
