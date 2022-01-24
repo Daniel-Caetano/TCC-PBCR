@@ -69,6 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ClienteForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +80,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClienteForm.xaml.cs">
+      <DependentUpon>ClienteForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -115,6 +122,10 @@
     <Folder Include="Pdf\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ERP.ViewApi\ERP.ViewApi.csproj">
+      <Project>{736d1546-1c61-44be-8db3-f1f37e6c3dd8}</Project>
+      <Name>ERP.ViewApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReciboJanela\ReciboJanela\ReciboJanela.csproj">
       <Project>{4056d16e-25b1-4465-8981-c99ee3c9a9cf}</Project>
       <Name>ReciboJanela</Name>
