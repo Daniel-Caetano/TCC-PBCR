@@ -51,8 +51,6 @@ namespace ERP.View
  
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
-
-
             //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
             string nomeArquivo = @"C:\Pdf\cliente.pdf";
             FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
