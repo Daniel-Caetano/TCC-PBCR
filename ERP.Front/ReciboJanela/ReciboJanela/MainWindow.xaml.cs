@@ -76,6 +76,7 @@ namespace ReciboJanela
             }
 
         }
+        
         private void txtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
         {
             string cnpj = txtCnpj.Text;
@@ -88,17 +89,16 @@ namespace ReciboJanela
 
             if (!Validacao.ValidarCnpj(cnpj))
             {
-                e.Handled = true;
-                
+                e.Handled = true;                
                 txtCnpj_Erro.Visibility = Visibility.Visible;
                 txtCnpj_Erro.Focus();
-
             }
             else
             {
                 txtCnpj_Erro.Visibility = Visibility.Collapsed;
             }
         }
+
 
     }
 }
