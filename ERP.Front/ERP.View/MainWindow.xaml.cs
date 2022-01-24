@@ -17,10 +17,7 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
 
-        List<Recibo> listaRecibos = new List<Recibo>();
-        ReciboService serviceRecibo = new ReciboService();
         public MainWindow()
         {
             InitializeComponent();
@@ -30,26 +27,27 @@ namespace ERP.View
 
       private void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
-      #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
-          _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
+          // #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+         // _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
       }
 
-
-      public async Task CarregarGrid()
-      {
-          var recibos = await serviceRecibo.GetAsync();
-          foreach (var elemento in recibos)
+    /*
+          public async Task CarregarGrid()
           {
-              // MessageBox.Show(elemento.Numero.ToString());
+             // var recibos = await serviceRecibo.GetAsync();
+              //foreach (var elemento in recibos)
+              {
+                  // MessageBox.Show(elemento.Numero.ToString());
+              }
+              //dataGridRecibo.ItemsSource = recibos;
+
           }
-          dataGridRecibo.ItemsSource = recibos;
-
-      }
-
-
+    */
+    /*
       private void GerarPdf(object sender, RoutedEventArgs e)
       {
-          var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+            var infoRecibo = ""; //dataGridRecibo.SelectedItem as ReciboResponse;
+    
           if (infoRecibo != null)
           {
 
@@ -99,11 +97,12 @@ namespace ERP.View
           }
 
       }
+    */
 
-
+/*
       private void Visualizar(object sender, RoutedEventArgs e)
       {
-          var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+            var infoRecibo = "" ;//dataGridRecibo.SelectedItem as ReciboResponse;
 
           if (infoRecibo != null)            {
 
@@ -130,7 +129,8 @@ namespace ERP.View
 
       }
 
-
+        */
+/*
       private void Deletar(object sender, RoutedEventArgs e)
       {
           var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
@@ -144,7 +144,7 @@ namespace ERP.View
           }
 
       }
-
+*/
            
         private void addCliente(object sender, RoutedEventArgs e)
         {
@@ -163,11 +163,11 @@ namespace ERP.View
 
         private void listCliente(object sender, RoutedEventArgs e)
         {
-            ClienteList ListCliente = new ClienteList();
-           //  ListCliente.Show();
+            Main.Content = new ClienteForm();
+           // formCliente.Show();
         }
 
-  
+
         //Recebe o CPF/CNPJ DO FORMULÁRIO
         private void   getReciboPorCpf(object sender, RoutedEventArgs e)
         {
@@ -181,11 +181,15 @@ namespace ERP.View
 
         public async Task BuscarCNPJ(string cnpj)
         {
-            var recibos = await serviceRecibo.GetAsyncBuca(cnpj);
-             MessageBox.Show(recibos.Cidade.ToString());
+          //  var recibos = await serviceRecibo.GetAsyncBuca(cnpj);
+            // MessageBox.Show(recibos.Cidade.ToString());
 
        }
- 
+
+        private void ListarRecibo(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ReciboList();    
+        }
     }
 
 }
