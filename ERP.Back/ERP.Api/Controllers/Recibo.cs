@@ -17,33 +17,44 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Numero/{cnpj}/json")]
-        public IActionResult BuscaRecibo(string cnpj)
+        [Route("Numero/{id}/json")]
+        public IActionResult BuscaRecibo(int id)
         {
             var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaRecibo(cnpj);
+            recibo.BuscaRecibo(id);
 
-            return Ok(recibo.BuscaRecibo(cnpj));
+            return Ok(recibo.BuscaRecibo(id));
+        }
+        [HttpGet]
+        [Route("CPFs/{cpf}/json")]
+        public IActionResult BuscaRecibosReceberCpf(string cpf)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            _ = recibo.BuscaRecibosReceberCpf(cpf);
+
+            return Ok(recibo.BuscaRecibosReceberCpf(cpf));
         }
 
-        //[HttpGet]
-        //[Route("CPF/{cpf}/json")]
-        //public IActionResult BuscaReciboCpf(string cpf)
-        //{
-        //    var recibo = new ServicoRecibo(_connectionString);
-        //    recibo.BuscaReciboCpf(cpf);
+        [HttpGet]
+        [Route("CPF/{cpf}/json")]
+        public IActionResult BuscaReciboReceberCpf(string cpf)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.BuscaReciboReceberCpf(cpf);
 
-        //    return Ok(recibo.BuscaReciboCpf(cpf));
-        //}
+            return Ok(recibo.BuscaReciboReceberCpf(cpf));
+        }
 
-        //[HttpGet]
-        //[Route("CNPJ/{cnpj}/json")]
-        //public IActionResult BuscaReciboCnpj(string cnpj)
-        //{
-        //    var recibo = new ServicoRecibo(_connectionString);
-        //    recibo.BuscaReciboCnpj(cnpj);
+        [HttpGet]
+        [Route("CNPJ/{cnpj}/json")]
+        public IActionResult BuscaReciboCnpj(string cnpj)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.BuscaReciboCnpj(cnpj);
 
-        //    return Ok(recibo.BuscaReciboCnpj(cnpj));
-        //}
+            return Ok(recibo.BuscaReciboCnpj(cnpj));
+        }
+
+
     }
 }
