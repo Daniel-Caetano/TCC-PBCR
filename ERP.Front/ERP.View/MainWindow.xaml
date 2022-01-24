@@ -27,14 +27,22 @@
         
         >
     <Grid>
+       
+       
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="1630"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <DockPanel>
+            <!--
+            <StackPanel Width="1226" Height="100" DockPanel.Dock="Top">
+                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
+            </StackPanel>
+            -->
 
             <!-- PRIMEIRO MENU TOP-->
-            <StackPanel DockPanel.Dock="Top" 
+            <StackPanel DockPanel.Dock="Top"
+                        Margin="0 0 0 0"
                         Width="1920" Height="60"
                         Background="#FF107C41" >
                 <Grid HorizontalAlignment="Stretch"  Height="60">
@@ -227,6 +235,7 @@
 
             <!--PRINCIAPL-->
             <!--LISTA DE RECIBOS-->
+            
 
             <Grid Width="1600" Height="900" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -237,7 +246,7 @@
                     <RowDefinition Height="700"/>
                 </Grid.RowDefinitions>
 
-                <!--- Campo das Busca-->
+                <!--Campo das Busca-->
                 <Grid Margin="0,0,338,0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="72*"/>
@@ -261,7 +270,7 @@
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                                             Height="36">
 
-                            <!--Definições para Campo de Busca -->
+                            <!--Definições para Campo de Busca-->
                             <StackPanel Orientation="Horizontal" Width="500" Height="40">
 
                                 <Grid Height="36" VerticalAlignment="Top" Margin="20,0,0,0" Width="300">
@@ -298,14 +307,14 @@
                         Foreground="White"
                         FontSize="22" HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
-                        BorderBrush="#FF10710C"
+                        BorderBrush="#FF10710C" Click="getReciboPorCpf"
                         >Pesquisar</Button>
 
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Grid.Row="1"  Height="800" VerticalAlignment="Top" Margin="0,0,338,0">
-                    <!--LISTA DE DADOS -->
+                    <!--LISTA DE DADOS-->
                     <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1920" >
 
                         <Grid.ColumnDefinitions>
@@ -373,10 +382,10 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-            <!--FOOTER-->
-            <StackPanel DockPanel.Dock="Bottom">
 
-            </StackPanel>
+            <!--FOOTER-->
+            
+         
         </DockPanel>
 
     </Grid>
