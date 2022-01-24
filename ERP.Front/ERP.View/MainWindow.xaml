@@ -189,12 +189,12 @@
                                   Width="130" 
                                   Height="20"
                                   Margin="10 0 0 5" 
-                                  Click="addCliente"/>
+                                  Click="AddCliente"/>
                         
                         <MenuItem Header="Consultar" 
                                   Padding="0" Width="130" 
                                   Height="20" Margin="10 0 0 5"
-                                  Click="listCliente"/>
+                                  Click="ListCliente"/>
                         
                         <MenuItem Header="Excluir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                     </MenuItem>
@@ -207,7 +207,7 @@
                                   Width="130" 
                                   Height="20" 
                                   Margin="10 0 0 5" 
-                                  Click="gerarRecibo"/>                   
+                                  Click="GerarRecibo"/>                   
                         
                         
                         <MenuItem x:Name="visualizar" Header="Visualizar"
