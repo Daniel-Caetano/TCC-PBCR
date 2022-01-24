@@ -14,7 +14,36 @@ namespace ERP.Api.Controllers
             var servico = new ServicoRecibo(_connectionString);
             var recibo = servico.ListaRecibos();
             return Ok(recibo);
-            //.FirstOrDefault()
         }
+
+        [HttpGet]
+        [Route("Numero/{cnpj}/json")]
+        public IActionResult BuscaRecibo(string cnpj)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.BuscaRecibo(cnpj);
+
+            return Ok(recibo.BuscaRecibo(cnpj));
+        }
+
+        //[HttpGet]
+        //[Route("CPF/{cpf}/json")]
+        //public IActionResult BuscaReciboCpf(string cpf)
+        //{
+        //    var recibo = new ServicoRecibo(_connectionString);
+        //    recibo.BuscaReciboCpf(cpf);
+
+        //    return Ok(recibo.BuscaReciboCpf(cpf));
+        //}
+
+        //[HttpGet]
+        //[Route("CNPJ/{cnpj}/json")]
+        //public IActionResult BuscaReciboCnpj(string cnpj)
+        //{
+        //    var recibo = new ServicoRecibo(_connectionString);
+        //    recibo.BuscaReciboCnpj(cnpj);
+
+        //    return Ok(recibo.BuscaReciboCnpj(cnpj));
+        //}
     }
 }

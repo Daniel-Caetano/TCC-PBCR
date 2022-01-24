@@ -4,7 +4,6 @@ namespace ERP.View.Negocio
 {
     public class Recibo
     {
-
         public int Numero { get; set; }
         public string Tipo { get; set; }
         public decimal Valor { get; set; }
