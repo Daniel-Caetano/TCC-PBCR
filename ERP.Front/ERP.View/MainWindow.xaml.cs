@@ -42,6 +42,7 @@ namespace ERP.View
           {
               // MessageBox.Show(elemento.Numero.ToString());
           }
+          
           dataGridRecibo.ItemsSource = recibos;
 
       }
@@ -181,8 +182,8 @@ namespace ERP.View
 
         public async Task BuscarCNPJ(string cnpj)
         {
-            var recibos = await serviceRecibo.GetAsyncBuca(cnpj);
-             MessageBox.Show(recibos.Cidade.ToString());
+           // var recibos = await serviceRecibo.git GetAsyncBuca(cnpj);
+             //MessageBox.Show(recibos.Cidade.ToString());
 
        }
  

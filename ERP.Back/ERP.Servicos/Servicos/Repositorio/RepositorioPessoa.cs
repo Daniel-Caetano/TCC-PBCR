@@ -37,7 +37,6 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 while (reader.Read())
                 {
-                    //var pessoa = new Pessoa();
                     pessoa.ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK"));
                     pessoa.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM"));
                     pessoa.CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"));
@@ -51,7 +50,6 @@ namespace ERP.Servico.Servicos.Repositorio
                     pessoa.Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC"));
                     pessoa.UF = reader.GetString(reader.GetOrdinal("CODI_UF"));
 
-                    //pessoas.Add(pessoa);
                 }
             }
             return pessoa;
