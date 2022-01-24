@@ -34,11 +34,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <DockPanel>
-            <!--
-            <StackPanel Width="1226" Height="100" DockPanel.Dock="Top">
-                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
-            </StackPanel>
-            -->
+     
 
             <!-- PRIMEIRO MENU TOP-->
             <StackPanel DockPanel.Dock="Top"
@@ -234,8 +230,17 @@
             </StackPanel>
 
             <!--PRINCIAPL-->
+
+            <!--
+            <StackPanel Width="1226" Height="100" DockPanel.Dock="Top">
+                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
+            </StackPanel>
+            -->
             <!--LISTA DE RECIBOS-->
-            
+            <!--
+            <StackPanel Width="900" Height="700">
+                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
+            </StackPanel>-->
 
             <Grid Width="1600" Height="900" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
