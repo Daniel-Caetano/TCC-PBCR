@@ -56,91 +56,128 @@ namespace ERP.Servico.Servicos.Repositorio
             return empresa;
         }
 
-        public void Adicionar(string razao, string cnpj)
+        public void Adicionar(string razao, string cnpj,
+            string NumeroEndereco, string Complemento, string CEP
+            , string Logradouro, string Bairro, string Localidade, string UF)
         {
-            //var  novaEmpresa = new Empresa();
-            var sql = new StringBuilder()
-                .AppendLine("INSERT INTO EMPRESAS ( EMPR_RAZ, EMPR_CNPJ ) " +
-                             "VALUES ( @razao, @cnpj) ");
+
+            string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
+            string maxEND = "SELECT MAX(ENDE_ID_PK) FROM ENDERECOS";
+
+            // cria variável do tipo inteiro
+            int ID_CEP = 0;
+            int ID_END = 0;
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open(); // abre conexão
+
+                // cria objeto do tipo SqlCommand
+                using (var command = new SqlCommand(maxCP, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_CEP = (int)command.ExecuteScalar() + 1;
+
+                }
+                using (var command = new SqlCommand(maxEND, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_END = (int)command.ExecuteScalar() + 1;
+                }
+                conn.Close(); // fecha a conexao
+            }
+            // retorna a variável quantidade
+            var sqlCEP = new StringBuilder()
+                .AppendLine("INSERT INTO CODIGOS_POSTAIS(CODI_CEP,CODI_LOG,CODI_BAI, CODI_LOC, CODI_UF ) " +
+                            "VALUES(@CEP, @Logradouro, @Bairro, @Localidade, @UF)");
+
+            var sqlEnderecos = new StringBuilder()
+                .AppendLine("INSERT INTO ENDERECOS(ENDE_NUM, ENDE_COM, ENDE_CODI_ID_FK) " +
+                            "VALUES(@NumeroEndereco, @Complemento, @ID_CEP)");
+         
+            var sqlEmpresa = new StringBuilder()
+                .AppendLine("INSERT INTO EMPRESAS(EMPR_RAZ, EMPR_CNPJ, EMPR_ENDE_ID_FK) " +
+                            "VALUES(@razao, @cnpj, @ID_end)");
+
 
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
+                var command = new SqlCommand(sqlCEP.ToString(), conn);
+                command.Parameters.AddWithValue("@CEP", CEP);
+                command.Parameters.AddWithValue("@Bairro", Bairro);
+                command.Parameters.AddWithValue("@Localidade", Localidade);
+                command.Parameters.AddWithValue("@Logradouro", Logradouro);
+                command.Parameters.AddWithValue("@UF", UF);
+                var reader = command.ExecuteNonQuery();
+            }
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open(); // abre conexão
+
+                // cria objeto do tipo SqlCommand
+                using (var command = new SqlCommand(maxCP, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_CEP = (int)command.ExecuteScalar();
+
+                }
+                conn.Close(); // fecha a conexao
+            }
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sqlEnderecos.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
+                command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
+                command.Parameters.AddWithValue("@Complemento", Complemento);
+                var reader = command.ExecuteNonQuery();
+            }
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open(); // abre conexão
+
+                // cria objeto do tipo SqlCommand
+                using (var command = new SqlCommand(maxEND, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_END = (int)command.ExecuteScalar();
+                }
+                conn.Close(); // fecha a conexao
+            }
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sqlEmpresa.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_end", ID_END);
                 command.Parameters.AddWithValue("@razao", razao);
                 command.Parameters.AddWithValue("@cnpj", cnpj);
                 var reader = command.ExecuteNonQuery();
             }
         }
-        public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj, 
+        public void Atualizar(string cnpjAtual, string razao, string cnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
+
             var dadosAntigos = BuscaCnpj(cnpjAtual);
 
-            if (novaRazao == null)
-            {
-                novaRazao = dadosAntigos[0].Razao;
-                //command.Parameters.AddWithValue("@razao", novaRazao);
-            }
-            if (novoCnpj == null)
-            {
-                novoCnpj = dadosAntigos[0].CNPJ;
-                //command.Parameters.AddWithValue("@cnpj", novoCnpj);
-            }
-            if (NumeroEndereco == null)
-            {
-                NumeroEndereco = dadosAntigos[0].NumeroEndereco;
-                //command.Parameters.AddWithValue("@razao", novaRazao);
-            }
-            if (Complemento == null)
-            {
-                Complemento = dadosAntigos[0].Complemento;
-                //command.Parameters.AddWithValue("@cnpj", novoCnpj);
-            }
-            if (CEP == null)
-            {
-                CEP = dadosAntigos[0].CEP;
-                //command.Parameters.AddWithValue("@razao", novaRazao);
-            }
-            if (Logradouro == null)
-            {
-                Logradouro = dadosAntigos[0].Logradouro;
-                //command.Parameters.AddWithValue("@cnpj", novoCnpj);
-            }
-            if (Bairro == null)
-            {
-                Bairro = dadosAntigos[0].Bairro;
-                //command.Parameters.AddWithValue("@razao", novaRazao);
-            }
-            if (Localidade == null)
-            {
-                Localidade = dadosAntigos[0].Localidade;
-                //command.Parameters.AddWithValue("@cnpj", novoCnpj);
-            }
-            if (UF == null)
-            {
-                UF = dadosAntigos[0].UF;
-                //command.Parameters.AddWithValue("@cnpj", novoCnpj);
-            }
-
-
-            var sql = new StringBuilder().AppendLine("UPDATE EMPRESAS "+
+            var sql = new StringBuilder().AppendLine("UPDATE EMPRESAS " +
                                                      "SET EMPR_RAZ = @novarazao, EMPR_CNPJ = @novocnpj " +
                                                      "WHERE EMPR_CNPJ = @cnpjatual " +
                                                      "UPDATE ENDERECOS " +
                                                      "SET ENDE_NUM = @NumeroEndereco, ENDE_COM = @Complemento " +
-                                                     "WHERE ENDE_ID_PK = @ID_end " + 
+                                                     "WHERE ENDE_ID_PK = @ID_end " +
                                                      "UPDATE CODIGOS_POSTAIS " +
                                                      "SET CODI_BAI = @Bairro, CODI_CEP = @CEP, CODI_LOC = @Localidade, CODI_LOG = @Logradouro, CODI_UF = @UF " +
-                                                     "WHERE CODI_ID_PK = @ID_CEP "); 
+                                                     "WHERE CODI_ID_PK = @ID_CEP ");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.AddWithValue("@novarazao", novaRazao);
-                command.Parameters.AddWithValue("@novocnpj", novoCnpj);
+                command.Parameters.AddWithValue("@novarazao", razao);
+                command.Parameters.AddWithValue("@novocnpj", cnpj);
                 command.Parameters.AddWithValue("@cnpjatual", cnpjAtual);
                 command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
                 command.Parameters.AddWithValue("@Complemento", Complemento);
@@ -158,8 +195,36 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public void Deletar(string cnpj)
         {
+            var empresaDeletada = new Empresa();
 
-            var sql = new StringBuilder().AppendLine("DELETE FROM EMPRESAS WHERE EMPR_CNPJ = @cnpj");
+            var sql = new StringBuilder().AppendLine("SELECT EMPR_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
+                                                     "FROM EMPRESAS " +
+                                                     "INNER JOIN ENDERECOS " +
+                                                     "ON ENDE_CODI_ID_FK = EMPR_ENDE_ID_FK " +
+                                                     "INNER JOIN CODIGOS_POSTAIS " +
+                                                     "ON CODI_ID_PK = ENDE_CODI_ID_FK " +
+                                                     "WHERE EMPR_CNPJ = @cnpj");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                var reader = command.ExecuteReader();
+
+               while(reader.Read()){
+
+                    var empresal = new Empresa
+                    {
+                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_CODI_ID_FK")),
+                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
+                    };
+                    empresaDeletada = empresal;
+                }
+            }
+
+            sql = new StringBuilder().AppendLine("DELETE FROM EMPRESAS " +
+                                                 "WHERE EMPR_CNPJ = @cnpj");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -168,6 +233,31 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.AddWithValue("@cnpj", cnpj);
                 var reader = command.ExecuteNonQuery();
             }
+
+            sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
+                                                 "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_Endereco", empresaDeletada.ID_Endereco);
+
+                var reader = command.ExecuteNonQuery();
+            }
+
+            sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
+                                                 "WHERE CODI_ID_PK = @ID_CEP");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_CEP", empresaDeletada.ID_CEP);
+
+                var reader = command.ExecuteNonQuery();
+            }
+
         }
     }
 }

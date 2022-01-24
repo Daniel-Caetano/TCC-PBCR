@@ -20,11 +20,11 @@ namespace ERP.Api.Controllers
 
         [HttpPost]
         [Route("Adicionar/{razao},{cnpj}/json")]
-        public IActionResult Adicionar(string razao, string cnpj)
+        public IActionResult Adicionar(string razao, string cnpj,string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
             
             var repo = new ServicoEmpresa(_connectionString);
-            repo.Adicionar(razao , cnpj);
+            repo.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
             return Ok(repo);
         }
@@ -45,7 +45,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("Atualizar/cnpjatual,novarazao,novocnpj/json")]
+        [Route("Deletar/cnpj/json")]
         public IActionResult Deletar(string cnpj)
         {
 
