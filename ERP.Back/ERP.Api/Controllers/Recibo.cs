@@ -21,28 +21,50 @@ namespace ERP.Api.Controllers
         public IActionResult BuscaRecibo(int id)
         {
             var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaRecibo(id);
+            recibo.BuscaReciboCompleto(id);
 
-            return Ok(recibo.BuscaRecibo(id));
+            return Ok(recibo.BuscaReciboCompleto(id));
         }
+
         [HttpGet]
-        [Route("CPFs/{cpf}/json")]
-        public IActionResult BuscaRecibosReceberCpf(string cpf)
+        [Route("Numero/Completo/{id}/json")]
+        public IActionResult BuscaReciboCompleto(int id)
         {
             var recibo = new ServicoRecibo(_connectionString);
-            _ = recibo.BuscaRecibosReceberCpf(cpf);
+            recibo.BuscaReciboCompleto(id);
 
-            return Ok(recibo.BuscaRecibosReceberCpf(cpf));
+            return Ok(recibo.BuscaReciboCompleto(id));
         }
 
         [HttpGet]
-        [Route("CPF/{cpf}/json")]
+        [Route("CPFs/Pagar/{cpf}/json")]
+        public IActionResult BuscaRecibosPagarCpf(string cpf)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            _ = recibo.BuscaRecibosPagarCpf(cpf);
+
+            return Ok(recibo.BuscaRecibosPagarCpf(cpf));
+        }
+
+        [HttpGet]
+        [Route("CPF/Pagar/{cpf}/json")]
+        public IActionResult BuscaReciboPagarCpf(string cpf)
+        {
+            var recibo = new ServicoRecibo(_connectionString);
+            recibo.BuscaReciboPagarCpf(cpf);
+
+            return Ok(recibo.BuscaReciboPagarCpf(cpf));
+        }
+
+        [HttpGet]
+        [Route("CPF/Receber/{cpf}/json")]
         public IActionResult BuscaReciboReceberCpf(string cpf)
         {
             var recibo = new ServicoRecibo(_connectionString);
             recibo.BuscaReciboReceberCpf(cpf);
 
             return Ok(recibo.BuscaReciboReceberCpf(cpf));
+
         }
 
         [HttpGet]
@@ -54,7 +76,6 @@ namespace ERP.Api.Controllers
 
             return Ok(recibo.BuscaReciboCnpj(cnpj));
         }
-
 
     }
 }
