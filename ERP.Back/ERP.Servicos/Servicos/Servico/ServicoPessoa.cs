@@ -40,5 +40,22 @@ namespace ERP.Servico.Servicos.Servico
             return pessoa;
         }
 
+        public PessoaEndereco BuscaPessoaEndereco(string cpf)
+        {
+            try
+            {
+                _ = cpf.Length != 11;
+                new CPFValidator().AssertValid(cpf);
+            }
+
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CPF invalido!" + ex.Message);
+            }
+
+            var pessoa = new RepositorioPessoa(_stringConexao);
+            var PessoaEndereco = pessoa.BuscaPessoaEndereco(cpf);
+            return PessoaEndereco;
+        }
     }
 }
