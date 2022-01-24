@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ReciboJanela
 {
@@ -18,13 +19,12 @@ namespace ReciboJanela
         }
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Abriu via MainWindow");
+            
         }
-
- 
-
+        
         public void butSalvar_Click(string data)
         {
+
             Dados dados = new Dados();
 
             dados.ValorRecebido = (txtValor.Text);
@@ -43,6 +43,13 @@ namespace ReciboJanela
                $"a importancia de: {dados.ImportanciDe}\n"
                + $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
                "Informações", MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            txtValor.Text = "";
+            txtExtenso.Text = "";
+            txtCpf.Text = "";
+            txtCnpj.Text = "";
+            txtData.Text = "";
+            txtRef.Text = "";
         }
 
         private void butImp_Click(object sender, RoutedEventArgs e)
@@ -50,6 +57,49 @@ namespace ReciboJanela
             //  Imprimir imp = new Imprimir();
             //   imp.ShowDialog();
         }
+        private void txtCpf_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string cpf = txtCpf.Text;
+            cpf = Validacao.RetirarMascara(cpf);
+           
+
+            if (!Validacao.ValidarCpf(cpf))
+            {
+                e.Handled = true;
+                txtCpf_Erro.Visibility = Visibility.Visible;
+                txtCpf_Erro.Focus();
+
+            }
+            else
+            {
+                txtCpf_Erro.Visibility = Visibility.Collapsed;
+            }
+
+        }
+        private void txtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string cnpj = txtCnpj.Text;
+            cnpj = Validacao.RetirarMascara(cnpj);
+
+            if (txtCpf.IsFocused) {
+                txtCnpj.IsEnabled = false;
+            }  
+                
+
+            if (!Validacao.ValidarCnpj(cnpj))
+            {
+                e.Handled = true;
+                
+                txtCnpj_Erro.Visibility = Visibility.Visible;
+                txtCnpj_Erro.Focus();
+
+            }
+            else
+            {
+                txtCnpj_Erro.Visibility = Visibility.Collapsed;
+            }
+        }
+
     }
 }
 
