@@ -24,10 +24,15 @@ namespace ERP.ViewApi.Servicos.Servico
             return await _customerService.GetAsync();
         }
 
-       /* public async Task<ReciboResponse> GetAsyncBuca(string cnpj)
+        public async Task<IList<ReciboBuscaResponse>> GetAsyncID(int id)
         {
-            return await _customerService.GetAsyncBuca(cnpj);
-            throw new NotImplementedException();
-        }*/
+            return await _customerService.GetAsyncID(id);
+        }
+
+        /* public async Task<ReciboResponse> GetAsyncBuca(string cnpj)
+         {
+             return await _customerService.GetAsyncBuca(cnpj);
+             throw new NotImplementedException();
+         }*/
     }
 }

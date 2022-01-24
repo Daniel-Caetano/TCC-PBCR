@@ -17,7 +17,7 @@ namespace ERP.View
     /// <summary>
     /// Interaction logic for ClienteForm.xaml
     /// </summary>
-    public partial class ClienteForm : Window
+    public partial class ClienteForm : Page
     {
         public ClienteForm()
         {
