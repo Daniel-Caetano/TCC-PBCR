@@ -46,7 +46,7 @@
                 </StackPanel>
             </Button>
 
-            <Button x:Name="butSalvar" Margin="0 2" Height="40" Click="butSalvar_Click">
+            <Button x:Name="butSalvar" Margin="0 2" Height="40" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" Padding="10" Height="24">SALVAR</TextBlock>
                 </StackPanel>

@@ -21,7 +21,24 @@ namespace ReciboJanela
     {
         public Imprimir()
         {
+
             InitializeComponent();
+            Loaded += MainWindow_loaded;
+            
+
         }
+        public void MainWindow_loaded(object sender, RoutedEventArgs e)
+        {
+           // MessageBox.Show("Dentro da classe Imprimir com o Método MainWindo_loaded");
+        }
+        public void VisualizarRecibo(string valor)
+        {
+            dadosRecibos.Text = valor;
+            //txtValor = valor;
+           //MessageBox.Show("Dentro do método visualizar Recibo ");  
+            
+        }
+
+
     }
 }

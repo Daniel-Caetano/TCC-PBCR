@@ -10,7 +10,7 @@ namespace ReciboJanela
     /// </summary>
     public partial class MainWindow : Window
     {
-       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -18,11 +18,13 @@ namespace ReciboJanela
         }
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-                   
+            MessageBox.Show("Abriu via MainWindow");
         }
-        private void butSalvar_Click(object sender, RoutedEventArgs e)
+
+ 
+
+        public void butSalvar_Click(string data)
         {
-           
             Dados dados = new Dados();
 
             dados.ValorRecebido = (txtValor.Text);
@@ -33,7 +35,7 @@ namespace ReciboJanela
             dados.Referente = txtRef.Text;
             txtDataAtual.Text = DateTime.Now.ToString("dd/MM/yyyy");
             dados.Data = txtDataAtual.Text;
-                       
+
             MessageBox.Show($"Valor: {dados.ValorRecebido}\n" +
                $"Recebi (emos) de: {dados.RecebemosDe}\n" +
                $"CPF: {dados.Cpf}\n" +
@@ -45,8 +47,8 @@ namespace ReciboJanela
 
         private void butImp_Click(object sender, RoutedEventArgs e)
         {
-            Imprimir imp = new Imprimir();
-            imp.ShowDialog();
+            //  Imprimir imp = new Imprimir();
+            //   imp.ShowDialog();
         }
     }
 }
