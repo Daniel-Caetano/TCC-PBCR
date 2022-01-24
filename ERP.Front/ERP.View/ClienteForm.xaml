@@ -1,4 +1,4 @@
-﻿<Window x:Class="ERP.View.ClienteForm"
+﻿<Page x:Class="ERP.View.ClienteForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,16 +17,15 @@
         
         Title="ClienteForm" 
         Height="831"
-        Width="704" WindowStyle="ThreeDBorderWindow"      
-       >
-    <Window.Effect>
-        <DropShadowEffect/>
-    </Window.Effect>
+        Width="704"  
+      >
+
+
 
     <DockPanel
         Height="515"
         Width="432"                  
-                   >
+  >
         <StackPanel  
             DockPanel.Dock="top"
             Width="432"
@@ -303,4 +302,4 @@
               IsActive="False" />
     </DockPanel>
 
-</Window>
+</Page>
