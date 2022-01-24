@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ReciboJanela
 {
@@ -25,7 +26,7 @@ namespace ReciboJanela
         private void butSalvar_Click(object sender, RoutedEventArgs e)
         {
           
-            dados.ValorRecebido = (txbValor.Text);
+            dados.ValorRecebido = (txtValor.Text);
             dados.RecebemosDe = txtExtenso.Text;
             dados.Cpf = txtCpf.Text;
             dados.Cnpj = txtCnpj.Text;
@@ -42,7 +43,7 @@ namespace ReciboJanela
                + $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
                "Informações", MessageBoxButton.OK, MessageBoxImage.Information);
             
-            txbValor.Text = "";
+            txtValor.Text = "";
             txtExtenso.Text = "";
             txtCpf.Text = "";
             txtCnpj.Text = "";
@@ -59,14 +60,20 @@ namespace ReciboJanela
         {
             string cpf = txtCpf.Text;
             cpf = Validacao.RetirarMascara(cpf);
-            txtCpf.IsEnabled = true;
 
+            if(txtCpf.IsFocused == true)
+            {
+                txtCnpj.IsEnabled = false;
+                txtCnpj.Background = Brushes.Green;
+            }
+
+           
             if (!Validacao.ValidarCpf(cpf))
             {
+
                 e.Handled = true;
                 txtCpf_Erro.Visibility = Visibility.Visible;
                 txtCpf_Erro.Focus();
-
             }
             else
             {
@@ -79,16 +86,16 @@ namespace ReciboJanela
             string cnpj = txtCnpj.Text;
             cnpj = Validacao.RetirarMascara(cnpj);
 
-            if(txtCpf.IsFocused)
-            txtCnpj.IsEnabled = false;
-
+            if(txtCnpj.IsFocused == true)
+            {
+                txtCpf.IsEnabled = false;
+            }
+  
             if (!Validacao.ValidarCnpj(cnpj))
             {
                 e.Handled = true;
-                txtCnpj.IsEnabled = true;
                 txtCnpj_Erro.Visibility = Visibility.Visible;
                 txtCnpj_Erro.Focus();
-
             }
             else
             {

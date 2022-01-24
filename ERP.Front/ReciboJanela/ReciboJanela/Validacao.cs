@@ -26,7 +26,7 @@ namespace ReciboJanela
                 {
                     if (!Char.IsDigit(cnpj[i]))
                     {
-                        throw new InvalidCastException("CNPJ deve conter 14 dígitos númericos e sem formatação.\n" + cnpj);
+                        return false;
                     }
                 }
             }
@@ -82,7 +82,6 @@ namespace ReciboJanela
                     if (!Char.IsDigit(cpf[i]))
                     {
                         cpfValido = false;
-                        MessageBox.Show("O CPF informado não e valido");
                         break;
                     }
                 }
