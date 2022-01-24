@@ -12,7 +12,6 @@ namespace ReciboJanela
     public partial class MainWindow : Window
     {
 
-        Dados dados = new Dados();
         public MainWindow()
         {
             InitializeComponent();
@@ -20,12 +19,15 @@ namespace ReciboJanela
         }
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-                   
+            
         }
-        private void butSalvar_Click(object sender, RoutedEventArgs e)
+        
+        public void butSalvar_Click(string data)
         {
-          
-            dados.ValorRecebido = (txbValor.Text);
+
+            Dados dados = new Dados();
+
+            dados.ValorRecebido = (txtValor.Text);
             dados.RecebemosDe = txtExtenso.Text;
             dados.Cpf = txtCpf.Text;
             dados.Cnpj = txtCnpj.Text;
@@ -33,7 +35,7 @@ namespace ReciboJanela
             dados.Referente = txtRef.Text;
             txtDataAtual.Text = DateTime.Now.ToString("dd/MM/yyyy");
             dados.Data = txtDataAtual.Text;
-                       
+
             MessageBox.Show($"Valor: {dados.ValorRecebido}\n" +
                $"Recebi (emos) de: {dados.RecebemosDe}\n" +
                $"CPF: {dados.Cpf}\n" +
@@ -42,7 +44,7 @@ namespace ReciboJanela
                + $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
                "Informações", MessageBoxButton.OK, MessageBoxImage.Information);
             
-            txbValor.Text = "";
+            txtValor.Text = "";
             txtExtenso.Text = "";
             txtCpf.Text = "";
             txtCnpj.Text = "";
@@ -52,14 +54,14 @@ namespace ReciboJanela
 
         private void butImp_Click(object sender, RoutedEventArgs e)
         {
-            Imprimir imp = new Imprimir();
-            imp.ShowDialog();
+            //  Imprimir imp = new Imprimir();
+            //   imp.ShowDialog();
         }
         private void txtCpf_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             string cpf = txtCpf.Text;
             cpf = Validacao.RetirarMascara(cpf);
-            txtCpf.IsEnabled = true;
+           
 
             if (!Validacao.ValidarCpf(cpf))
             {
@@ -79,13 +81,15 @@ namespace ReciboJanela
             string cnpj = txtCnpj.Text;
             cnpj = Validacao.RetirarMascara(cnpj);
 
-            if(txtCpf.IsFocused)
-            txtCnpj.IsEnabled = false;
+            if (txtCpf.IsFocused) {
+                txtCnpj.IsEnabled = false;
+            }  
+                
 
             if (!Validacao.ValidarCnpj(cnpj))
             {
                 e.Handled = true;
-                txtCnpj.IsEnabled = true;
+                
                 txtCnpj_Erro.Visibility = Visibility.Visible;
                 txtCnpj_Erro.Focus();
 
