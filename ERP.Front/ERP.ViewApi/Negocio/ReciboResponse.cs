@@ -5,9 +5,8 @@ namespace ERP.ViewApi.Negocio
 {
     public class ReciboResponse
     {
-
-        [JsonProperty("numero")]
-        public int Numero { get; set; }
+        [JsonProperty("numeroRecibo")]
+        public int NumeroRecibo { get; set; }
 
         [JsonProperty("tipo")]
         public string Tipo { get; set; }
@@ -21,14 +20,42 @@ namespace ERP.ViewApi.Negocio
         [JsonProperty("observacao")]
         public string Observacao { get; set; }
 
-        [JsonProperty("cidade")]
-        public string Cidade { get; set; }
-
-        [JsonProperty("estado")]
-        public string Estado { get; set; }
-
         [JsonProperty("data")]
         public DateTime Data { get; set; }
+
+        [JsonProperty("nomeRecebedor")]
+        public string NomeRecebedor { get; set; }
+
+        [JsonProperty("cpF_CNPJRecebedor")]
+        public string CPF_CNPJRecebedor { get; set; }
+
+        [JsonProperty("logradouroRecebedor")]
+        public string LogradouroRecebedor { get; set; }
+
+        [JsonProperty("numeroEnderecoRecebedor")]
+        public string NumeroEnderecoRecebedor { get; set; }
+
+        [JsonProperty("complementoRecebedor")]
+        public string ComplementoRecebedor { get; set; }
+
+        [JsonProperty("cepRecebedor")]
+        public string CEPRecebedor { get; set; }
+
+        [JsonProperty("bairroRecebedor")]
+        public string BairroRecebedor { get; set; }
+
+        [JsonProperty("cidadeRecebedor")]
+        public string CidadeRecebedor { get; set; }
+
+        [JsonProperty("ufRecebedor")]
+        public string UFRecebedor { get; set; }
+
+        // Pagador
+        [JsonProperty("nomePagador")]
+        public string NomePagador { get; set; }
+
+        [JsonProperty("numeroRecibo")]
+        public string cpF_CNPJPagador { get; set; }
 
     }
 }
