@@ -16,11 +16,52 @@
         Title="imprimir Recibo" Height="456" Width="800" WindowStartupLocation="CenterScreen">
 
     <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <Button x:Name="butImp" 
+                        Content="Imprmir Recibo"                     
+                        Width="140" 
+                        Margin="0 10 5 0"
+                        Cursor="Hand" HorizontalAlignment="Right"                       
+                    />
 
-        <materialDesign:PackIcon Kind="Printer" Height="61" Width="96" />
-        <Button x:Name="butImp" Content="IMPRIMIR" DockPanel.Dock="Top" Width="100" Margin="0 10 5 0" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        </StackPanel >
+       
+        <StackPanel DockPanel.Dock="Top" Width="Auto" Height="300">
+            <TextBlock FontSize="30"  
+                        Text="Layout de Impressão" 
+                        Height="36"
+                        HorizontalAlignment="Center" />
 
+            <TextBlock FontSize="30" 
+                       FontWeight="Bold" 
+                       Text="Recibo" Height="33" 
+                       HorizontalAlignment="Center"/>
+            <TextBlock  FontSize="16" Text=""/>
+
+            <!--RECEBENDO DADOS DO FORMULÁRIO -->
+
+            <TextBlock x:Name="txtNumeros"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtTipo"    HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtValor"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtObservacao"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtCidade"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtEstado"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtData"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+        </StackPanel>
+
+
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button x:Name="gerarPdf"
+                    Content="Gerar PDF"
+                    DockPanel.Dock="Bottom"
+                    Width="140" Margin="0 10 5 0" 
+                    Cursor="Hand" HorizontalAlignment="Right"/>
+        </StackPanel>
     </DockPanel>
+
+
+
+
 
 
 

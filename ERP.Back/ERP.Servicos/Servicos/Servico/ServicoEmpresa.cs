@@ -22,22 +22,38 @@ namespace ERP.Servico.Servicos.Servico
             {
                 new CNPJValidator().AssertValid(cnpj); // Validador do CPF
             }
-
             catch (Exception ex)
             {
                 Debug.WriteLine("CNPJ invalido!" + ex.Message);
             }
 
-            var repo = new RepositorioEmpresa(_stringConexao);
-            var listEmpresa = repo.BuscaCnpj(cnpj);
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            var listEmpresa = repositorio.BuscaCnpj(cnpj);
             return listEmpresa;
         }
 
         public void Adicionar(string razao, string cnpj)
         {
-            var repo = new RepositorioEmpresa(_stringConexao);
-            repo.Adicionar(razao,cnpj);
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            repositorio.Adicionar(razao,cnpj);
            // return listEmpresa;
+        }
+        public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
+            string NumeroEndereco, string Complemento, string CEP
+            , string Logradouro, string Bairro, string Localidade, string UF)
+        {
+
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj,
+                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
+                Localidade, UF);
+            // return listEmpresa;
+        }
+
+        public void Deletar(string cnpj)
+        {
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            repositorio.Deletar(cnpj);
         }
     }
 }

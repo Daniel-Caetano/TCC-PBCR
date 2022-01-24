@@ -46,7 +46,7 @@
                 </StackPanel>
             </Button>
 
-            <Button x:Name="butSalvar" Margin="0 2" Height="40" Click="butSalvar_Click">
+            <Button x:Name="butSalvar" Margin="0 2" Height="40" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" Padding="10" Height="24">SALVAR</TextBlock>
                 </StackPanel>
@@ -79,7 +79,7 @@
 
         <Grid>
             <Label Content="Valor do Recibo" HorizontalAlignment="Left" Height="26" Margin="5,10,0,0" VerticalAlignment="Top" Width="118"/>
-            <TextBox x:Name="txbValor" HorizontalAlignment="Left" Height="32" Margin="112,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
+            <TextBox x:Name="txtValor" HorizontalAlignment="Left" Height="32" Margin="112,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
             <Label Content="CPF" HorizontalAlignment="Left" Height="27" Margin="10,0,0,0" VerticalAlignment="Center" Width="48"/>
             <Label Content="Recebi (emos) de" HorizontalAlignment="Left" Height="32" Margin="5,57,0,0" VerticalAlignment="Top" Width="118"/>
             <Label Content="a importancia de " HorizontalAlignment="Left" Height="32" Margin="5,131,0,0" VerticalAlignment="Top" Width="106"/>
