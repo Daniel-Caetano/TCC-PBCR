@@ -30,12 +30,40 @@ namespace ERP.Api.Controllers
             return Ok(pessoa.BuscaNome(nome));
         }
 
-        [HttpGet]
-        [Route("Endereco/{cpf}/json")]
-        public IActionResult BuscaPessoaEndereco(string cpf)
+        [HttpPost]
+        [Route("Adicionar/{Nome},{CPF}/json")]
+        public IActionResult Adicionar(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
+
             var repo = new ServicoPessoa(_connectionString);
-            return Ok(repo.BuscaPessoaEndereco(cpf));
+            repo.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+
+            return Ok(repo);
+        }
+        [HttpPut]
+        [Route("Atualizar/cpfatual,novonome,novocpf/json")]
+        public IActionResult Atualizar(string CpfAtual, string Nome, string CPF,
+         string NumeroEndereco, string Complemento, string CEP
+         , string Logradouro, string Bairro, string Localidade, string UF)
+        {
+
+            var repo = new ServicoPessoa(_connectionString);
+            repo.Atualizar(CpfAtual, Nome, CPF,
+                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
+                Localidade, UF);
+
+            return Ok(repo);
+        }
+
+        [HttpDelete]
+        [Route("Deletar/cpf/json")]
+        public IActionResult Deletar(string cpf)
+        {
+
+            var repo = new ServicoPessoa(_connectionString);
+            repo.Deletar(cpf);
+
+            return Ok(repo);
         }
     }
 }

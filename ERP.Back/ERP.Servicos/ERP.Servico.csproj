@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Negocio\PessoaEndereco.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Caelum.Stella.CSharp" Version="1.4.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
