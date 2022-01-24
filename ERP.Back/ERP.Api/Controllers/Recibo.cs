@@ -17,53 +17,33 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Recibo/{id}json")]
-        public IActionResult BuscaRecibo(int id)
+        [Route("Numero/{cnpj}/json")]
+        public IActionResult BuscaRecibo(string cnpj)
         {
             var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaRecibo(id);
+            recibo.BuscaRecibo(cnpj);
 
-            return Ok(recibo.BuscaRecibo(id));
+            return Ok(recibo.BuscaRecibo(cnpj));
         }
 
-        [HttpGet]
-        [Route("ReciboReceberCNPJ/{id}/json")]
-        public IActionResult ReciboReceberCnpj(int id)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.ReciboReceberCNPJ(id);
+        //[HttpGet]
+        //[Route("CPF/{cpf}/json")]
+        //public IActionResult BuscaReciboCpf(string cpf)
+        //{
+        //    var recibo = new ServicoRecibo(_connectionString);
+        //    recibo.BuscaReciboCpf(cpf);
 
-            return Ok(recibo.ReciboReceberCNPJ(id));
-        }
+        //    return Ok(recibo.BuscaReciboCpf(cpf));
+        //}
 
-        [HttpGet]
-        [Route("ReciboReceberCPF/{id}/json")]
-        public IActionResult ReciboReceberCPF(int id)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.ReciboReceberCPF(id);
+        //[HttpGet]
+        //[Route("CNPJ/{cnpj}/json")]
+        //public IActionResult BuscaReciboCnpj(string cnpj)
+        //{
+        //    var recibo = new ServicoRecibo(_connectionString);
+        //    recibo.BuscaReciboCnpj(cnpj);
 
-            return Ok(recibo.ReciboReceberCPF(id));
-        }
-
-        [HttpGet]
-        [Route("ReciboPagarCPNJ/{id}/jnson")]
-        public IActionResult ReciboPagarCNPJ(int id)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.ReciboPagarCNPJ(id);
-
-            return Ok(recibo.ReciboPagarCNPJ(id));
-        }
-
-        [HttpGet]
-        [Route("ReciboPagarCPF/{id}/json")]
-        public IActionResult ReciboPagarCPF(int id)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.ReciboPagarCPF(id);
-
-            return Ok(recibo.ReciboPagarCPF(id));
-        }
+        //    return Ok(recibo.BuscaReciboCnpj(cnpj));
+        //}
     }
 }

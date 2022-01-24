@@ -43,7 +43,7 @@
                     <MenuItem Header="_Inserir"></MenuItem>
                     <MenuItem Header="_Clientes"></MenuItem>
                     <MenuItem Header="_Relatários"></MenuItem>
-                    <MenuItem Header="R_ecibo">
+                    <MenuItem Header="_Recibo">
                         <MenuItem Header="Adicionar"></MenuItem>
                         <Separator/>
                         <MenuItem Header="Pesquisar"></MenuItem>

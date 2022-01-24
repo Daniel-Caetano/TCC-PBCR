@@ -28,21 +28,20 @@ namespace ERP.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
-        List<Recibo> listaRecibos = new List<Recibo>();
-        ReciboService serviceRecibo = new ReciboService();
+        private static readonly ObservableCollection<Recibo> recibos = new ObservableCollection<Recibo>();
+        private readonly ObservableCollection<Recibo> collection = recibos;
+        private readonly List<Recibo> listaRecibos = new List<Recibo>();
+        readonly ReciboService serviceRecibo = new ReciboService();
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
-#pragma warning restore CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
         }
 
         public async Task CarregarGrid()
@@ -50,8 +49,16 @@ namespace ERP.View
             var recibos = await serviceRecibo.GetAsync();
             dataGridRecibo.ItemsSource = recibos;
         }
- 
-        private void GerarPdf(object sender, RoutedEventArgs e)
+
+        public async Task BucarGrid(string cnpj)
+        {
+        var recibo = await serviceRecibo.GetAsyncBuca(cnpj);
+        dataGridRecibo.ItemsSource = (System.Collections.IEnumerable)recibo;
+        
+            throw new NotImplementedException();
+        }
+
+    private void GerarPdf(object sender, RoutedEventArgs e)
         {
 
 
