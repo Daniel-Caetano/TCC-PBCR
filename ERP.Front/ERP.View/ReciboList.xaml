@@ -29,6 +29,7 @@
         </Grid.RowDefinitions>
 
         <!--Campo das Busca-->
+        <!--COMENTANDO-->
         <Grid Margin="0,0,338,0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="72*"/>
@@ -92,7 +93,6 @@
                         FontSize="22" HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
                         BorderBrush="#FF10710C"
-                        Click="BuscarRecibo"
                         >Pesquisar</Button>
 
             </StackPanel>
@@ -126,15 +126,17 @@
                                         <ToggleButton
                                                     Style="{StaticResource  MaterialDesignActionAccentToggleButton}"                                                 
                                                     Content="{materialDesign:PackIcon Kind=filePdfBox,Size=30}"
-                                                    ToolTip="Gerar Pdf"                                            
-                                                      
+                                                    ToolTip="Gerar Pdf" 
+                                                    Click="GerarPdf"
                                                     Margin="0 0 10 0"
                                                           />
 
                                         <ToggleButton 
                                                     Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                    
                                                     Content="{materialDesign:PackIcon Kind= SquareEditOutline,Size=30}"
-                                                    ToolTip="Visualizar" />
+                                                    ToolTip="Editar"
+                                                    Click="Editar"                                                          
+                                            />
                                     </StackPanel>
 
                                 </DataTemplate>
@@ -154,10 +156,12 @@
                                         <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                     Content="{materialDesign:PackIcon Kind= Eye}"
                                                     ToolTip="Visualizar" 
-                                                    Margin="0 0 10 0"/>
+                                                    Margin="0 0 10 0"
+                                                    Click="Visualizar" />
                                         <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                         Content="{materialDesign:PackIcon Kind=Delete}"                                                    
-                                                        ToolTip="Visualizar" />
+                                                        ToolTip="Deletar"
+                                                        Click="Deletar"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
