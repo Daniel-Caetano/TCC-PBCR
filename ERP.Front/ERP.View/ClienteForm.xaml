@@ -148,24 +148,24 @@
             <!--CAMPO CEP--> 
             <StackPanel Width="395" Height="40" Grid.Row="2" Background="#FFF5F6F7" Margin="10 10 0 0">
                 <materialDesign:ColorZone 
-                    Mode="Standard"
-                    CornerRadius="5"
-                    Panel.ZIndex="1"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                    Height="40"                   
+                            Mode="Standard"
+                            CornerRadius="5"
+                            Panel.ZIndex="1"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                            Height="40"                            
                     >
 
                     <Grid>
                         <TextBox
-                        Grid.Column="0"
-                        materialDesign:HintAssist.Hint="CEP"
-                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                        BorderThickness="0"
-                        Width="399"
-                        Height="40"
-                        MaxLength="100"   
-                        Padding="10 0 0 0"
-                        VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                            Grid.Column="0"
+                            materialDesign:HintAssist.Hint="CEP"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            BorderThickness="0"
+                            Width="399"
+                            Height="40"
+                            MaxLength="100"   
+                            Padding="10 0 0 0"
+                            VerticalContentAlignment="Center" Margin="0,0,0,10"                           
                         />
                     </Grid>
                 </materialDesign:ColorZone>
@@ -199,7 +199,7 @@
             </StackPanel>
 
             <!--Campos de Endererços-->
-            <StackPanel x:Name="cpEndereco" Visibility="Hidden">
+            <StackPanel x:Name="cpEndereco" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -227,7 +227,7 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel  x:Name="estado" Visibility="Hidden">
+            <StackPanel  x:Name="estado">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -256,7 +256,7 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel HorizontalAlignment="Stretch" Margin="26,0,0,0"  x:Name="numero" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Stretch" Margin="26,0,0,0"  x:Name="numero">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

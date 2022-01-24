@@ -31,9 +31,15 @@ namespace ReciboJanela
         {
            // MessageBox.Show("Dentro da classe Imprimir com o Método MainWindo_loaded");
         }
-        public void VisualizarRecibo(string valor)
+        public void VisualizarRecibo(string Numero, string Tipo, string Valor, string Observacao, string Cidade, string Estado, DateTime Data)
         {
-            dadosRecibos.Text = valor;
+            txtNumeros.Text = Numero;ToString() ;
+            txtTipo.Text = Tipo;
+            txtObservacao.Text = Observacao;
+            txtCidade.Text = Cidade;
+            txtEstado.Text = Estado;
+            txtCidade.Text = Data.ToString();
+          
             //txtValor = valor;
            //MessageBox.Show("Dentro do método visualizar Recibo ");  
             

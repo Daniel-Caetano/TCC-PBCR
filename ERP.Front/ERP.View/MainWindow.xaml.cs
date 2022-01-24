@@ -18,6 +18,7 @@ namespace ERP.View
     public partial class MainWindow : Window
     {
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
+
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
         public MainWindow()
@@ -44,6 +45,7 @@ namespace ERP.View
             dataGridRecibo.ItemsSource = recibos;
 
         }
+
 
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
@@ -103,16 +105,25 @@ namespace ERP.View
 
         private void Visualizar(object sender, RoutedEventArgs e)
         {
-            var visualizarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
-            if (visualizarRecibo != null)
-            {
-                var dados = visualizarRecibo.Valor.ToString();  //Recebendo valor do formulário
+            var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+           
+            if (infoRecibo != null)            {
 
-              // ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow(); //Instancia a classe da JanelaRecibo()
+                string Valor = infoRecibo.Valor.ToString();  //Recebendo valor do formulário
+                string Numero = infoRecibo.Numero.ToString() ;
+                string Tipo  = infoRecibo.Tipo.ToString(); 
+                string Observacao = infoRecibo.Observacao.ToString();
+                string Cidade = infoRecibo.Cidade.ToString();
+                string Estado = infoRecibo.Estado.ToString();
+                DateTime Data = infoRecibo.Data;
+
                 ReciboJanela.Imprimir imprimir = new ReciboJanela.Imprimir();  //Instancia a classe da JanelaRecibo()
+
+                 imprimir.VisualizarRecibo(Numero,  Tipo,  Valor,  Observacao, Cidade,  Estado,  Data); //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
+                // imprimir.VisualizarRecibo(infoRecibo.ToString());  //Envidando todos os das
+              
                
-                imprimir.VisualizarRecibo(dados);
-                imprimir.Show();
+                imprimir.Show(); //Precisa para imprimir o objeto na tela
 
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
@@ -120,6 +131,7 @@ namespace ERP.View
             }
 
         }
+
 
         private void Deletar(object sender, RoutedEventArgs e)
         {
@@ -135,6 +147,7 @@ namespace ERP.View
 
         }
 
+
         private void addCliente(object sender, RoutedEventArgs e)
         {
             ClienteForm adicionarCliente = new ClienteForm();
@@ -142,6 +155,18 @@ namespace ERP.View
         }
 
 
+        private void gerarRecibo(object sender, RoutedEventArgs e)
+        {
+            ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow(); //Instancia a classe da JanelaRecibo()
+            recibo.Show();  
+        }
+
+
+        private void listCliente(object sender, RoutedEventArgs e)
+        {
+            ClienteList ListCliente = new ClienteList();
+             ListCliente.Show();
+        }
     }
 
 }

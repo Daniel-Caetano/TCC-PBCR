@@ -25,20 +25,28 @@
                     />
 
         </StackPanel >
+       
         <StackPanel DockPanel.Dock="Top" Width="Auto" Height="300">
             <TextBlock FontSize="30"  
                         Text="Layout de Impressão" 
                         Height="36"
                         HorizontalAlignment="Center" />
-            
+
             <TextBlock FontSize="30" 
                        FontWeight="Bold" 
                        Text="Recibo" Height="33" 
                        HorizontalAlignment="Center"/>
             <TextBlock  FontSize="16" Text=""/>
-            
-         <!--RECEBENDO DADOS DO FORMULÁRIO -->   
-        <TextBlock x:Name="dadosRecibos" HorizontalAlignment="Center" FontSize="18">Eu Bruno Cesar de Oliveira</TextBlock>
+
+            <!--RECEBENDO DADOS DO FORMULÁRIO -->
+
+            <TextBlock x:Name="txtNumeros"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtTipo"    HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtValor"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtObservacao"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtCidade"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtEstado"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            <TextBlock x:Name="txtData"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
         </StackPanel>
 
 
@@ -50,6 +58,10 @@
                     Cursor="Hand" HorizontalAlignment="Right"/>
         </StackPanel>
     </DockPanel>
+
+
+
+
 
 
 

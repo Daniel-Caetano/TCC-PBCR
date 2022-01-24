@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP.View"
-        mc:Ignorable="d"        
+        mc:Ignorable="d"   
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,11 +14,12 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        
         Title="Ali-Finance" 
         MinHeight="700" 
-        MinWidth="800" 
-        MaxHeight="900"
-        MaxWidth="1620"
+        MaxHeight="1080"
+        MinWidth="800"         
+        MaxWidth="1920"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         ToolTip="Janela Principal"
@@ -180,20 +182,38 @@
 
                     </MenuItem>
                     <MenuItem Header="_Inserir"></MenuItem>
+                   
                     <MenuItem x:Name="cliente" Header="_Clientes">
-                        <MenuItem Header="Castastrar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="addCliente"/>
-                        <MenuItem Header="Consultar" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Castastrar"
+                                  Padding="0" 
+                                  Width="130" 
+                                  Height="20"
+                                  Margin="10 0 0 5" 
+                                  Click="addCliente"/>
+                        
+                        <MenuItem Header="Consultar" 
+                                  Padding="0" Width="130" 
+                                  Height="20" Margin="10 0 0 5"
+                                  Click="listCliente"/>
+                        
                         <MenuItem Header="Excluir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                     </MenuItem>
+                    
                     <MenuItem Header="_Relatários"></MenuItem>
 
                     <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" >
-                        <MenuItem Header="Gerar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" />
+                        <MenuItem Header="Gerar"
+                                  Padding="0"
+                                  Width="130" 
+                                  Height="20" 
+                                  Margin="10 0 0 5" 
+                                  Click="gerarRecibo"/>                   
+                        
+                        
                         <MenuItem x:Name="visualizar" Header="Visualizar"
                                   Padding="0" Width="130"
                                   Height="20" Margin="10 0 0 5"
-                                  Click="Visualizar"
-                                  
+                                  Click="Visualizar"                                  
                                   />
                         <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                     </MenuItem>
@@ -252,9 +272,8 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" FontSize="16"/>
                             <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
-                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor,ConverterCulture='pt-BR',StringFormat=C}"  FontSize="16" />
-
-                            <DataGridTextColumn Header="Observação" Binding="{Binding Observacao}"  FontSize="16"/>
+                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"  FontSize="16" />
+                            <DataGridTextColumn Header="Observacao" Binding="{Binding Observacao}" FontSize="16"/>
                             <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}" FontSize="16"/>
                             <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" FontSize="16"/>
                             <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>
@@ -277,7 +296,6 @@
                     </DataGrid>
                 </Grid>
             </StackPanel>
-
             <!--FOOTER-->
             <StackPanel DockPanel.Dock="Bottom">
                 <TextBlock>
