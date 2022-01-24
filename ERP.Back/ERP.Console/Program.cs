@@ -12,7 +12,6 @@ namespace ERP.Console
     {
         static void Main(string[] args)
         {
-
             var novaEmpresa = new Empresa();
             //var repo = new RepositorioEmpresa();
 

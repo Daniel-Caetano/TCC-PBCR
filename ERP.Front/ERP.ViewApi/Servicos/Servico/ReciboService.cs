@@ -1,6 +1,7 @@
 ﻿using ERP.ViewApi.Negocio;
 using ERP.ViewApi.Servicos.Interface;
 using Refit;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,6 +22,12 @@ namespace ERP.ViewApi.Servicos.Servico
         public async Task<IList<ReciboResponse>> GetAsync()
         {
             return await _customerService.GetAsync();
+        }
+
+        public async Task<ReciboResponse> GetAsyncBuca(string cnpj)
+        {
+            return await _customerService.GetAsyncBuca(cnpj);
+            throw new NotImplementedException();
         }
     }
 }

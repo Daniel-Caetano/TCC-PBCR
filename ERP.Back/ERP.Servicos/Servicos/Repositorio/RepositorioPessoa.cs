@@ -10,7 +10,7 @@ namespace ERP.Servico.Servicos.Repositorio
     public class RepositorioPessoa
     {
 
-        private string _stringConexao;
+        private readonly string _stringConexao;
         //UTILIZAR ORM (ENTITY)
         public RepositorioPessoa(string stringConexao)
         {
@@ -71,5 +71,40 @@ namespace ERP.Servico.Servicos.Repositorio
             return pessoa;
         }
 
+        public PessoaEndereco BuscaPessoaEndereco(string cpf)
+        {
+            var pessoaEndereco = new PessoaEndereco();
+
+            var sql = new StringBuilder()
+                .AppendLine("SELECT PE.[PESS_NOM], CO.[CODI_LOG], EN.[ENDE_NUM], EN.[ENDE_COM], CO.[CODI_BAI], CO.[CODI_LOC], CO.[CODI_UF], CO.[CODI_CEP] " +
+                "FROM PESSOAS PE " +
+                "INNER JOIN ENDERECOS EN " +
+                "ON PE.[PESS_ENDE_ID_FK] = EN.[ENDE_ID_PK] " +
+                "INNER JOIN [CODIGOS_POSTAIS] CO " +
+                "ON CO.[CODI_ID_PK] = EN.[ENDE_CODI_ID_FK] " +
+                "WHERE PE.[PESS_CPF] = @cpf");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    pessoaEndereco.Nome = reader.GetString(reader.GetOrdinal("PESS_NOM"));
+                    pessoaEndereco.Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG"));
+                    pessoaEndereco.NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM"));
+                    pessoaEndereco.Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM"));
+                    pessoaEndereco.Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI"));
+                    pessoaEndereco.Cidade = reader.GetString(reader.GetOrdinal("CODI_LOC"));
+                    pessoaEndereco.UF = reader.GetString(reader.GetOrdinal("CODI_UF"));
+                    pessoaEndereco.CEP = reader.GetString(reader.GetOrdinal("CODI_CEP"));
+                }
+            }
+
+            return pessoaEndereco;
+        }
     }
 }

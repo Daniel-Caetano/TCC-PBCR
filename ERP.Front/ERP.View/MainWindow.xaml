@@ -198,7 +198,7 @@
                         
                         <MenuItem Header="Excluir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                     </MenuItem>
-                    
+
                     <MenuItem Header="_Relatários"></MenuItem>
 
                     <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" >

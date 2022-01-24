@@ -22,5 +22,26 @@ namespace ERP.Servico.Servicos.Servico
 
             return listaRecibos;
         }
+        public Recibo BuscaRecibo(string cnpj)
+        {
+            var repo = new RepositorioRecibo(_stringConexao);
+            var recibo = repo.BuscaRecibo(cnpj);
+            return recibo;
+        }
+
+        //public List<Recibo> BuscaReciboCpf(string cpf)
+        //{
+        //    var repo = new RepositorioRecibo(_stringConexao);
+        //    var recibo = repo.BuscaReciboCpf(cpf);
+        //    return recibo;
+
+        //}
+
+        //public List<Recibo> BuscaReciboCnpj(string cnpj)
+        //{
+        //    var repo = new RepositorioRecibo(_stringConexao);
+        //    var recibo = repo.BuscaReciboCnpj(cnpj);
+        //    return recibo;
+        //}
     }
 }
