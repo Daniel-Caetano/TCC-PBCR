@@ -167,6 +167,13 @@ namespace ERP.View
             ClienteList ListCliente = new ClienteList();
              ListCliente.Show();
         }
+
+        private void getReciboPorCpf(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+  
     }
 
 }
