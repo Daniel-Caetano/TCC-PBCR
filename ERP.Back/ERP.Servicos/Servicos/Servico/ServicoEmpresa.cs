@@ -32,10 +32,12 @@ namespace ERP.Servico.Servicos.Servico
             return listEmpresa;
         }
 
-        public void Adicionar(string razao, string cnpj)
+        public void Adicionar(string razao, string cnpj,
+            string NumeroEndereco, string Complemento, string CEP
+            , string Logradouro, string Bairro, string Localidade, string UF)
         {
             var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Adicionar(razao,cnpj);
+            repositorio.Adicionar(razao,cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
            // return listEmpresa;
         }
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
@@ -43,11 +45,49 @@ namespace ERP.Servico.Servicos.Servico
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
 
+            //estrutura para não sobrescrever os dados antigos com null
+            var dadosAntigos = BuscaCnpj(cnpjAtual);
+            if (novaRazao == null)
+            {
+                novaRazao = dadosAntigos[0].Razao;
+            }
+            if (novoCnpj == null)
+            {
+                novoCnpj = dadosAntigos[0].CNPJ;
+            }
+            if (NumeroEndereco == null)
+            {
+                NumeroEndereco = dadosAntigos[0].NumeroEndereco;
+            }
+            if (Complemento == null)
+            {
+                Complemento = dadosAntigos[0].Complemento;
+            }
+            if (CEP == null)
+            {
+                CEP = dadosAntigos[0].CEP;
+            }
+            if (Logradouro == null)
+            {
+                Logradouro = dadosAntigos[0].Logradouro;
+            }
+            if (Bairro == null)
+            {
+                Bairro = dadosAntigos[0].Bairro;
+            }
+            if (Localidade == null)
+            {
+                Localidade = dadosAntigos[0].Localidade;
+            }
+            if (UF == null)
+            {
+                UF = dadosAntigos[0].UF;
+            }
+
             var repositorio = new RepositorioEmpresa(_stringConexao);
             repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj,
                 NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
                 Localidade, UF);
-            // return listEmpresa;
         }
 
         public void Deletar(string cnpj)
