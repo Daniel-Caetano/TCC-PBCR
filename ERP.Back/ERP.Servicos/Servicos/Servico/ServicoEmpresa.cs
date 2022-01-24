@@ -38,7 +38,7 @@ namespace ERP.Servico.Servicos.Servico
         {
             var repositorio = new RepositorioEmpresa(_stringConexao);
             repositorio.Adicionar(razao,cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
-           // return listEmpresa;
+          
         }
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
             string NumeroEndereco, string Complemento, string CEP
