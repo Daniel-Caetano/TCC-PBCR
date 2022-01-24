@@ -12,7 +12,7 @@ namespace ERP.ViewApi.Servicos.Interface
 
 
         [Get("/Recibo/Numero/{id}/json")]
-        Task<IList<ReciboBuscaResponse>> GetAsyncID(int id);
+        Task<IList<ReciboResponse>> GetAsync(int id);
     }
 }
 

@@ -24,15 +24,9 @@ namespace ERP.ViewApi.Servicos.Servico
             return await _customerService.GetAsync();
         }
 
-        public async Task<IList<ReciboBuscaResponse>> GetAsyncID(int id)
+        public async Task<IList<ReciboResponse>> GetAsync(int id)
         {
-            return await _customerService.GetAsyncID(id);
+            return await _customerService.GetAsync(id);
         }
-
-        /* public async Task<ReciboResponse> GetAsyncBuca(string cnpj)
-         {
-             return await _customerService.GetAsyncBuca(cnpj);
-             throw new NotImplementedException();
-         }*/
     }
 }

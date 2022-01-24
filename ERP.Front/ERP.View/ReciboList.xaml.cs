@@ -33,7 +33,9 @@ namespace ERP.View
 
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
 
-        List<Recibo> listaRecibos = new List<Recibo>();
+        //List<Recibo> listaRecibos = new List<Recibo>();
+
+        ReciboService serviceReciboID = new ReciboService();
         ReciboService serviceRecibo = new ReciboService();
 
 
@@ -59,16 +61,23 @@ namespace ERP.View
                     // MessageBox.Show(elemento.Numero.ToString());
                 }
                 dataGridRecibo.ItemsSource = recibos;
-               
 
             }
 
         }
 
-        private void BuscarRecibo(object sender, RoutedEventArgs e)
+        public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
-            string search = txtSearch.Text;
-            MessageBox.Show(search);
+            int search = int.Parse(txtSearch.Text);
+            CarregaID(search);
+        }
+        public async Task CarregaID(int id)
+        {
+            {
+                var recibos = await serviceReciboID.GetAsync(id);
+                dataGridRecibo.ItemsSource = recibos;
+            }
+
         }
     }
 }

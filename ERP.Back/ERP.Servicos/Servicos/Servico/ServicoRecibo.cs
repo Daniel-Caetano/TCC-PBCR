@@ -29,7 +29,7 @@ namespace ERP.Servico.Servicos.Servico
             return recibo;
         }
 
-        public Recibo BuscaReciboCompleto(int id)
+        public List<Recibo> BuscaReciboCompleto(int id)
         {
             var repo = new RepositorioRecibo(_stringConexao);
             var recibo = repo.BuscaReciboCompleto(id);
