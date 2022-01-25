@@ -37,9 +37,6 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-            int id = 21;
-
-            await serviceRecibo.DeleteAsync(id);
             var recibos = await serviceRecibo.GetAsyncAll();
             foreach (var elemento in recibos)
             {
