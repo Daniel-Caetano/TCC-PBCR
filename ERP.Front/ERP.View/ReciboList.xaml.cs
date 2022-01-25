@@ -20,6 +20,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 
 
@@ -33,9 +34,9 @@ namespace ERP.View
 
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
-
         ReciboService serviceRecibo = new ReciboService();
-        ReciboService serviceReciboID = new ReciboService();
+       
+
 
         public ReciboList()
         {
@@ -47,39 +48,63 @@ namespace ERP.View
         {
 
 
-#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
         public async Task CarregarGrid()
         {
+
+
+       
+
             var recibos = await serviceRecibo.GetAsyncAll();
             foreach (var elemento in recibos)
             {
                 // MessageBox.Show(elemento.Numero.ToString());
             }
 
+
             dataGridRecibo.ItemsSource = recibos;
         }
 
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
-            int search = int.Parse(txtSearch.Text);
-            if (search > 0)
-                CarregaID(search);
+            if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
+            {
+                if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
+                {                    
+                     string search =txtSearch.Text.ToString();
+                    CarregaDadosRecibo(search);
+                }
+                else if (txtSearch.Text != "" && txtSearch.Text.Length == 14)
+                {
+                    string search = txtSearch.Text.ToString();
+                    CarregaDadosRecibo(search);
+
+                }
+            }
+            else if (Regex.IsMatch(txtSearch.Text, @"^[a-z A-Z]+$"))
+            {
+                MessageBox.Show("Digitou string");
+
+            }
             else
-                throw new Exception("Valor digitado inválido");
+
+                CarregarGrid();
         }
 
-        public async Task CarregaID(int id)
+
+        public async Task CarregaDadosRecibo(string Dados)
         {
-                var recibos = await serviceReciboID.GetAsyncID(id);
 
-                dataGridRecibo.ItemsSource = recibos;
+            var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
+            dataGridRecibo.ItemsSource = recibos;
+          
         }
 
-
+   
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
             /*
@@ -135,13 +160,13 @@ namespace ERP.View
          */
         }
 
+
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
             recibo.Show();
             MessageBox.Show("Clicou Botão");
         }
-
 
         private void Visualizar(object sender, RoutedEventArgs e)
         {
@@ -175,10 +200,10 @@ namespace ERP.View
 
 
                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
-                                             ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
-                                             cpF_CNPJPagador, _Valor, ValorExtenso,
-                                             Observacao, CidadeRecebedor, UFRecebedor); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
+                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,       
+                                              ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
+                                              cpF_CNPJPagador, _Valor, ValorExtenso,
+                                              Observacao, CidadeRecebedor, UFRecebedor); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
 
 
@@ -193,7 +218,6 @@ namespace ERP.View
 
 
         }
-
 
         private void Editar(object sender, RoutedEventArgs e)
         {
@@ -212,7 +236,6 @@ namespace ERP.View
 
         }
 
-
         private void Deletar(object sender, RoutedEventArgs e)
         {
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
@@ -226,6 +249,16 @@ namespace ERP.View
             }
 
         }
+
+        private void LiberarBotao(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch.Text != "")
+            {
+                btnSearch.IsEnabled = true;
+
+            }
+        }
+
 
     }
 }
