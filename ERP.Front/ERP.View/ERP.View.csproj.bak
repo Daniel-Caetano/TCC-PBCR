@@ -69,12 +69,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
+    <Compile Include="TestDados.cs" />
+=======
     <Compile Include="Imprimir.xaml.cs">
       <DependentUpon>Imprimir.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReciboList.xaml.cs">
       <DependentUpon>ReciboList.xaml</DependentUpon>
     </Compile>
+>>>>>>> a8e13f6088e017527277c0e2f7f2400819a518d2
     <Page Include="ClienteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,13 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
     <Page Include="Imprimir.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-=======
->>>>>>> 348163f1f835f215af1eee4316f69abbcdeeb373
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

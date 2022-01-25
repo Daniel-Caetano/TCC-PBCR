@@ -15,13 +15,14 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         
-        Title="ClienteList" Height="450" Width="800">
+        Title="ClienteList" Height="712" Width="800">
     <Grid>
-       
         
         <StackPanel>
             <StackPanel DockPanel.Dock="Left" Width="81" Height="Auto" RenderTransformOrigin="0.5,0.5">
+                
                 <StackPanel.RenderTransform>
+                    
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform AngleY="-1.586"/>
@@ -31,9 +32,9 @@
                 </StackPanel.RenderTransform>
 
             </StackPanel>
-            <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1632" >
+            <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1632" Height="586" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="185*"/>
+                    <ColumnDefinition Width="185*"  />
                     <ColumnDefinition Width="53*"/>
                     <ColumnDefinition Width="131*"/>
                     <ColumnDefinition Width="50*"/>
@@ -46,7 +47,9 @@
                           AlternatingRowBackground="LightBlue"
                           AlternationCount="2" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="98,0,0,0">
                     <DataGrid.Columns>
+                        
                         <DataGridTemplateColumn>
+                            
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -68,12 +71,10 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}" FontSize="16"/>
                         <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"  FontSize="16"/>
-                        <DataGridTextColumn Header="CPF/CNPJ" Binding="{Binding CPP}"  FontSize="16" />
-
-                        <DataGridTextColumn Header="CEP" Binding="{Binding CEP}"  FontSize="16"/>
+                        <DataGridTextColumn Header="CPF/CNPJ" Binding="{Binding Cpf}"  FontSize="16" />
+                        <DataGridTextColumn Header="CEP" Binding="{Binding Cep}"  FontSize="16"/>
                         <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}" FontSize="16"/>
                         <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" FontSize="16"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -89,10 +90,13 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                       
                     </DataGrid.Columns>
+                   
+                   
                 </DataGrid>
             </Grid>
         </StackPanel>
-
+       
     </Grid>
 </Window>
