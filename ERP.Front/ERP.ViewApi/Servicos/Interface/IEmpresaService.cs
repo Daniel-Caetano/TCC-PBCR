@@ -19,7 +19,7 @@ namespace ERP.ViewApi.Servicos.Interface
         Task<IList<EmpresaResponse>> InsertAsync(string razao, string cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF);
 
 
-        [Put("/Empresa/Atualizar/cnpjatual/json")]
+        [Put("/Atualizar/{cnpjAtual}/json")]
         Task<IList<EmpresaResponse>> UpdateAsync(string cnpjAtual, string novaRazao, string novoCnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF);

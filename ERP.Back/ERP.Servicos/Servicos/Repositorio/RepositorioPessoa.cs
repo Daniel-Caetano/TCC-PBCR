@@ -11,6 +11,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         private readonly string _stringConexao;
         //UTILIZAR ORM (ENTITY)
+
+        //Construtor sempre preca da string de conexão do banco de dados
         public RepositorioPessoa(string stringConexao)
         {
             _stringConexao = stringConexao;
@@ -130,7 +132,7 @@ namespace ERP.Servico.Servicos.Repositorio
            string NumeroEndereco, string Complemento, string CEP
            , string Logradouro, string Bairro, string Localidade, string UF)
         {
-            //pegando os Os valores maximo dos ids de CODIGOS POSTAIS E ENDERECOS, para saber qual valor das chaves estrangeiras
+            //obtendo os Os valores maximo dos ids de CODIGOS POSTAIS E ENDERECOS, para saber qual valor das chaves estrangeiras
             string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
             string maxEND = "SELECT MAX(ENDE_ID_PK) FROM ENDERECOS";
 
