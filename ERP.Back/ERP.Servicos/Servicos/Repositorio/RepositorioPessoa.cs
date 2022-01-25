@@ -15,12 +15,13 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             _stringConexao = stringConexao;
         }
-
+        //variavel select que guarda um comando SQL comum entre as funções
         private readonly string select = "SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
                             ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
                             "FROM PESSOAS pe " +
                             "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
                             "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ";
+
         //Função para receber valores da tabela do BD, criada para não precisar repetir o codigo várias vezes
         public List<Pessoa> RecebeTabela(SqlDataReader reader)
         {
@@ -77,8 +78,9 @@ namespace ERP.Servico.Servicos.Repositorio
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
 
             var pessoas = new List<Pessoa>();
+
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PESS_CPF = @cpf");
+                .AppendLine(select + "WHERE PESS_CPF = @cpf");//o comando padrao select será concatenado com a string
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -253,11 +255,58 @@ namespace ERP.Servico.Servicos.Repositorio
                 var reader = command.ExecuteNonQuery();
             }
         }
+        public bool DeletarPessoa(Pessoa pessoaDeletada)
+        {
+            var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS " +
+                                                     "WHERE PESS_CPF = @cpf ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@cpf", pessoaDeletada.CPF);
+                var reader = command.ExecuteNonQuery();
+            }
+            return true;
+        }
+
+        public bool DeletarEndereco(Pessoa pessoaDeletada)
+        {
+            var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
+                                                 "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_Endereco", pessoaDeletada.ID_Endereco);
+
+                var reader = command.ExecuteNonQuery();
+            }
+            return true;
+        }
+
+        public bool DeletarCodigoPostal(Pessoa pessoaDeletada)
+        {
+            var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
+                                                 "WHERE CODI_ID_PK = @ID_CEP");
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
+
+                var reader = command.ExecuteNonQuery();
+            }
+            return true;
+        }
+        //65990298170/ID 10
         public void Deletar(string cpf)
         {
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
             var pessoaDeletada = new Pessoa();
-
-            var sql = new StringBuilder().AppendLine("SELECT PESS_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
+            //SQL para pegar o ENDERECO e CODIGO_POSTAL em comum com CPF
+            var sql = new StringBuilder().AppendLine("SELECT PESS_CPF ,PESS_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
                                                      "FROM PESSOAS " +
                                                      "INNER JOIN ENDERECOS " +
                                                      "ON ENDE_CODI_ID_FK = PESS_ENDE_ID_FK " +
@@ -272,53 +321,23 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
                 var reader = command.ExecuteReader();
 
+                //Salvando as informações para deletar as tabelas certas
                 while (reader.Read())
                 {
-
-                    var pessoal = new Pessoa
+                    var pessoa = new Pessoa
                     {
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_CODI_ID_FK")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
+                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_CODI_ID_FK")),//ID do endereco que será deletado
+                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),//ID do CEP que será deletado
+                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"))//CPF da Pessoa que será deletada
                     };
-                    pessoaDeletada = pessoal;
+                    pessoaDeletada = pessoa;
                 }
             }
 
-            sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS " +
-                                                 "WHERE PESS_CPF = @cpf");
-
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.AddWithValue("@cpf", cpf);
-                var reader = command.ExecuteNonQuery();
-            }
-
-            sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
-                                                 "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
-
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_Endereco", pessoaDeletada.ID_Endereco);
-
-                var reader = command.ExecuteNonQuery();
-            }
-
-            sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
-                                                 "WHERE CODI_ID_PK = @ID_CEP");
-
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
-
-                var reader = command.ExecuteNonQuery();
-            }
-
+            //Estrutura para deletar em cascata manualmente
+            repositorioPessoa.DeletarPessoa(pessoaDeletada); 
+            repositorioPessoa.DeletarEndereco(pessoaDeletada);
+            repositorioPessoa.DeletarCodigoPostal(pessoaDeletada);
         }
     }
 }
