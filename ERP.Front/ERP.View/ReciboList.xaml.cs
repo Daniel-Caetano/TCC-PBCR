@@ -38,7 +38,6 @@ namespace ERP.View
 
         ReciboService serviceReciboID = new ReciboService();
 
-
         public ReciboList()
         {
             InitializeComponent();
@@ -54,23 +53,20 @@ namespace ERP.View
         public async Task CarregarGrid()
         {
             {
-
                 var recibos = await serviceRecibo.GetAsync();
                 foreach (var elemento in recibos)
                 {
                     // MessageBox.Show(elemento.Numero.ToString());
                 }
                 dataGridRecibo.ItemsSource = recibos;
-
-
             }
 
         }
 
-
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
             int search = int.Parse(txtSearch.Text);
+            
             //MessageBox.Show(search.ToString());
             CarregaID(search);
         }
@@ -85,7 +81,6 @@ namespace ERP.View
             }
 
         }
-
 
         private void GerarPdf(object sender, RoutedEventArgs e)
         {

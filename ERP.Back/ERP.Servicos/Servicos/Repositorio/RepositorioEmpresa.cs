@@ -17,7 +17,7 @@ namespace ERP.Servico.Servicos.Repositorio
         }
         public List<Empresa> BuscaCnpj(string cnpj)
         {
-            var empresa = new List<Empresa>();
+            var empresas = new List<Empresa>();
             var sql = new StringBuilder()
                 .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
                             "FROM EMPRESAS es " +
@@ -34,7 +34,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 while (reader.Read())
                 {
-                    var empresal = new Empresa
+                    var empresa = new Empresa
                     {
                         ID_Empresa = reader.GetInt32(reader.GetOrdinal("EMPR_ID_PK")),
                         ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_ID_PK")),
@@ -50,10 +50,10 @@ namespace ERP.Servico.Servicos.Repositorio
                         UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
                     };
 
-                    empresa.Add(empresal);
+                    empresas.Add(empresa);
                 }
             }
-            return empresa;
+            return empresas;
         }
 
         public void Adicionar(string razao, string cnpj,
