@@ -23,13 +23,14 @@ namespace ERP.View
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
-                
+
 
         private void addCliente(object sender, RoutedEventArgs e)
         {
@@ -47,6 +48,14 @@ namespace ERP.View
         private void ListarRecibo(object sender, RoutedEventArgs e)
         {
             Main.Content = new ReciboList();
+
+        }
+
+        private void CadastrarRecibo(object sender, RoutedEventArgs e)
+        {
+            ReciboJanela.MainWindow cadastroRecibo = new ReciboJanela.MainWindow();
+            cadastroRecibo.Show();          
+
         }
 
     

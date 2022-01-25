@@ -1,0 +1,79 @@
+﻿<Window x:Class="ERP.View.Imprimi"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERP.View"
+        mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"      
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Title="imprimir Recibo" Height="500" Width="800" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <Button x:Name="butImp" 
+                        Content="Imprmir Recibo"                     
+                        Width="140" 
+                        Margin="0 10 5 0"
+                        Cursor="Hand" HorizontalAlignment="Right"                       
+                    />
+
+            </StackPanel >
+
+            <StackPanel DockPanel.Dock="Top" Width="Auto" Height="300">
+                <TextBlock FontSize="30"  
+                        Text="Layout de Impressão" 
+                        Height="36"
+                        HorizontalAlignment="Center" />
+
+                <TextBlock FontSize="30" 
+                       FontWeight="Bold" 
+                       Text="Recibo" Height="33" 
+                       HorizontalAlignment="Center"/>
+                <TextBlock  FontSize="16" Text=""/>
+
+                <!--RECEBENDO DADOS DO FORMULÁRIO -->
+
+
+
+                <TextBlock x:Name="iNomeRecebedor" HorizontalAlignment="Center" FontSize="18" />
+                <TextBlock>(</TextBlock>
+                    <TextBlock x:Name="iCPF_CNPJRecebedor"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
+                    <TextBlock>),</TextBlock>
+                    <TextBlock Text="Localizado em"/>
+                    <TextBlock x:Name="iLogradouroRecebedor"    HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iNumeroEnderecoRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iComplementoRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iCEPRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iCidadeRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iBairroRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+
+                    <TextBlock Text="o valor R$ devodos fins que recibi de" />
+
+                    <TextBlock x:Name="icpF_CNPJPagador"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iValor"            HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iValorExtenso"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iObservacao"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="VaUFRecebedorlor"  HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="iFRecebedor"  HorizontalAlignment="Center" FontSize="18"/>
+            </StackPanel>
+
+
+            <StackPanel DockPanel.Dock="Bottom">
+                <Button x:Name="gerarPdf"
+                    Content="Gerar PDF"
+                    DockPanel.Dock="Bottom"
+                    Width="140" Margin="0 10 5 0" 
+                    Cursor="Hand" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
