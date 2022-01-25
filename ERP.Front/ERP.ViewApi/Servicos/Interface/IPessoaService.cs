@@ -27,7 +27,6 @@ namespace ERP.ViewApi.Servicos.Interface
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF);
 
-
         [Delete("/Pessoa/Deletar/cpf/json")]
         Task DeleteAsync(string cpf);
     }
