@@ -21,6 +21,7 @@ namespace ERP.Servicos
         "RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
         "FROM RECIBOS RE ";
 
+        // Recebe os dados do Banco de Dados
         private List<Recibo> Tabela(SqlDataReader reader)
         {
             var recibos = new List<Recibo>();
