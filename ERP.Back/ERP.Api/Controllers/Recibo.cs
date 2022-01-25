@@ -87,5 +87,23 @@ namespace ERP.Api.Controllers
             servico.Deletar(id);
             return Ok(servico);
         }
+
+        [HttpPut]
+        [Route("Atualizar/{id}/json")]
+        public IActionResult Atualizar(int id, string Tipo, decimal Valor, string ValorExtenso,
+                              string Observacao, string NomeRecebedor, string CPF_CNPJRecebedor,
+                              string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                              string ComplementoRecebedor, string CEPRecebedor,
+                              string BairroRecebedor, string CidadeRecebedor,
+                              string UFRecebedor, string NomePagador, string CPF_CNPJPagador)
+        {
+
+            var repo = new ServicoRecibo(_connectionString);
+            repo.Atualizar(id, Tipo, Valor, ValorExtenso, Observacao, NomeRecebedor,
+                           CPF_CNPJRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor,
+                           CEPRecebedor, BairroRecebedor, CidadeRecebedor, UFRecebedor, NomePagador, CPF_CNPJPagador);
+
+            return Ok(repo);
+        }
     }
 }

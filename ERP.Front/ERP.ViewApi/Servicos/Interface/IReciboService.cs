@@ -33,12 +33,15 @@ namespace ERP.ViewApi.Servicos.Interface
 
         [Delete("/Recibo/Delete/id/json")]
         Task DeleteAsync(int id);
+
+
+        [Put("/Recibo/Atualizar/{id}/json")]
+        Task<IList<ReciboResponse>> UpdateAsync(int id, string Tipo, decimal Valor, string ValorExtenso,
+                                                 string Observacao, string NomeRecebedor, string CPF_CNPJRecebedor,
+                                                 string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                                                 string ComplementoRecebedor, string CEPRecebedor,
+                                                 string BairroRecebedor, string CidadeRecebedor,
+                                                 string UFRecebedor, string NomePagador, string CPF_CNPJPagador);
+
     }
 }
-
-//Recibo/Numero/{id}/json
-//[Get("/Recibo/Lista/json")]
-//Task<IList<ReciboResponse>> GetAsync();
-
-/*[Get("/Recibo/{cnpj}/json")]
-Task<ReciboResponse> GetAsyncBuca(string cnpj);*/
