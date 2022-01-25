@@ -35,7 +35,6 @@ namespace ERP.View
         List<Recibo> listaRecibos = new List<Recibo>();
 
         ReciboService serviceRecibo = new ReciboService();
-        ReciboService serviceReciboID = new ReciboService();
 
         public ReciboList()
         {
@@ -74,7 +73,7 @@ namespace ERP.View
 
         public async Task CarregaID(int id)
         {
-                var recibos = await serviceReciboID.GetAsyncID(id);
+                var recibos = await serviceRecibo.GetAsyncID(id);
 
                 dataGridRecibo.ItemsSource = recibos;
         }
