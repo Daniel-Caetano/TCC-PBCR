@@ -142,43 +142,26 @@ namespace ERP.Servico.Servicos.Repositorio
             string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
             string maxEND = "SELECT MAX(ENDE_ID_PK) FROM ENDERECOS";
 
-            // cria variável do tipo inteiro
             int ID_CEP = 0;
             int ID_END = 0;
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open(); // abre conexão
 
-                // cria objeto do tipo SqlCommand
-                using (var command = new SqlCommand(maxCP, conn))
-                {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
-                    ID_CEP = (int)command.ExecuteScalar() + 1;
-
-                }
-                using (var command = new SqlCommand(maxEND, conn))
-                {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
-                    ID_END = (int)command.ExecuteScalar() + 1;
-                }
-                conn.Close(); // fecha a conexao
-            }
-            //FIM 
-
+            //Criando 3 variaveis para guardar o comando SQL que será enviado para o BD, uma para cada tabela que será adicionada
             var sqlCEP = new StringBuilder()
                 .AppendLine("INSERT INTO CODIGOS_POSTAIS(CODI_CEP,CODI_LOG,CODI_BAI, CODI_LOC, CODI_UF ) " +
                             "VALUES(@CEP, @Logradouro, @Bairro, @Localidade, @UF)");
 
             var sqlEnderecos = new StringBuilder()
                 .AppendLine("INSERT INTO ENDERECOS(ENDE_NUM, ENDE_COM, ENDE_CODI_ID_FK) " +
-                            "VALUES(@NumeroEndereco, @Complemento, @ID_CEP)");
+                            "VALUES(@NumeroEndereco, @Complemento, @ID_CEP)");//ID_CEP foi encontrado na estrutura do MAX
 
             var sqlEmpresa = new StringBuilder()
                 .AppendLine("INSERT INTO PESSOAS " +
                             "(PESS_NOM,PESS_CPF,PESS_ENDE_ID_FK) " +
-                            "VALUES(@nome,@cpf,@ID_end); ");
+                            "VALUES(@nome,@cpf,@ID_end); ");//ID_END foi encontrado na estrutura do MAX
+            //FIM variaveis SQL
 
-
+            //Estrutura para conectar os parametros '@' do comando sql com variáveis do sistema
+            //Crianda a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
@@ -190,41 +173,48 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.AddWithValue("@UF", UF);
                 var reader = command.ExecuteNonQuery();
             }
+
+            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
             using (var conn = new SqlConnection(_stringConexao))
             {
-                conn.Open(); // abre conexão
+                conn.Open(); // abre conexão com BD
 
-                // cria objeto do tipo SqlCommand
+                // maxCP tem o comando SQL para encontrar o valor maximo de ID
                 using (var command = new SqlCommand(maxCP, conn))
                 {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    // ID_CEP guarda o ID que será chave estrangeiro em ENDERECOS(@ID_CEP
                     ID_CEP = (int)command.ExecuteScalar();
 
                 }
                 conn.Close(); // fecha a conexao
             }
+
+            //Crianda a Tabela ENDERECOS que é chave estrangeira em PESSOA
             using (var conn = new SqlConnection(_stringConexao))
             {
+                //estutura de conexao e relação dos atributos da string sql criada acima
                 conn.Open();
                 var command = new SqlCommand(sqlEnderecos.ToString(), conn);
                 command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
                 command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
                 command.Parameters.AddWithValue("@Complemento", Complemento);
-                var reader = command.ExecuteNonQuery();
+                var reader = command.ExecuteNonQuery();//ExecuteNonQuery para enviar dados para o BD
             }
 
+            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de ENDERECOS para colocar como chave estrangeira em PESSOAS
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open(); // abre conexão
 
-                // cria objeto do tipo SqlCommand
+                // maxEND tem o comando SQL para encontrar o valor maximo de ID
                 using (var command = new SqlCommand(maxEND, conn))
                 {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
-                    ID_END = (int)command.ExecuteScalar();
+                    ID_END = (int)command.ExecuteScalar(); //comando ExecuteScalar para ler o comando max
                 }
                 conn.Close(); // fecha a conexao
             }
+
+            //Crianda a tabela Pessoa com chave estrangeira de ENDERECO
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
