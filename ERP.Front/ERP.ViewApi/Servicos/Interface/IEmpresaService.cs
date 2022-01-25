@@ -8,6 +8,9 @@ namespace ERP.ViewApi.Servicos.Interface
     public interface IEmpresaService
     {
 
+        [Get("/Empresa/Lista/json")]
+        Task<IList<EmpresaResponse>> GetAllAsync();
+
         [Get("/Empresa/CNPJ/{cnpj}/json")]
         Task<IList<EmpresaResponse>> GetAsync(string cnpj);
 

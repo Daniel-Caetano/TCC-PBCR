@@ -16,7 +16,10 @@ namespace ERP.ViewApi.Servicos.Servico
             _apiUrl = "http://localhost:50663";
             _customerService = RestService.For<IEmpresaService>(_apiUrl);
         }
-
+        public async Task<IList<EmpresaResponse>> GetAllAsync()
+        {
+            return await _customerService.GetAllAsync();
+        }
         public async Task<IList<EmpresaResponse>> GetAsync(string cnpj)
         {
             return await _customerService.GetAsync(cnpj);

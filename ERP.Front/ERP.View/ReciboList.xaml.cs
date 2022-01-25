@@ -79,7 +79,6 @@ namespace ERP.View
 
         public async Task CarregaDadosRecibo(string Dados)
         {
-
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
 
