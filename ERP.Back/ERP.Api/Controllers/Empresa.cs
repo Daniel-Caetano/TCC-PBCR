@@ -19,7 +19,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpPost]
-        [Route("Adicionar/{razao},{cnpj}/json")]
+        [Route("Adicionar/json")]
         public IActionResult Adicionar(string razao, string cnpj,string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
             
@@ -30,7 +30,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpPut]
-        [Route("Atualizar/cnpjatual,novarazao,novocnpj/json")]
+        [Route("Atualizar/cnpjatual/json")]
         public IActionResult Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)

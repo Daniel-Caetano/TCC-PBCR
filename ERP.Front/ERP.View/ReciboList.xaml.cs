@@ -55,17 +55,13 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-            {
-
                 var recibos = await serviceRecibo.GetAsync();
                 foreach (var elemento in recibos)
                 {
                     // MessageBox.Show(elemento.Numero.ToString());
                 }
+
                 dataGridRecibo.ItemsSource = recibos;
-
-            }
-
         }
 
         public void BuscarRecibo(object sender, RoutedEventArgs e)
