@@ -105,24 +105,35 @@
                         Click="BuscarRecibo"
                         IsEnabled="False"
                         >Pesquisar</Button>
-
             </StackPanel>
+          
+
         </Grid>
+        <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="250 40  50 30" >
+            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="True">
+                Receber
+            </CheckBox>
+        </StackPanel>
 
+        <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="0 40  50 30" >
+            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="True">
+                Pagar
+            </CheckBox>
+        </StackPanel>
         <StackPanel Grid.Row="1"  Height="800" VerticalAlignment="Top" Margin="0,0,338,0">
-        
-            <!--LISTA DE DADOS-->
-            <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1920" >
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="185*"/>
-                    <ColumnDefinition Width="53*"/>
-                    <ColumnDefinition Width="131*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="380*"/>
-                </Grid.ColumnDefinitions>
+                <!--LISTA DE DADOS-->
+                <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1920" >
 
-                <DataGrid x:Name="dataGridRecibo"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="185*"/>
+                        <ColumnDefinition Width="53*"/>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="380*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dataGridRecibo"
                               AutoGenerateColumns="False"
                               IsReadOnly="true"
                               AlternatingRowBackground="LightBlue"
@@ -130,56 +141,56 @@
                               Grid.ColumnSpan="5" 
                               HorizontalAlignment="Left" 
                               VerticalAlignment="Top" Margin="98,0,0,0">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ToggleButton
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ToggleButton
                                                     Style="{StaticResource  MaterialDesignActionAccentToggleButton}"                                                 
                                                     Content="{materialDesign:PackIcon Kind=filePdfBox,Size=30}"
                                                     ToolTip="Gerar Pdf"
                                                     Margin="0 0 10 0"
                                                           />
 
-                                        <ToggleButton 
+                                            <ToggleButton 
                                                     Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                    
                                                     Content="{materialDesign:PackIcon Kind= SquareEditOutline,Size=30}"
                                                     ToolTip="Editar"
                                                     Click="Editar"                                                          
                                             />
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                             <DataGridTextColumn Header="Numero" Binding="{Binding NumeroRecibo}" FontSize="16"/>
-                             <DataGridTextColumn Header="Pagador" Binding="{Binding NomePagador}" FontSize="16"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Numero" Binding="{Binding NumeroRecibo}" FontSize="16"/>
+                            <DataGridTextColumn Header="Pagador" Binding="{Binding NomePagador}" FontSize="16"/>
                             <DataGridTextColumn Header="Valor" Binding="{Binding Valor,ConverterCulture='pt-BR',StringFormat=C}"  FontSize="16" />
                             <DataGridTextColumn Header="Recebor" Binding="{Binding NomeRecebedor}" FontSize="16"/>
-                            <DataGridTextColumn Header="CPF Recebedor" Binding="{Binding cpF_CNPJRecebedor}" FontSize="16"/>                       
+                            <DataGridTextColumn Header="CPF Recebedor" Binding="{Binding CPF_CNPJRecebedor}" FontSize="16"/>
                             <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
                             <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>
-                        <DataGridTemplateColumn Header="Ações">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
+                            <DataGridTemplateColumn Header="Ações">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                     Content="{materialDesign:PackIcon Kind= Eye}"
                                                     ToolTip="Visualizar" 
                                                     Margin="0 0 10 0"
                                                     Click="Visualizar" />
-                                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
+                                            <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                         Content="{materialDesign:PackIcon Kind=Delete}"                                                    
                                                         ToolTip="Deletar"
                                                         Click="Deletar"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </StackPanel>
     </Grid>
 </Page>

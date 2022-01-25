@@ -68,7 +68,7 @@
                     <!-- Logo da Empresa  -->
                     <StackPanel Grid.Column="1" Margin="12 11 5 5">
                         <TextBlock FontSize="32" 
-                                   Text="Finance"
+                                   Text="Financial"
                                    FontWeight="Normal"
                                    Foreground="AntiqueWhite"/>
                     </StackPanel>
@@ -186,7 +186,7 @@
 
                     <MenuItem x:Name="cliente" Header="_Clientes" Height="40" >
                         <MenuItem Header="Castastrar" Padding="0"  Width="130" Height="20" Margin="10 0 0 5" Click="addCliente"/>
-                        <MenuItem Header="Consultar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
+                        <MenuItem Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
                     </MenuItem>
 
 

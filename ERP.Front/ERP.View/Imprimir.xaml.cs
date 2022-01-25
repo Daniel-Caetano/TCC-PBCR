@@ -46,22 +46,29 @@ namespace ERP.View
             iObservacao.Text = Observacao;
             iCidadeRecebedor.Text = CidadeRecebedor;
             iFRecebedor.Text = UFRecebedor;
-
-
+            // NOME E CPF/CNPF que seão plotados no recibo
+            iiNomeRecebedor.Text = NomeRecebedor;
+            iiCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
+            iiNomePagador.Text = NomePagador;
+            iicpF_CNPJPagador.Text = cpF_CNPJPagador;
 
         }
-  
+                  
         private void GerarReciboPDF(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicou");
             //RECEDOR
+
+
             string NomeRecebedor = iNomeRecebedor.Text;
-            string LogradouroRecebedor = iLogradouroRecebedor.Text;
-            string NumeroEnderecoRecebedor = iNumeroEnderecoRecebedor.Text;
+            string CPF_CNPJRecebedor = iCPF_CNPJRecebedor.Text;
             string ComplementoRecebedor = iComplementoRecebedor.Text;
             string CEPRecebedor = iCEPRecebedor.Text;
+            string CidadeRecebedor = iCidadeRecebedor.Text;   
+            string FRecebedor = iFRecebedor.Text;
+            string LogradouroRecebedor = iLogradouroRecebedor.Text;
+            string NumeroEnderecoRecebedor = iNumeroEnderecoRecebedor.Text;
             string BairroRecebedor = iBairroRecebedor.Text;
-            string CPF_CNPJRecebedor = iCPF_CNPJRecebedor.Text;
 
             //PAGADOR
             string NomePagador = iNomePagador.Text;
@@ -69,11 +76,12 @@ namespace ERP.View
             string Valor = iValor.Text;
             string ValorExtenso = iValorExtenso.Text;
             string Observacao = iObservacao.Text;
-            string CidadeRecebedor = iCidadeRecebedor.Text;
-            string FRecebedor = iFRecebedor.Text;
 
             ReciboList reciboList = new ReciboList();
-            reciboList.GerarPDF(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor, CEPRecebedor, BairroRecebedor, CPF_CNPJRecebedor, NomePagador, cpF_CNPJPagador, Valor, ValorExtenso, Observacao, CidadeRecebedor, FRecebedor);
+            reciboList.GerarPDF(NomeRecebedor, CPF_CNPJRecebedor, ComplementoRecebedor, 
+                                 CEPRecebedor, CidadeRecebedor,FRecebedor,
+                                 LogradouroRecebedor,NumeroEnderecoRecebedor,
+                                 BairroRecebedor,NomePagador,cpF_CNPJPagador,Valor,ValorExtenso,Observacao);
         }
     }
 }

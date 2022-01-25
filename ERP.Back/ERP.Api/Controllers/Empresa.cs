@@ -10,6 +10,15 @@ namespace ERP.Api.Controllers
     public class Empresa : BaseController
     {
         [HttpGet]
+        [Route("Lista/json")]
+        public IActionResult Lista()
+        {
+            var servico = new ServicoEmpresa(_connectionString);
+
+            return Ok(servico.Lista());
+        }
+
+        [HttpGet]
         [Route("CNPJ/{cnpj}/json")]
         public IActionResult BuscaCnpj(string cnpj)
         {

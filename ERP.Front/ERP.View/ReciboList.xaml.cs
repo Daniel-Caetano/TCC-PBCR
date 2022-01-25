@@ -35,8 +35,6 @@ namespace ERP.View
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
-       
-
 
         public ReciboList()
         {
@@ -48,23 +46,14 @@ namespace ERP.View
         {
 
 
-            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
         public async Task CarregarGrid()
         {
-
-
-       
-
-            var recibos = await serviceRecibo.GetAsyncAll();
-            foreach (var elemento in recibos)
-            {
-                // MessageBox.Show(elemento.Numero.ToString());
-            }
-
+            var recibos = await serviceRecibo.GetAsyncAll();  
 
             dataGridRecibo.ItemsSource = recibos;
         }
@@ -74,8 +63,8 @@ namespace ERP.View
             if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
             {
                 if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
-                {                    
-                     string search =txtSearch.Text.ToString();
+                {
+                    string search = txtSearch.Text.ToString();
                     CarregaDadosRecibo(search);
                 }
                 else if (txtSearch.Text != "" && txtSearch.Text.Length == 14)
@@ -97,68 +86,64 @@ namespace ERP.View
 
         public async Task CarregaDadosRecibo(string Dados)
         {
-
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
-          
         }
 
 
-        public void GerarPDF(string NomeRecebedor, string LogradouroRecebedor, string NumeroEnderecoRecebedor, string  ComplementoRecebedor, string CEPRecebedor, string NomePagador,string BairroRecebedor, string  CPF_CNPJRecebedor, string Valor,
-                            string  cpF_CNPJPagador, string  ValorExtenso, string Observacao, string CidadeRecebedor, string FRecebedor)
-
-        {     
+        public void GerarPDF(   string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
+                                 string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
+                                 string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                                 string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string  ValorExtenso, string Observacao)
+        {
+            if (NomePagador != ""){
             
-             
+                //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
 
-             if (NomePagador != "")
-             {
-
-                 //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-                 string nomeArquivo = @"C:\Pdf\cliente.pdf";
-                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
-                 Document document = new Document(PageSize.A4);
-                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+                string nomeArquivo = @"C:\PDF\" + NomeRecebedor + ".pdf";
+                FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
+                Document document = new Document(PageSize.A4);
+                PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
 
 
-                 document.Open();
-                 string dados = "";
+                document.Open();
+                string dados = "";
+                string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
 
-                 //GERANDO OS DADOS PARA PDF
-                 iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                 paragrafo.Add("RECIBO \n");
+                //GERANDO OS DADOS PARA PDF
+                iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));              ;
+                paragrafo.Alignment = Element.ALIGN_LEFT;           
 
-                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
-                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                 paragrafo.Add("Eu " + NomeRecebedor + CPF_CNPJRecebedor+", localizado em \n"+ LogradouroRecebedor +","+NumeroEnderecoRecebedor + ComplementoRecebedor+",\n"+ CEPRecebedor+ BairroRecebedor +
-                     ",\n declaro para os fins que recebi "+ NomePagador + cpF_CNPJPagador+" o valor de R$ " + Valor + ", " + ValorExtenso +
-                     "em virtude de "+Observacao);
+                paragrafo.Add("RECIBO \n \n");
 
-                 iTextSharp.text.Paragraph paragrafo1 = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add("infoRecibo.Cidade + infoRecibo.Estado \n");
+                paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
+                paragrafo.Alignment = Element.ALIGN_LEFT;
+                paragrafo.Add("Eu " + NomeRecebedor + "(" + CPF_CNPJRecebedor + "),  localizado em " 
+                            + LogradouroRecebedor + ", " + NumeroEnderecoRecebedor + ", " + ComplementoRecebedor + ",\n" 
+                            +  CEPRecebedor + ", " + BairroRecebedor +","+CidadeRecebedor+"-"+FRecebedor+" \n " +
+                            " declaro para os fins que recebi " + NomePagador + "(" + cpF_CNPJPagador + ") o valor de R$ " + Valor + ", " 
+                            + ValorExtenso +", em virtude de " + Observacao+".\n \n");
 
-
-                string DataAtual = DateTime.Now.ToString("dd,MM,yyyy");
-                 paragrafo1.Alignment = Element.ALIGN_CENTER;
-                 paragrafo1.Add("---------------------------------------------------------- \n");
-                 paragrafo1.Add("Goiânia-Goiás\n"+ DataAtual);
-                 paragrafo1.Add(cpF_CNPJPagador);
-                 paragrafo1.Add(CPF_CNPJRecebedor+ ", \n\n\n");
-
-             
-
-                 paragrafo.Add("---------------------------------------------------------- \n");
-                 paragrafo.Add("Goiânia-Goiàs\n"+ DataAtual);
-                 paragrafo.Add(cpF_CNPJPagador+"\n");
-                 paragrafo.Add(cpF_CNPJPagador + NomePagador + "\n\n\n");
+               
+                paragrafo.Alignment = Element.ALIGN_LEFT;
+                paragrafo.Add("Goiânia-GO, " + DataAtual+"\n \n");                 
 
 
-                 document.Add(paragrafo);
-                 document.Close();
-             }
-         
+                paragrafo.Alignment = Element.ALIGN_CENTER;
+                paragrafo.Add("_________________________________________________________\n");
+                paragrafo.Add(NomeRecebedor + "\n");
+                paragrafo.Add(CPF_CNPJRecebedor + "\n \n");           
+                
+                paragrafo.Alignment = Element.ALIGN_CENTER;
+                paragrafo.Add("_________________________________________________________\n");
+                paragrafo.Add(NomePagador + "\n");
+                paragrafo.Add(cpF_CNPJPagador+"n \n\n");
+
+
+                document.Add(paragrafo);
+                document.Close();
+            }
+
         }
 
 
@@ -200,11 +185,11 @@ namespace ERP.View
 
 
 
-                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
-                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
-                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
-                                             Observacao,  CidadeRecebedor,  UFRecebedor, CPF_CNPJRecebedor, NomePagador);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
+                Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
+                                             ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
+                                             cpF_CNPJPagador, _Valor, ValorExtenso,
+                                             Observacao, CidadeRecebedor, UFRecebedor, CPF_CNPJRecebedor, NomePagador); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 

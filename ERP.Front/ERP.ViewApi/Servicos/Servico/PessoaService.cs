@@ -20,6 +20,11 @@ namespace ERP.ViewApi.Servicos.Servico
             _customerService = RestService.For<IPessoaService>(_apiUrl);
         }
 
+        public async Task<IList<PessoaResponse>> GetAsyncAll()
+        {
+            return await _customerService.GetAsyncAll();
+        }
+
         public async Task<IList<PessoaResponse>> GetAsync(string cpf)
         {
             return await _customerService.GetAsync(cpf);
