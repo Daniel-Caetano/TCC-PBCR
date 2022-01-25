@@ -59,6 +59,20 @@ namespace ERP.ViewApi.Servicos.Servico
             await _customerService.DeleteAsync(id);
         }
 
+        public async Task<IList<ReciboResponse>> UpdateAsync(int id, string Tipo, decimal Valor, string ValorExtenso,
+                              string Observacao, string NomeRecebedor, string CPF_CNPJRecebedor,
+                              string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                              string ComplementoRecebedor, string CEPRecebedor,
+                              string BairroRecebedor, string CidadeRecebedor,
+                              string UFRecebedor, string NomePagador, string CPF_CNPJPagador)
+        {
+            return await _customerService.UpdateAsync(id, Tipo, Valor, ValorExtenso, Observacao, 
+                                                     NomeRecebedor,CPF_CNPJRecebedor, LogradouroRecebedor, 
+                                                     NumeroEnderecoRecebedor, ComplementoRecebedor,
+                                                     CEPRecebedor, BairroRecebedor, CidadeRecebedor, 
+                                                     UFRecebedor, NomePagador, CPF_CNPJPagador);
+        }
+
     }
 }
 
@@ -77,9 +91,29 @@ namespace ERP.ViewApi.Servicos.Servico
 //decimal Valor = 2000;
 //var ValorExtenso = "czxczx";
 //var Observacao = "wqeqw";
-//var CidadeRecibo = "asdsa";
-//var UFrecibo = "sa";
 
 
 //var recibosTest = await serviceRecibo.InsertAsync(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec,
-//    UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+//    UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao);
+
+//int id=1;
+//string Tipo="";
+//decimal Valor=2220000;
+//string ValorExtenso=""; 
+//string Observacao=""; 
+//string NomeRecebedor="GUILHERMEEEEEEE"; 
+//string CPF_CNPJRecebedor = ""; 
+//string LogradouroRecebedor = "";
+//string NumeroEnderecoRecebedor = "";
+//string ComplementoRecebedor = "";
+//string CEPRecebedor = "";
+//string BairroRecebedor = "";
+//string CidadeRecebedor = "";
+//string UFRecebedor = "";
+//string NomePagador = "";
+//string CPF_CNPJPagador = "";
+
+
+//var recibosTest = await serviceRecibo.UpdateAsync(id, Tipo, Valor, ValorExtenso, Observacao, NomeRecebedor,
+//                                         CPF_CNPJRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor,
+//                                         CEPRecebedor, BairroRecebedor, CidadeRecebedor, UFRecebedor, NomePagador, CPF_CNPJPagador);
