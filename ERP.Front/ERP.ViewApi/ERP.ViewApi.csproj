@@ -49,10 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Negocio\EmpresaResponse.cs" />
+    <Compile Include="Negocio\PessoaResponse.cs" />
     <Compile Include="Negocio\ReciboResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicos\Interface\IPessoaService.cs" />
     <Compile Include="Servicos\Interface\IReciboService.cs" />
     <Compile Include="Servicos\Servico\EmpresaService.cs" />
+    <Compile Include="Servicos\Servico\PessoaService.cs" />
     <Compile Include="Servicos\Servico\ReciboService.cs" />
   </ItemGroup>
   <ItemGroup />

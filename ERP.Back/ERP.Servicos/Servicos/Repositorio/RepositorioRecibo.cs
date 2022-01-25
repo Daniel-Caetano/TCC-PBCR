@@ -8,6 +8,11 @@ namespace ERP.Servicos
 {
     public class RepositorioRecibo : Recibo
     {
+        private const string select = "SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], RE.[RECI_REC], RE.[RECI_REC_DOC], RE.[RECI_REC_END], RE.[RECI_REC_NUM], " +
+            "RE.[RECI_REC_COM], RE.[RECI_REC_CEP], RE.[RECI_REC_BAI], RE.[RECI_REC_CID], RE.[RECI_REC_UF], RE.[RECI_PAG], RE.[RECI_PAG_DOC], " +
+                "RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
+                "FROM RECIBOS RE ";
+
         private readonly string _stringConexao;
         //UTILIZAR ORM (ENTITY)
         public RepositorioRecibo(string stringConexao)
@@ -15,11 +20,12 @@ namespace ERP.Servicos
             _stringConexao = stringConexao;
         }
 
+        // Lista todos os Recibos do Banco de Dados
         public List<Recibo> ListaRecibos()
         {
             var recibos = new List<Recibo>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT * FROM RECIBOS RE");
+                .AppendLine(select);
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -31,13 +37,27 @@ namespace ERP.Servicos
                 {
                     var recibo = new Recibo
                     {
+                        //Recebedor
                         NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK")),
                         Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP")),
+                        NomeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC")),
+                        CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_DOC")),
+                        LogradouroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_END")),
+                        NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_NUM")),
+                        ComplementoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_COM")),
+                        CEPRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CEP")),
+                        BairroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_BAI")),
+                        CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CID")),
+                        UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_UF")),
+
+                        // Pagador
+                        NomePagador = reader.GetString(reader.GetOrdinal("RECI_PAG")),
+                        CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
+
+                        // Informações de valores e Observações
                         Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                         ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
                         Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
-                        CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_CID")),
-                        UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_UF")),
                         Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
                     };
 
@@ -48,51 +68,12 @@ namespace ERP.Servicos
 
         }
 
-        public Recibo BuscaRecibo(int id)
-        {
-            var recibo = new Recibo();
-            var sql = new StringBuilder()
-                .AppendLine("SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], RE.[RECI_CID], RE.[RECI_UF], RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
-                "FROM RECIBOS RE " +
-                "WHERE RE.[RECI_ID_PK] = @id");
-
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                //Recebedor
-                recibo.NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
-                recibo.Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
-                recibo.CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_CID"));
-                recibo.UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_UF"));
-                //Pagador
-                recibo.Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
-                recibo.ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT"));
-                recibo.Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"));
-                Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"));
-            }
-            return recibo;
-        }
-
+        // Busca por Recibo através do Numero identificado do mesmo
         public List<Recibo> BuscaReciboCompleto(int id)
         {
-            var recibos = new List<Recibo>(); ;
-            var sql = new StringBuilder()
-                .AppendLine("SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], PE.[PESS_NOM], PE.[PESS_CPF], CO.[CODI_LOG], EN.[ENDE_NUM], EN.[ENDE_COM], CO.[CODI_CEP], CO.[CODI_BAI], " +
-                "CO.[CODI_LOC], CO.[CODI_UF], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS] " +
-                "FROM RECIBOS RE " +
-                "INNER JOIN RECEBEDOR REC " +
-                "ON RE.RECI_RECE_ID_FK = REC.RECE_ID_PK INNER JOIN PESSOAS PE " +
-                "ON REC.RECE_PESS_ID_FK = PE.[PESS_ID_PK] INNER JOIN ENDERECOS EN " +
-                "ON PE.[PESS_ENDE_ID_FK] = EN.[ENDE_ID_PK] INNER JOIN CODIGOS_POSTAIS CO " +
-                "ON EN.[ENDE_CODI_ID_FK] = CO.[CODI_ID_PK] INNER JOIN PAGADOR PA " +
-                "ON RE.[RECI_PAGA_ID_FK] = PA.[PAGA_ID_PK] INNER JOIN EMPRESAS EM " +
-                "ON PA.[PAGA_EMPR_ID_FK] = EM.[EMPR_ID_PK] " +
-                "WHERE RE.[RECI_ID_PK] = @id");
+            var recibos = new List<Recibo>();
+            var sql = new StringBuilder().
+                AppendLine(select + "WHERE RE.[RECI_ID_PK] = @id ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -108,21 +89,66 @@ namespace ERP.Servicos
                         //Recebedor
                         NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK")),
                         Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP")),
-                        NomeRecebedor = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-                        CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-                        LogradouroRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        ComplementoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        CEPRecebedor = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        BairroRecebedor = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        CidadeRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UFRecebedor = reader.GetString(reader.GetOrdinal("CODI_UF")),
+                        NomeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC")),
+                        CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_DOC")),
+                        LogradouroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_END")),
+                        NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_NUM")),
+                        ComplementoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_COM")),
+                        CEPRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CEP")),
+                        BairroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_BAI")),
+                        CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CID")),
+                        UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_UF")),
                         // Pagador
-                         NomePagador = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                        CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
+                        NomePagador = reader.GetString(reader.GetOrdinal("RECI_PAG")),
+                        CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
                         Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                         ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
-                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"))
+                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
+                        Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
+                    };
+                    recibos.Add(recibo);
+                }
+            }
+            return recibos;
+
+        }
+
+        // Lista todos os Recibos do Tipo a Pagar
+        public List<Recibo> BuscaReciboCompletoApagar()
+        {
+            var recibos = new List<Recibo>();
+            var sql = new StringBuilder()
+                .AppendLine(select + "WHERE RE.[RECI_TIP] = 'A Pagar' ");
+
+            using var conn = new SqlConnection(_stringConexao);
+            conn.Open();
+            var command = new SqlCommand(sql.ToString(), conn);
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                {
+                    var recibo = new Recibo
+                    {
+                        //Recebedor
+                        NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK")),
+                        Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP")),
+                        NomeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC")),
+                        CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_DOC")),
+                        LogradouroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_END")),
+                        NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_NUM")),
+                        ComplementoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_COM")),
+                        CEPRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CEP")),
+                        BairroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_BAI")),
+                        CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CID")),
+                        UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_UF")),
+                        // Pagador
+                        NomePagador = reader.GetString(reader.GetOrdinal("RECI_PAG")),
+                        CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
+                        Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
+                        ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
+                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
+                        Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
                     };
                     recibos.Add(recibo);
                 }
@@ -130,50 +156,43 @@ namespace ERP.Servicos
             return recibos;
         }
 
-        public List<Recibo> BuscaRecibosPagarCpf(string cpf)
+        // Lista todos os Recibos do Tipo a Receber
+        public List<Recibo> BuscaReciboCompletoAreceber()
         {
             var recibos = new List<Recibo>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], PE.[PESS_NOM], PE.[PESS_CPF], CO.[CODI_LOG], EN.[ENDE_NUM], EN.[ENDE_COM], CO.[CODI_CEP], CO.[CODI_BAI], " +
-                "CO.[CODI_LOC], CO.[CODI_UF], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS] " +
-                "FROM RECIBOS RE " +
-                "INNER JOIN RECEBEDOR REC " +
-                "ON RE.RECI_RECE_ID_FK = REC.RECE_ID_PK INNER JOIN PESSOAS PE " +
-                "ON REC.RECE_PESS_ID_FK = PE.[PESS_ID_PK] INNER JOIN ENDERECOS EN " +
-                "ON PE.[PESS_ENDE_ID_FK] = EN.[ENDE_ID_PK] INNER JOIN CODIGOS_POSTAIS CO " +
-                "ON EN.[ENDE_CODI_ID_FK] = CO.[CODI_ID_PK] INNER JOIN PAGADOR PA " +
-                "ON RE.[RECI_PAGA_ID_FK] = PA.[PAGA_ID_PK] INNER JOIN EMPRESAS EM " +
-                "ON PA.[PAGA_EMPR_ID_FK] = EM.[EMPR_ID_PK] " +
-                "WHERE PE.[PESS_CPF] = @cpf");
+                .AppendLine(select + " WHERE RE.[RECI_TIP] = 'A Receber' ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
             var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+            
             var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
+
                 var recibo = new Recibo
                 {
                     //Recebedor
                     NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK")),
                     Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP")),
-                    NomeRecebedor = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                    CEPRecebedor = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                    BairroRecebedor = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                    UFRecebedor = reader.GetString(reader.GetOrdinal("CODI_UF")),
+                    NomeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC")),
+                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_DOC")),
+                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_END")),
+                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_NUM")),
+                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_COM")),
+                    CEPRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CEP")),
+                    BairroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_BAI")),
+                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CID")),
+                    UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_UF")),
                     // Pagador
-                    NomePagador = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
+                    NomePagador = reader.GetString(reader.GetOrdinal("RECI_PAG")),
+                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
                     Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                     ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
-                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"))
+                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
+                    Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
                 };
 
                 recibos.Add(recibo);
@@ -181,150 +200,48 @@ namespace ERP.Servicos
             return recibos;
         }
 
-        public Recibo BuscaReciboPagarCpf(string cpf)
-        {
-            var recibo = new Recibo();
-            var sql = new StringBuilder()
-                .AppendLine("SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], PE.[PESS_NOM], PE.[PESS_CPF], CO.[CODI_LOG], EN.[ENDE_NUM], EN.[ENDE_COM], CO.[CODI_CEP], CO.[CODI_BAI], " +
-                "CO.[CODI_LOC], CO.[CODI_UF], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS] " +
-                "FROM RECIBOS RE " +
-                "INNER JOIN RECEBEDOR REC " +
-                "ON RE.RECI_RECE_ID_FK = REC.RECE_ID_PK INNER JOIN PESSOAS PE " +
-                "ON REC.RECE_PESS_ID_FK = PE.[PESS_ID_PK] INNER JOIN ENDERECOS EN " +
-                "ON PE.[PESS_ENDE_ID_FK] = EN.[ENDE_ID_PK] INNER JOIN CODIGOS_POSTAIS CO " +
-                "ON EN.[ENDE_CODI_ID_FK] = CO.[CODI_ID_PK] INNER JOIN PAGADOR PA " +
-                "ON RE.[RECI_PAGA_ID_FK] = PA.[PAGA_ID_PK] INNER JOIN EMPRESAS EM " +
-                "ON PA.[PAGA_EMPR_ID_FK] = EM.[EMPR_ID_PK] " +
-                "WHERE PE.[PESS_CPF] = @cpf");
-
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                {
-
-                    //Recebedor
-                    NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
-                    Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
-                    NomeRecebedor = reader.GetString(reader.GetOrdinal("PESS_NOM"));
-                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("PESS_CPF"));
-                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOG"));
-                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_NUM"));
-                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_COM"));
-                    CEPRecebedor = reader.GetString(reader.GetOrdinal("CODI_CEP"));
-                    BairroRecebedor = reader.GetString(reader.GetOrdinal("CODI_BAI"));
-                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOC"));
-                    UFRecebedor = reader.GetString(reader.GetOrdinal("CODI_UF"));
-                    // Pagador
-                    NomePagador = reader.GetString(reader.GetOrdinal("EMPR_RAZ"));
-                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("EMPR_CNPJ"));
-                    Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
-                    ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT"));
-                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"));
-                }
-            }
-            return recibo;
-        }
-
-        public Recibo BuscaReciboReceberCpf(string cpf)
-        {
-            var recibo = new Recibo();
-            var sql = new StringBuilder()
-                .AppendLine("SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], PE.[PESS_NOM], PE.[PESS_CPF], CO.[CODI_LOG], EN.[ENDE_NUM], EN.[ENDE_COM], CO.[CODI_CEP], CO.[CODI_BAI], " +
-                "CO.[CODI_LOC], CO.[CODI_UF], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS] " +
-                "FROM RECIBOS RE " +
-                "INNER JOIN PAGADOR PA " +
-                "ON RE.[] " +
-                " " +
-                " " +
-                " " +
-                " " +
-                " " +
-                "WHERE PE.[PESS_CPF] = @cpf");
-
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                {
-                    //Recebedor
-                    NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK"));
-                    Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP"));
-                    NomeRecebedor = reader.GetString(reader.GetOrdinal("PESS_NOM"));
-                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("PESS_CPF"));
-                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOG"));
-                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_NUM"));
-                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_COM"));
-                    CEPRecebedor = reader.GetString(reader.GetOrdinal("CODI_CEP"));
-                    BairroRecebedor = reader.GetString(reader.GetOrdinal("CODI_BAI"));
-                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOC"));
-                    UFRecebedor = reader.GetString(reader.GetOrdinal("CODI_UF"));
-                    // Pagador
-                    NomePagador = reader.GetString(reader.GetOrdinal("EMPR_RAZ"));
-                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("EMPR_CNPJ"));
-                    Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL"));
-                    ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT"));
-                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"));
-                }
-            }
-            return recibo;
-        }
-
-        public List<Recibo> BuscaReciboCnpj(string cnpj)
+        public List<Recibo> BuscaReciboPorCPF_CNPJ(string documento)
         {
             var recibos = new List<Recibo>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT R.[RECI_ID_PK], R.[RECI_TIP], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], C.[CODI_LOG], E.[ENDE_NUM], E.[ENDE_COM], C.[CODI_CEP], C.[CODI_BAI], " +
-                "C.[CODI_LOC], C.[CODI_UF], EM.[EMPR_RAZ], EM.[EMPR_CNPJ], R.[RECI_VAL], R.[RECI_VAL_EXT], R.[RECI_OBS]" +
-                "FROM EMPRESAS EM" +
-                "INNER JOIN RECIBOS R " +
-                "ON R.[RECI_EMPR_ID_FK] = EM.[EMPR_ID_PK] " +
-                "INNER JOIN ENDERECOS E " +
-                "ON EM.[EMPR_ENDE_ID_FK] = E.[ENDE_ID_PK] " +
-                "INNER JOIN [CODIGOS_POSTAIS] C " +
-                "ON C.[CODI_ID_PK] = E.[ENDE_CODI_ID_FK] " +
-                "WHERE EM.[EMPR_CNPJ] = @cnpj");
+                .AppendLine(select + " WHERE RE.[RECI_REC_DOC] = @documento ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
             var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+            command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
+
             var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
+
                 var recibo = new Recibo
                 {
                     //Recebedor
                     NumeroRecibo = reader.GetInt32(reader.GetOrdinal("RECI_ID_PK")),
                     Tipo = reader.GetString(reader.GetOrdinal("RECI_TIP")),
-                    NomeRecebedor = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
-                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                    CEPRecebedor = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                    BairroRecebedor = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                    UFRecebedor = reader.GetString(reader.GetOrdinal("CODI_UF")),
+                    NomeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC")),
+                    CPF_CNPJRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_DOC")),
+                    LogradouroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_END")),
+                    NumeroEnderecoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_NUM")),
+                    ComplementoRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_COM")),
+                    CEPRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CEP")),
+                    BairroRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_BAI")),
+                    CidadeRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_CID")),
+                    UFRecebedor = reader.GetString(reader.GetOrdinal("RECI_REC_UF")),
                     // Pagador
-                    NomePagador = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
+                    NomePagador = reader.GetString(reader.GetOrdinal("RECI_PAG")),
+                    CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
                     Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                     ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
-                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"))
+                    Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
+                    Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
                 };
+
                 recibos.Add(recibo);
             }
             return recibos;
         }
     }
-}
+}   

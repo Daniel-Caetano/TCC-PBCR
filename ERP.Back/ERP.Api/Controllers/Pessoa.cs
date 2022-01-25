@@ -31,7 +31,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpPost]
-        [Route("Adicionar/{Nome},{CPF}/json")]
+        [Route("Adicionar/json")]
         public IActionResult Adicionar(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
 
@@ -41,7 +41,7 @@ namespace ERP.Api.Controllers
             return Ok(repo);
         }
         [HttpPut]
-        [Route("Atualizar/cpfatual,novonome,novocpf/json")]
+        [Route("Atualizar/cpfatual/json")]
         public IActionResult Atualizar(string CpfAtual, string Nome, string CPF,
          string NumeroEndereco, string Complemento, string CEP
          , string Logradouro, string Bairro, string Localidade, string UF)

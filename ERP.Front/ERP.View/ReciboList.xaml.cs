@@ -34,9 +34,8 @@ namespace ERP.View
 
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
-
         ReciboService serviceRecibo = new ReciboService();
-        ReciboService serviceReciboID = new ReciboService();
+       
 
 
         public ReciboList()
@@ -49,7 +48,7 @@ namespace ERP.View
         {
 
 
-#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
@@ -57,7 +56,16 @@ namespace ERP.View
         public async Task CarregarGrid()
         {
 
-            var recibos = await serviceRecibo.GetAsync();
+
+       
+
+            var recibos = await serviceRecibo.GetAsyncAll();
+            foreach (var elemento in recibos)
+            {
+                // MessageBox.Show(elemento.Numero.ToString());
+            }
+
+
             dataGridRecibo.ItemsSource = recibos;
         }
 
@@ -65,15 +73,15 @@ namespace ERP.View
         {
             if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
             {
-                if (txtSearch.Text != "" && txtSearch.Text.Length == 11 && ReciboJanela.Validacao.ValidarCpf(txtSearch.Text))
-                {
-                    MessageBox.Show("Digito CPF");
-                    // int search = int.Parse(txtSearch.Text);
-                    // CarregaID(search);
+                if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
+                {                    
+                     string search =txtSearch.Text.ToString();
+                    CarregaDadosRecibo(search);
                 }
-                else if (txtSearch.Text != "" && txtSearch.Text.Length == 14 && ReciboJanela.Validacao.ValidarCnpj(txtSearch.Text))
+                else if (txtSearch.Text != "" && txtSearch.Text.Length == 14)
                 {
-                    MessageBox.Show("Digitou CNPJ");
+                    string search = txtSearch.Text.ToString();
+                    CarregaDadosRecibo(search);
 
                 }
             }
@@ -83,18 +91,20 @@ namespace ERP.View
 
             }
             else
+
                 CarregarGrid();
         }
 
 
-        public async Task CarregaID(int id)
+        public async Task CarregaDadosRecibo(string Dados)
         {
 
-            var recibos = await serviceReciboID.GetAsync(id);
+            var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
-
+          
         }
 
+   
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
             /*
@@ -150,6 +160,7 @@ namespace ERP.View
          */
         }
 
+
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
@@ -189,7 +200,7 @@ namespace ERP.View
 
 
                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
+                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,       
                                               ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
                                               cpF_CNPJPagador, _Valor, ValorExtenso,
                                               Observacao, CidadeRecebedor, UFRecebedor); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL

@@ -15,6 +15,7 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
+
         public List<Recibo> ListaRecibos()
         {
             var repo = new RepositorioRecibo(_stringConexao);
@@ -22,48 +23,37 @@ namespace ERP.Servico.Servicos.Servico
 
             return listaRecibos;
         }
-        public Recibo BuscaRecibo(int id)
-        {
-            var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaRecibo(id);
-            return recibo;
-        }
 
         public List<Recibo> BuscaReciboCompleto(int id)
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaReciboCompleto(id);
+            var listaRecibos = repo.BuscaReciboCompleto(id);
+
+            return listaRecibos;
+        }
+
+        public List<Recibo> BuscaReciboCompletoApagar()
+        {
+            var repo = new RepositorioRecibo(_stringConexao);
+            var recibo = repo.BuscaReciboCompletoApagar();
+
             return recibo;
         }
 
-        public List<Recibo> BuscaRecibosPagarCpf(string cpf)
+        public List<Recibo> BuscaReciboCompletoAreceber()
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaRecibosPagarCpf(cpf);
-            return recibo;
+            var recibo = repo.BuscaReciboCompletoAreceber();
 
-        }
-
-        public Recibo BuscaReciboPagarCpf(string cpf)
-        {
-            var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaReciboPagarCpf(cpf);
-            return recibo;
-
-        }
-
-        public Recibo BuscaReciboReceberCpf(string cpf)
-        {
-            var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaReciboReceberCpf(cpf);
             return recibo;
 
         }
 
-        public List<Recibo> BuscaReciboCnpj(string cnpj)
+        public List<Recibo> BuscaReciboPorCPF_CNPJ(string documento)
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaReciboCnpj(cnpj);
+            var recibo = repo.BuscaReciboPorCPF_CNPJ(documento);
+
             return recibo;
         }
     }
