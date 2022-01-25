@@ -20,6 +20,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 
 
@@ -36,7 +37,7 @@ namespace ERP.View
 
         ReciboService serviceRecibo = new ReciboService();
         ReciboService serviceReciboID = new ReciboService();
-            
+
 
         public ReciboList()
         {
@@ -47,47 +48,52 @@ namespace ERP.View
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
- 
-        #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+
+#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
         public async Task CarregarGrid()
         {
-            {
 
-                var recibos = await serviceRecibo.GetAsync();
-                foreach (var elemento in recibos)
-                {
-                    // MessageBox.Show(elemento.Numero.ToString());
-                }
-                dataGridRecibo.ItemsSource = recibos;
-
-            }
-
+            var recibos = await serviceRecibo.GetAsync();
+            dataGridRecibo.ItemsSource = recibos;
         }
 
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
-            int search = int.Parse(txtSearch.Text);
-            if (search > 0)
-                CarregaID(search);
+            if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
+            {
+                if (txtSearch.Text != "" && txtSearch.Text.Length == 11 && ReciboJanela.Validacao.ValidarCpf(txtSearch.Text))
+                {
+                    MessageBox.Show("Digito CPF");
+                    // int search = int.Parse(txtSearch.Text);
+                    // CarregaID(search);
+                }
+                else if (txtSearch.Text != "" && txtSearch.Text.Length == 14 && ReciboJanela.Validacao.ValidarCnpj(txtSearch.Text))
+                {
+                    MessageBox.Show("Digitou CNPJ");
+
+                }
+            }
+            else if (Regex.IsMatch(txtSearch.Text, @"^[a-z A-Z]+$"))
+            {
+                MessageBox.Show("Digitou string");
+
+            }
             else
-                throw new Exception("Valor digitado inválido");
-        }  
+                CarregarGrid();
+        }
+
 
         public async Task CarregaID(int id)
         {
 
-            {
-                var recibos = await serviceReciboID.GetAsync(id);               
-
-                dataGridRecibo.ItemsSource = recibos;
-            }
+            var recibos = await serviceReciboID.GetAsync(id);
+            dataGridRecibo.ItemsSource = recibos;
 
         }
-
 
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
@@ -151,7 +157,6 @@ namespace ERP.View
             MessageBox.Show("Clicou Botão");
         }
 
-
         private void Visualizar(object sender, RoutedEventArgs e)
         {
 
@@ -160,49 +165,48 @@ namespace ERP.View
             if (infoRecibo != null)
             {
 
-             
+
                 /*Dados dos Recebedor*/
                 string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
                 string LogradouroRecebedor = infoRecibo.LogradouroRecebedor.ToString();
                 string NumeroEnderecoRecebedor = infoRecibo.NumeroEnderecoRecebedor.ToString();
                 string ComplementoRecebedor = infoRecibo.ComplementoRecebedor.ToString();
-                string CPF_CNPJRecebedor =infoRecibo.CPF_CNPJRecebedor.ToString();  
+                string CPF_CNPJRecebedor = infoRecibo.CPF_CNPJRecebedor.ToString();
                 string CEPRecebedor = infoRecibo.CEPRecebedor.ToString();
                 string BairroRecebedor = infoRecibo.BairroRecebedor.ToString();
 
                 /*Dados do Pagador*/
                 string NomePagador = infoRecibo.NomePagador.ToString();
                 string cpF_CNPJPagador = infoRecibo.cpF_CNPJPagador.ToString();
-                double _Valor = (double) infoRecibo.Valor;
+                double _Valor = (double)infoRecibo.Valor;
                 string ValorExtenso = infoRecibo.ValorExtenso.ToString();
                 string Observacao = infoRecibo.Observacao.ToString();
                 string CidadeRecebedor = infoRecibo.CidadeRecebedor.ToString();
                 string UFRecebedor = infoRecibo.UFRecebedor.ToString();
-           
+
                 DateTime Data = infoRecibo.Data;
-                
 
 
-                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
-                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
-                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
-                                             Observacao,  CidadeRecebedor,  UFRecebedor);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
-                        
+                Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
+                                              ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
+                                              cpF_CNPJPagador, _Valor, ValorExtenso,
+                                              Observacao, CidadeRecebedor, UFRecebedor); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
 
-             
+
+
+
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
-               //MessageBox.Show(dados);
+                //MessageBox.Show(dados);
             }
 
 
         }
-
 
         private void Editar(object sender, RoutedEventArgs e)
         {
@@ -221,7 +225,6 @@ namespace ERP.View
 
         }
 
-
         private void Deletar(object sender, RoutedEventArgs e)
         {
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
@@ -235,6 +238,16 @@ namespace ERP.View
             }
 
         }
+
+        private void LiberarBotao(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch.Text != "")
+            {
+                btnSearch.IsEnabled = true;
+
+            }
+        }
+
 
     }
 }

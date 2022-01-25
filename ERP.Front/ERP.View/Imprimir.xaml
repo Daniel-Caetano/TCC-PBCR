@@ -42,8 +42,6 @@
 
                 <!--RECEBENDO DADOS DO FORMULÁRIO -->
 
-
-
                 <TextBlock x:Name="iNomeRecebedor" HorizontalAlignment="Center" FontSize="18" />
                 <TextBlock>(</TextBlock>
                     <TextBlock x:Name="iCPF_CNPJRecebedor"  HorizontalAlignment="Center" FontSize="18"></TextBlock>
