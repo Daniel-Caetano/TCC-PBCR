@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ERP.Servico.Negocio;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-using ERP.Servico.Negocio;
 
 namespace ERP.Servico.Servicos.Repositorio
 {
@@ -93,7 +92,7 @@ namespace ERP.Servico.Servicos.Repositorio
             var sqlEnderecos = new StringBuilder()
                 .AppendLine("INSERT INTO ENDERECOS(ENDE_NUM, ENDE_COM, ENDE_CODI_ID_FK) " +
                             "VALUES(@NumeroEndereco, @Complemento, @ID_CEP)");
-         
+
             var sqlEmpresa = new StringBuilder()
                 .AppendLine("INSERT INTO EMPRESAS(EMPR_RAZ, EMPR_CNPJ, EMPR_ENDE_ID_FK) " +
                             "VALUES(@razao, @cnpj, @ID_end)");
@@ -212,7 +211,8 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 var reader = command.ExecuteReader();
 
-               while(reader.Read()){
+                while (reader.Read())
+                {
 
                     var empresal = new Empresa
                     {

@@ -1,5 +1,4 @@
 ﻿using ERP.Servico.Negocio;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -138,7 +137,6 @@ namespace ERP.Servico.Servicos.Repositorio
             }
             return pessoas;
         }
-
 
         public void Adicionar(string Nome, string CPF,
            string NumeroEndereco, string Complemento, string CEP

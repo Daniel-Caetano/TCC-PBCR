@@ -1,10 +1,7 @@
 ﻿using ERP.ViewApi.Negocio;
 using ERP.ViewApi.Servicos.Interface;
 using Refit;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ERP.ViewApi.Servicos.Servico
@@ -26,7 +23,7 @@ namespace ERP.ViewApi.Servicos.Servico
         }
         public async Task<IList<EmpresaResponse>> InsertAsync(string razao, string cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-            return await _customerService.InsertAsync( razao,  cnpj,  NumeroEndereco,  Complemento,  CEP,  Logradouro,  Bairro,  Localidade,  UF);
+            return await _customerService.InsertAsync(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
         }
         public async Task<IList<EmpresaResponse>> UpdateAsync(string cnpjAtual, string Razao, string Cnpj,
             string NumeroEndereco, string Complemento, string CEP

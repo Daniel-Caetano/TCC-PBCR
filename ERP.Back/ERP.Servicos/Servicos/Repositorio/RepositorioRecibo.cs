@@ -166,7 +166,7 @@ namespace ERP.Servicos
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
             var command = new SqlCommand(sql.ToString(), conn);
-            
+
             var reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -289,4 +289,4 @@ namespace ERP.Servicos
             return recibos;
         }
     }
-}   
+}

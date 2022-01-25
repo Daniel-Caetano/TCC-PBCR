@@ -4,7 +4,6 @@ using ERP.Servico.Servicos.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace ERP.Servico.Servicos.Servico
 {
