@@ -189,23 +189,23 @@
                         <MenuItem Header="Consultar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
                     </MenuItem>
 
+
                     <MenuItem Header="_Relatários" Height="40"></MenuItem>
                     
                     <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" Height="40" >
                         <MenuItem x:Name="Cadastrar" Header="Cadastrar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="CadastrarRecibo"/>
-                        <MenuItem x:Name="Listar" Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="ListarRecibo"/>
+                        <MenuItem x:Name="Listar" Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="ListarRecibo"/>                    
                     </MenuItem>
+                                    
                 </Menu>
             </StackPanel>
 
             <!--MENU LEFT-->
             <StackPanel DockPanel.Dock="Left" Width="200" Orientation="Horizontal">
-
             </StackPanel>
 
             <!--PRINCIAPL-->
-
-            <StackPanel Width="1630" Height="932">
+            <StackPanel Width="1630" Height="1080">
                 <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
             </StackPanel>
 

@@ -36,7 +36,7 @@ namespace ERP.View
 
         ReciboService serviceRecibo = new ReciboService();
         ReciboService serviceReciboID = new ReciboService();
-
+            
 
         public ReciboList()
         {
@@ -46,7 +46,10 @@ namespace ERP.View
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+
+ 
+        #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
@@ -61,11 +64,9 @@ namespace ERP.View
                 }
                 dataGridRecibo.ItemsSource = recibos;
 
-
             }
 
         }
-
 
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
@@ -73,15 +74,15 @@ namespace ERP.View
             if (search > 0)
                 CarregaID(search);
             else
-                throw  new Exception("Valor digitado inválido");
-            
-        }
+                throw new Exception("Valor digitado inválido");
+        }  
 
         public async Task CarregaID(int id)
         {
 
             {
-                var recibos = await serviceReciboID.GetAsync(id);
+                var recibos = await serviceReciboID.GetAsync(id);               
+
                 dataGridRecibo.ItemsSource = recibos;
             }
 
@@ -153,8 +154,6 @@ namespace ERP.View
 
         private void Visualizar(object sender, RoutedEventArgs e)
         {
-        
-    
 
             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
 
@@ -189,14 +188,18 @@ namespace ERP.View
                                              ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
                                              cpF_CNPJPagador,  _Valor,  ValorExtenso,
                                              Observacao,  CidadeRecebedor,  UFRecebedor);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
-                //imprimir.VisualizarRecibo(infoRecibo.ToString());  //Envidando todos os das
+
+                        
+
+
+             
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                //MessageBox.Show(dados);
             }
-            
+
 
         }
 
