@@ -266,7 +266,7 @@ namespace ERP.Servico.Servicos.Repositorio
         public void Deletar(string cpf)
         {
             var pessoaDeletada = new Pessoa();
-
+            //SQL para pegar o ENDERECO e CODIGO_POSTAL em comum
             var sql = new StringBuilder().AppendLine("SELECT PESS_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
                                                      "FROM PESSOAS " +
                                                      "INNER JOIN ENDERECOS " +
