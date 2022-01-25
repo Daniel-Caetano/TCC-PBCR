@@ -12,6 +12,15 @@ namespace ERP.Api.Controllers
     [Route("Pessoa")]
     public class Pessoa : BaseController
     {
+
+        [HttpGet]
+        [Route("Lista/json")]
+        public IActionResult Lista()
+        {
+            var pessoas = new ServicoPessoa(_connectionString);
+            return Ok(pessoas.Lista());
+        }
+
         [HttpGet]
         [Route("Cpf/{cpf}/json")]
         public IActionResult BuscaPorCpf(string cpf)
@@ -40,6 +49,7 @@ namespace ERP.Api.Controllers
 
             return Ok(repo);
         }
+
         [HttpPut]
         [Route("Atualizar/cpfatual/json")]
         public IActionResult Atualizar(string CpfAtual, string Nome, string CPF,

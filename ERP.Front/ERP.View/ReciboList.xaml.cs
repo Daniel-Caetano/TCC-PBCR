@@ -35,7 +35,7 @@ namespace ERP.View
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
-
+       
         public ReciboList()
         {
             InitializeComponent();
@@ -53,10 +53,6 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-
-
-       
-
             var recibos = await serviceRecibo.GetAsyncAll();
             foreach (var elemento in recibos)
             {
