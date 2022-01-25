@@ -35,8 +35,8 @@ namespace ERP.View
         List<Recibo> listaRecibos = new List<Recibo>();
 
         ReciboService serviceRecibo = new ReciboService();
-
         ReciboService serviceReciboID = new ReciboService();
+            
 
         public ReciboList()
         {
@@ -46,7 +46,10 @@ namespace ERP.View
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
+ 
         #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
@@ -64,21 +67,23 @@ namespace ERP.View
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
             int search = int.Parse(txtSearch.Text);
-            
-            //MessageBox.Show(search.ToString());
-            CarregaID(search);
-        }
+            if (search > 0)
+                CarregaID(search);
+            else
+                throw new Exception("Valor digitado inválido");
+        }  
 
         public async Task CarregaID(int id)
         {
 
             {
-                var recibos = await serviceReciboID.GetAsync(id);
-                MessageBox.Show(recibos.ToString());
+                var recibos = await serviceReciboID.GetAsync(id);               
+
                 dataGridRecibo.ItemsSource = recibos;
             }
 
         }
+
 
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
@@ -145,32 +150,52 @@ namespace ERP.View
 
         private void Visualizar(object sender, RoutedEventArgs e)
         {
-            /*
+
             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
 
             if (infoRecibo != null)
             {
 
-                string Valor = infoRecibo.Valor.ToString();  //Recebendo valor do formulário
-                string Numero = infoRecibo.Numero.ToString();
-                string Tipo = infoRecibo.Tipo.ToString();
+             
+                /*Dados dos Recebedor*/
+                string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
+                string LogradouroRecebedor = infoRecibo.LogradouroRecebedor.ToString();
+                string NumeroEnderecoRecebedor = infoRecibo.NumeroEnderecoRecebedor.ToString();
+                string ComplementoRecebedor = infoRecibo.ComplementoRecebedor.ToString();
+                string CPF_CNPJRecebedor =infoRecibo.CPF_CNPJRecebedor.ToString();  
+                string CEPRecebedor = infoRecibo.CEPRecebedor.ToString();
+                string BairroRecebedor = infoRecibo.BairroRecebedor.ToString();
+
+                /*Dados do Pagador*/
+                string NomePagador = infoRecibo.NomePagador.ToString();
+                string cpF_CNPJPagador = infoRecibo.cpF_CNPJPagador.ToString();
+                double _Valor = (double) infoRecibo.Valor;
+                string ValorExtenso = infoRecibo.ValorExtenso.ToString();
                 string Observacao = infoRecibo.Observacao.ToString();
-                string Cidade = infoRecibo.Cidade.ToString();
-                string Estado = infoRecibo.Estado.ToString();
+                string CidadeRecebedor = infoRecibo.CidadeRecebedor.ToString();
+                string UFRecebedor = infoRecibo.UFRecebedor.ToString();
+           
                 DateTime Data = infoRecibo.Data;
+                
 
 
+                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
+                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
+                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
+                                             Observacao,  CidadeRecebedor,  UFRecebedor);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
-                 ReciboJanela.Imprimir imprimir = new ReciboJanela.Imprimir();  //Instancia a classe da JanelaRecibo()
-                imprimir.VisualizarRecibo(Numero, Tipo, Valor, Observacao, Cidade, Estado, Data); //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
-                //imprimir.VisualizarRecibo(infoRecibo.ToString());  //Envidando todos os das
+                        
+
+
+             
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                //MessageBox.Show(dados);
             }
-            */
+
 
         }
 
