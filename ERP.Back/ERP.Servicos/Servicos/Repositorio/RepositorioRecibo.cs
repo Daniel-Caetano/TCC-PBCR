@@ -8,17 +8,19 @@ namespace ERP.Servicos
 {
     public class RepositorioRecibo : Recibo
     {
-        private const string select = "SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], RE.[RECI_REC], RE.[RECI_REC_DOC], RE.[RECI_REC_END], RE.[RECI_REC_NUM], " +
-            "RE.[RECI_REC_COM], RE.[RECI_REC_CEP], RE.[RECI_REC_BAI], RE.[RECI_REC_CID], RE.[RECI_REC_UF], RE.[RECI_PAG], RE.[RECI_PAG_DOC], " +
-                "RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
-                "FROM RECIBOS RE ";
-
         private readonly string _stringConexao;
+        private object sql;
+
         //UTILIZAR ORM (ENTITY)
         public RepositorioRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
         }
+
+        private const string select = "SELECT RE.[RECI_ID_PK], RE.[RECI_TIP], RE.[RECI_REC], RE.[RECI_REC_DOC], RE.[RECI_REC_END], RE.[RECI_REC_NUM], " +
+        "RE.[RECI_REC_COM], RE.[RECI_REC_CEP], RE.[RECI_REC_BAI], RE.[RECI_REC_CID], RE.[RECI_REC_UF], RE.[RECI_PAG], RE.[RECI_PAG_DOC], " +
+        "RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
+        "FROM RECIBOS RE ";
 
         // Lista todos os Recibos do Banco de Dados
         public List<Recibo> ListaRecibos()

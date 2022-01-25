@@ -10,18 +10,23 @@ namespace ERP.Servico.Servicos.Repositorio
     {
         private readonly string _stringConexao;
         //UTILIZAR ORM (ENTITY)
+
+        private readonly string select = "SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , " +
+                            "CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM EMPRESAS es " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ";
+
         public RepositorioEmpresa(string stringConexao)
         {
             _stringConexao = stringConexao;
         }
+
         public List<Empresa> Lista()
         {
             var empresas = new List<Empresa>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM EMPRESAS es " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ");
+                .AppendLine(select);
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -53,15 +58,12 @@ namespace ERP.Servico.Servicos.Repositorio
             }
             return empresas;
         }
+
         public List<Empresa> BuscaCnpj(string cnpj)
         {
             var empresas = new List<Empresa>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM EMPRESAS es " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
-                            "WHERE es.EMPR_CNPJ = @cnpj");
+                .AppendLine(select + "WHERE es.EMPR_CNPJ = @cnpj");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -193,6 +195,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 var reader = command.ExecuteNonQuery();
             }
         }
+
         public void Atualizar(string cnpjAtual, string razao, string cnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
