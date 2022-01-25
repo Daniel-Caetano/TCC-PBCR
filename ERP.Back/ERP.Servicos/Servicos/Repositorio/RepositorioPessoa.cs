@@ -16,44 +16,56 @@ namespace ERP.Servico.Servicos.Repositorio
             _stringConexao = stringConexao;
         }
 
-        private const string select = "SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , " +
-                                      "cp.CODI_LOG, cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                                      "FROM PESSOAS pe " +
-                                      "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
-                                      "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ";
-
-        // Lista todas as pessoas contidas no Banco de Dados
-        public List<Pessoa> Lista()
+        //Função para receber valores da tabela do BD, criada para não precisar repetir o codigo várias vezes
+        public List<Pessoa> RecebeTabela(SqlDataReader reader)
         {
             var pessoas = new List<Pessoa>();
+            while (reader.Read())
+            {
+                var pessoa = new Pessoa
+                {
+                    ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
+                    Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
+                    CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
+                    ID_Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK")),
+                    NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
+                    Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
+                    ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
+                    CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
+                    Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
+                    Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
+                    Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
+                    UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
+                };
+                pessoas.Add(pessoa);
+            }
+            return pessoas;
+        }
+        public List<Pessoa> Lista()
+        {   
+            //variavel do tipo repositorio criada para chamar a funcao de receber tabela
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+
+            var pessoas = new List<Pessoa>();//Lista de pessoa que será retornada
+            
+            //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine(select);
+                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
+                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM PESSOAS pe " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
+                //Bloco para conexão com banco de dados com SQL enviado pela string sql
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
                 var reader = command.ExecuteReader();
+                //fim bloco de conexao 
 
-                while (reader.Read())
-                {
-                    var pessoa = new Pessoa
-                    {
-                        ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
-                        Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK")),
-                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
-                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
-                    };
-                    pessoas.Add(pessoa);
-                }
+                //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
+                pessoas = repositorioPessoa.RecebeTabela(reader);
             }
             return pessoas;
         }
@@ -61,36 +73,30 @@ namespace ERP.Servico.Servicos.Repositorio
         // Realiza a busca de pessoas pelo cpf
         public List<Pessoa> BuscaCpf(string cpf)
         {
+            //variavel do tipo repositorio criada para chamar a funcao de receber tabela
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+
             var pessoas = new List<Pessoa>();
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PESS_CPF = @cpf");
+                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
+                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM PESSOAS pe " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
+                            "WHERE PESS_CPF = @cpf");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
+                //Bloco para conexão com banco de dados com SQL enviado pela string sql
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
                 command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
                 var reader = command.ExecuteReader();
+                //fim bloco de conexao 
 
-                while (reader.Read())
-                {
-                    var pessoa = new Pessoa
-                    {
-                        ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
-                        Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK")),
-                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
-                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
-                    };
-                    pessoas.Add(pessoa);
-                }
+                //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
+                pessoas = repositorioPessoa.RecebeTabela(reader);
+
             }
             return pessoas;
         }
@@ -98,37 +104,32 @@ namespace ERP.Servico.Servicos.Repositorio
         // Busca pessoa pelo Nome
         public List<Pessoa> BuscaNome(string nome)
         {
+            //variavel do tipo repositorio criada para chamar a funcao de receber tabela
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
 
-            var pessoas = new List<Pessoa>();
+            var pessoas = new List<Pessoa>();//Lista de pessoa que será retornada
+
+            //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PESS_NOM = @nome");
+                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
+                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM PESSOAS pe " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
+                            "WHERE PESS_NOM = @nome");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
+                //Bloco para conexão com banco de dados com SQL enviado pela string sql
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
                 command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
                 var reader = command.ExecuteReader();
+                //fim bloco de conexao 
 
-                while (reader.Read())
-                {
-                    var pessoa = new Pessoa
-                    {
-                        ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
-                        Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
-                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK")),
-                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
-                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
-                    };
-                    pessoas.Add(pessoa);
-                }
+                //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
+                pessoas = repositorioPessoa.RecebeTabela(reader);
+
             }
             return pessoas;
         }

@@ -152,7 +152,6 @@ namespace ERP.View
             if (infoRecibo != null)
             {
 
-
                 /*Dados dos Recebedor*/
                 string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
                 string LogradouroRecebedor = infoRecibo.LogradouroRecebedor.ToString();
