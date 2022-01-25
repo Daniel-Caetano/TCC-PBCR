@@ -163,7 +163,7 @@ namespace ERP.View
 
                 /*Dados do Pagador*/
                 string NomePagador = infoRecibo.NomePagador.ToString();
-                string cpF_CNPJPagador = infoRecibo.cpF_CNPJPagador.ToString();
+                string cpF_CNPJPagador = infoRecibo.CpF_CNPJPagador.ToString();
                 double _Valor = (double)infoRecibo.Valor;
                 string ValorExtenso = infoRecibo.ValorExtenso.ToString();
                 string Observacao = infoRecibo.Observacao.ToString();

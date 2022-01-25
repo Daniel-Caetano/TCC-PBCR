@@ -47,7 +47,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Completo/CPF_CNPJ/{documento}json")]
+        [Route("Completo/CPF_CNPJ/{documento}/json")]
         public IActionResult BuscaReciboCPF_CNPJ(string documento) // Busca recibos pelo CPF/CNPJ
         {
             var servico = new ServicoRecibo(_connectionString);
@@ -56,7 +56,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Completo/Nome/{nome}json")]
+        [Route("Completo/Nome/{nome}/json")]
         public IActionResult BuscaReciboNome(string nome) // Busca recibos pelo Nome/RazãoSocial
         {
             var servico = new ServicoRecibo(_connectionString);
