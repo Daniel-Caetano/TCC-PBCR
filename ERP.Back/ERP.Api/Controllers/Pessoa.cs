@@ -18,8 +18,6 @@ namespace ERP.Api.Controllers
         {
             var pessoa = new ServicoPessoa(_connectionString);
             return Ok(pessoa.BuscaCpf(cpf));
-            // 97608972025
-            // 14120490084
         }
 
         [HttpGet]
@@ -30,7 +28,42 @@ namespace ERP.Api.Controllers
             pessoa.BuscaNome(nome);
 
             return Ok(pessoa.BuscaNome(nome));
+        }
 
+        [HttpPost]
+        [Route("Adicionar/{Nome},{CPF}/json")]
+        public IActionResult Adicionar(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        {
+
+            var repo = new ServicoPessoa(_connectionString);
+            repo.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+
+            return Ok(repo);
+        }
+        [HttpPut]
+        [Route("Atualizar/cpfatual,novonome,novocpf/json")]
+        public IActionResult Atualizar(string CpfAtual, string Nome, string CPF,
+         string NumeroEndereco, string Complemento, string CEP
+         , string Logradouro, string Bairro, string Localidade, string UF)
+        {
+
+            var repo = new ServicoPessoa(_connectionString);
+            repo.Atualizar(CpfAtual, Nome, CPF,
+                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
+                Localidade, UF);
+
+            return Ok(repo);
+        }
+
+        [HttpDelete]
+        [Route("Deletar/cpf/json")]
+        public IActionResult Deletar(string cpf)
+        {
+
+            var repo = new ServicoPessoa(_connectionString);
+            repo.Deletar(cpf);
+
+            return Ok(repo);
         }
     }
 }

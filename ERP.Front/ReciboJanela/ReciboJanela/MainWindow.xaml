@@ -30,12 +30,23 @@
 
         <StackPanel DockPanel.Dock="Left" Width="124" Margin="5 0" Height="397">
 
-            <Button x:Name="butSalvar" Margin="0 2" Height="40" Click="butSalvar_Click">
+
+
+            <Button x:Name="butAdd" Margin="0 2" Height="46" Width="123">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="14" Padding="10" Height="41">SALVAR</TextBlock>
+                    <TextBlock FontSize="14" Padding="10">ADICIONAR</TextBlock>
+
                 </StackPanel>
+
             </Button>
 
+            <Button x:Name="butNovo" Margin="0 2"  Height="41">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="14" Padding="10">NOVO</TextBlock>
+
+                </StackPanel>
+            </Button>
+            
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
