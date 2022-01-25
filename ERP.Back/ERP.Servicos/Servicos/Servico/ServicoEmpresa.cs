@@ -51,7 +51,7 @@ namespace ERP.Servico.Servicos.Servico
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
 
-            //estrutura para não sobrescrever os dados antigos com null
+            //estrutura para manter os dados antigos que o usuário não digitar
             var dadosAntigos = BuscaCnpj(cnpjAtual);
             if (novaRazao == null)
             {

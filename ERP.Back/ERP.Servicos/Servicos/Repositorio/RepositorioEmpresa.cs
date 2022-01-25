@@ -15,9 +15,37 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             _stringConexao = stringConexao;
         }
-        public List<Empresa> Lista()
+        public List<Empresa> RecebeTabela(SqlDataReader reader)
         {
             var empresas = new List<Empresa>();
+            while (reader.Read())
+            {
+                var empresa = new Empresa
+                {
+                    ID_Empresa = reader.GetInt32(reader.GetOrdinal("EMPR_ID_PK")),
+                    ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_ID_PK")),
+                    ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
+                    Razao = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
+                    CNPJ = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
+                    NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
+                    Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
+                    CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
+                    Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
+                    Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
+                    Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
+                    UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
+                };
+                empresas.Add(empresa);
+            }
+            return empresas;
+        }
+
+        public List<Empresa> Lista()
+        {
+            var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);//variavel do tipo repositorio criada para chamar a funcao de receber tabela
+
+            var empresas = new List<Empresa>();
+
             var sql = new StringBuilder()
                 .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
                             "FROM EMPRESAS es " +
@@ -28,34 +56,16 @@ namespace ERP.Servico.Servicos.Repositorio
             {
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
-                //command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    var empresa = new Empresa
-                    {
-                        ID_Empresa = reader.GetInt32(reader.GetOrdinal("EMPR_ID_PK")),
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_ID_PK")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
-                        Razao = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                        CNPJ = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
-                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
-                    };
-
-                    empresas.Add(empresa);
-                }
+                empresas = repositorioEmpresa.RecebeTabela(reader);
             }
+            
             return empresas;
         }
         public List<Empresa> BuscaCnpj(string cnpj)
         {
+            var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);//variavel do tipo repositorio criada para chamar a funcao de receber tabela
+
             var empresas = new List<Empresa>();
             var sql = new StringBuilder()
                 .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
@@ -70,27 +80,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 var command = new SqlCommand(sql.ToString(), conn);
                 command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    var empresa = new Empresa
-                    {
-                        ID_Empresa = reader.GetInt32(reader.GetOrdinal("EMPR_ID_PK")),
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_ID_PK")),
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
-                        Razao = reader.GetString(reader.GetOrdinal("EMPR_RAZ")),
-                        CNPJ = reader.GetString(reader.GetOrdinal("EMPR_CNPJ")),
-                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
-                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
-                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
-                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
-                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
-                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
-                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
-                    };
-
-                    empresas.Add(empresa);
-                }
+                empresas = repositorioEmpresa.RecebeTabela(reader);
             }
             return empresas;
         }
@@ -99,11 +89,11 @@ namespace ERP.Servico.Servicos.Repositorio
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
-
+            //string com comandos max 
             string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
             string maxEND = "SELECT MAX(ENDE_ID_PK) FROM ENDERECOS";
 
-            // cria variável do tipo inteiro
+
             int ID_CEP = 0;
             int ID_END = 0;
             using (var conn = new SqlConnection(_stringConexao))
@@ -125,6 +115,8 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Close(); // fecha a conexao
             }
             // retorna a variável quantidade
+
+            //
             var sqlCEP = new StringBuilder()
                 .AppendLine("INSERT INTO CODIGOS_POSTAIS(CODI_CEP,CODI_LOG,CODI_BAI, CODI_LOC, CODI_UF ) " +
                             "VALUES(@CEP, @Logradouro, @Bairro, @Localidade, @UF)");
@@ -132,7 +124,7 @@ namespace ERP.Servico.Servicos.Repositorio
             var sqlEnderecos = new StringBuilder()
                 .AppendLine("INSERT INTO ENDERECOS(ENDE_NUM, ENDE_COM, ENDE_CODI_ID_FK) " +
                             "VALUES(@NumeroEndereco, @Complemento, @ID_CEP)");
-         
+
             var sqlEmpresa = new StringBuilder()
                 .AppendLine("INSERT INTO EMPRESAS(EMPR_RAZ, EMPR_CNPJ, EMPR_ENDE_ID_FK) " +
                             "VALUES(@razao, @cnpj, @ID_end)");
@@ -251,7 +243,8 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 var reader = command.ExecuteReader();
 
-               while(reader.Read()){
+                while (reader.Read())
+                {
 
                     var empresal = new Empresa
                     {
