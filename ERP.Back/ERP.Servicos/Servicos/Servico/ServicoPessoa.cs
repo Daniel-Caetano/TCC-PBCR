@@ -33,11 +33,11 @@ namespace ERP.Servico.Servicos.Servico
             return pessoas;
         }
 
-        public Pessoa BuscaNome(string nome)
+        public List<Pessoa> BuscaNome(string nome)
         {
             var repo = new RepositorioPessoa(_stringConexao);
-            var pessoa = repo.BuscaNome(nome);
-            return pessoa;
+            var pessoas = repo.BuscaNome(nome);
+            return pessoas;
         }
 
         public void Adicionar(string Nome, string CPF,
