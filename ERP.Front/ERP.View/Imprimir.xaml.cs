@@ -46,6 +46,13 @@ namespace ERP.View
             iObservacao.Text = Observacao;
             iCidadeRecebedor.Text = CidadeRecebedor;
             iFRecebedor.Text = UFRecebedor;
+
+            // NOME E CPF/CNPF que seão plotados no recibo
+            iiNomeRecebedor.Text = NomeRecebedor;
+            iiCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
+            iiNomePagador.Text = NomePagador;
+            iicpF_CNPJPagador.Text = cpF_CNPJPagador;
+
         }
 
     }
