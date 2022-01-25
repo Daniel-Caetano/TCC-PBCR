@@ -1,5 +1,6 @@
 ﻿using ERP.ViewApi.Negocio;
 using Refit;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,6 +25,14 @@ namespace ERP.ViewApi.Servicos.Interface
 
         [Get("/Recibo/Completo/Nome/{nome}/json")]
         Task<IList<ReciboResponse>> GetAsyncNome(string nome);
+
+        [Post("/Recibo/Adicionar/json")]
+        Task<IList<ReciboResponse>> InsertAsync(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo);
+
+        [Delete("/Recibo/Delete/id/json")]
+        Task DeleteAsync(int id);
     }
 }
 

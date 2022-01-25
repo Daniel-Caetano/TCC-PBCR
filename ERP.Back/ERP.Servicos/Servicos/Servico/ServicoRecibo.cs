@@ -1,6 +1,8 @@
 ﻿using ERP.Servico.Negocio;
 using ERP.Servicos;
+using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace ERP.Servico.Servicos.Servico
 {
@@ -60,6 +62,21 @@ namespace ERP.Servico.Servicos.Servico
             var recibo = repo.BuscaReciboNome(nome);
 
             return recibo;
+        }
+
+        public void Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            var repositorio = new RepositorioRecibo(_stringConexao);
+            repositorio.Adicionar(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec, UFrec, Pagador, DocumentoPag,
+                Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+        }
+
+        public void Deletar(int id)
+        {
+            var repositorio = new RepositorioRecibo(_stringConexao);
+            repositorio.Deletar(id);
         }
     }
 }

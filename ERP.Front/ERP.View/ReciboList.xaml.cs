@@ -18,7 +18,6 @@ namespace ERP.View
     /// </summary>
     public partial class ReciboList : Page
     {
-
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
@@ -34,6 +33,8 @@ namespace ERP.View
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
+        
+
         public async Task CarregarGrid()
         {
             var recibos = await serviceRecibo.GetAsyncAll();
@@ -42,10 +43,9 @@ namespace ERP.View
                 // MessageBox.Show(elemento.Numero.ToString());
             }
 
-
             dataGridRecibo.ItemsSource = recibos;
         }
-
+        //Metodo verifica se o cpf ou cnpj é válido após isso carrega o mesmo na listagem da janela
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
             if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
@@ -72,7 +72,7 @@ namespace ERP.View
                 CarregarGrid();
         }
 
-
+        //Medo recebe os dados do banco de acordo com a pesquisa e exibe na janela
         public async Task CarregaDadosRecibo(string Dados)
         {
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
@@ -136,14 +136,14 @@ namespace ERP.View
          */
         }
 
-
+        //Metodo realiza chamada da janela recibo
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
             recibo.Show();
             MessageBox.Show("Clicou Botão");
         }
-
+        //Metodo carrega na tela a janela de pré-visualização do recibo
         private void Visualizar(object sender, RoutedEventArgs e)
         {
 
@@ -212,7 +212,7 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
-                MessageBox.Show("Deletar Recibo");
+                MessageBox.Show("Desja realmente deletar Recibo?");
             }
             else
             {
