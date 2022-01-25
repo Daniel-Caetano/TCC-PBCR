@@ -323,6 +323,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
                 var reader = command.ExecuteReader();
 
+
                 //Salvando as informações para deletar as tabelas certas
                 while (reader.Read())
                 {
