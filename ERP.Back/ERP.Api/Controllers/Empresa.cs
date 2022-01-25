@@ -39,8 +39,8 @@ namespace ERP.Api.Controllers
         [HttpPut]
         [Route("Atualizar/{cnpjAtual}/json")]
         public IActionResult Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF)
+                                       string NumeroEndereco, string Complemento, string CEP, 
+                                       string Logradouro, string Bairro, string Localidade, string UF)
         {
 
             var repo = new ServicoEmpresa(_connectionString);
