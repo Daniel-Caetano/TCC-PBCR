@@ -46,9 +46,11 @@ namespace ERP.ViewApi.Servicos.Servico
             return await _customerService.GetAsyncNome(nome);
         }
 
-        public async Task<IList<ReciboResponse>> InsertAsync(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
-            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
-            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        public async Task<IList<ReciboResponse>> InsertAsync(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, 
+                                                             string NumeroEndRec,string ComplementoRec, string CEPrec, string BairroRec, 
+                                                             string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+                                                             decimal Valor, string ValorExtenso, string Observacao, 
+                                                             string CidadeRecibo, string UFrecibo)
         {
             return await _customerService.InsertAsync(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec,
                 UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
@@ -75,45 +77,3 @@ namespace ERP.ViewApi.Servicos.Servico
 
     }
 }
-
-//var Tipo = "A Receber";
-//var Recebedor = "njasd";
-//var DocumentoRec = "asdsa";
-//var EnderecoRec = "zxczx";
-//var NumeroEndRec = "asdqwe";
-//var ComplementoRec = "sadsad";
-//var CEPrec = "xczcxz";
-//var BairroRec = "sadasd";
-//var CidadeRec = "zxczxc";
-//var UFrec = "ew";
-//var Pagador = "cxzcng";
-//var DocumentoPag = "ewqewq";
-//decimal Valor = 2000;
-//var ValorExtenso = "czxczx";
-//var Observacao = "wqeqw";
-
-
-//var recibosTest = await serviceRecibo.InsertAsync(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec,
-//    UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao);
-
-//int id=1;
-//string Tipo="";
-//decimal Valor=2220000;
-//string ValorExtenso=""; 
-//string Observacao=""; 
-//string NomeRecebedor="GUILHERMEEEEEEE"; 
-//string CPF_CNPJRecebedor = ""; 
-//string LogradouroRecebedor = "";
-//string NumeroEnderecoRecebedor = "";
-//string ComplementoRecebedor = "";
-//string CEPRecebedor = "";
-//string BairroRecebedor = "";
-//string CidadeRecebedor = "";
-//string UFRecebedor = "";
-//string NomePagador = "";
-//string CPF_CNPJPagador = "";
-
-
-//var recibosTest = await serviceRecibo.UpdateAsync(id, Tipo, Valor, ValorExtenso, Observacao, NomeRecebedor,
-//                                         CPF_CNPJRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor,
-//                                         CEPRecebedor, BairroRecebedor, CidadeRecebedor, UFRecebedor, NomePagador, CPF_CNPJPagador);
