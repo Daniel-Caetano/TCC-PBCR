@@ -36,8 +36,6 @@ namespace ERP.View
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
        
-
-
         public ReciboList()
         {
             InitializeComponent();
@@ -55,10 +53,6 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-
-
-       
-
             var recibos = await serviceRecibo.GetAsyncAll();
             foreach (var elemento in recibos)
             {
@@ -98,10 +92,8 @@ namespace ERP.View
 
         public async Task CarregaDadosRecibo(string Dados)
         {
-
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
-          
         }
 
    

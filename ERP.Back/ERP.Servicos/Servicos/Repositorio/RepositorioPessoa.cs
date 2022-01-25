@@ -17,6 +17,45 @@ namespace ERP.Servico.Servicos.Repositorio
             _stringConexao = stringConexao;
         }
 
+        public List<Pessoa> Lista()
+        {
+            var pessoas = new List<Pessoa>();
+            var sql = new StringBuilder()
+                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
+                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM PESSOAS pe " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var pessoa = new Pessoa
+                    {
+                        ID = reader.GetInt32(reader.GetOrdinal("PESS_ID_PK")),
+                        Nome = reader.GetString(reader.GetOrdinal("PESS_NOM")),
+                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),
+                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("PESS_ENDE_ID_FK")),
+                        NumeroEndereco = reader.GetString(reader.GetOrdinal("ENDE_NUM")),
+                        Complemento = reader.GetString(reader.GetOrdinal("ENDE_COM")),
+                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),
+                        CEP = reader.GetString(reader.GetOrdinal("CODI_CEP")),
+                        Logradouro = reader.GetString(reader.GetOrdinal("CODI_LOG")),
+                        Bairro = reader.GetString(reader.GetOrdinal("CODI_BAI")),
+                        Localidade = reader.GetString(reader.GetOrdinal("CODI_LOC")),
+                        UF = reader.GetString(reader.GetOrdinal("CODI_UF"))
+                    };
+                    pessoas.Add(pessoa);
+                }
+            }
+            return pessoas;
+        }
+
         public List<Pessoa> BuscaCpf(string cpf)
         {
             var pessoas = new List<Pessoa>();
