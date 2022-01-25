@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ERP.Servico.Negocio;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-using ERP.Servico.Negocio;
 
 namespace ERP.Servico.Servicos.Repositorio
 {
@@ -11,10 +10,16 @@ namespace ERP.Servico.Servicos.Repositorio
     {
         private readonly string _stringConexao;
         //UTILIZAR ORM (ENTITY)
+
+        private readonly string select = "SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM EMPRESAS es " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ";
         public RepositorioEmpresa(string stringConexao)
         {
             _stringConexao = stringConexao;
         }
+
         public List<Empresa> RecebeTabela(SqlDataReader reader)
         {
             var empresas = new List<Empresa>();
@@ -47,10 +52,7 @@ namespace ERP.Servico.Servicos.Repositorio
             var empresas = new List<Empresa>();
 
             var sql = new StringBuilder()
-                .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM EMPRESAS es " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ");
+                .AppendLine(select);
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -59,20 +61,17 @@ namespace ERP.Servico.Servicos.Repositorio
                 var reader = command.ExecuteReader();
                 empresas = repositorioEmpresa.RecebeTabela(reader);
             }
-            
+
             return empresas;
         }
+
         public List<Empresa> BuscaCnpj(string cnpj)
         {
             var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);//variavel do tipo repositorio criada para chamar a funcao de receber tabela
 
             var empresas = new List<Empresa>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT es.EMPR_ID_PK , es.EMPR_RAZ ,es.EMPR_CNPJ, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG , cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM EMPRESAS es " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = EMPR_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
-                            "WHERE es.EMPR_CNPJ = @cnpj");
+                .AppendLine(select + "WHERE es.EMPR_CNPJ = @cnpj");
 
             using (var conn = new SqlConnection(_stringConexao))
             {

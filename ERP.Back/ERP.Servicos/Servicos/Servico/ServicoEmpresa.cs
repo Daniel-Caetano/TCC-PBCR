@@ -43,15 +43,15 @@ namespace ERP.Servico.Servicos.Servico
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
             var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Adicionar(razao,cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
-          
+            repositorio.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+
         }
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
 
-            //estrutura para manter os dados antigos que o usuário não digitar
+            //estrutura para não sobrescrever os dados antigos com null
             var dadosAntigos = BuscaCnpj(cnpjAtual);
             if (novaRazao == null)
             {
