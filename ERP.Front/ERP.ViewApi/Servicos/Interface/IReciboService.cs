@@ -15,10 +15,3 @@ namespace ERP.ViewApi.Servicos.Interface
         Task<IList<ReciboResponse>> GetAsync(int id);
     }
 }
-
-//Recibo/Numero/{id}/json
-//[Get("/Recibo/Lista/json")]
-//Task<IList<ReciboResponse>> GetAsync();
-
-/*[Get("/Recibo/{cnpj}/json")]
-Task<ReciboResponse> GetAsyncBuca(string cnpj);*/
