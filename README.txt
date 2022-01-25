@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-//Comandos básicos testando
-=======
-//Comandos básicos testando back_end
->>>>>>> 63909ca45d5c932bd892ac3fb05d73e749989e9f
+//Comandos básicos
 //git status
-//git add (nome dos arquivos mordificados)
+//git add .
 //git commit -m "Comentário"
-//--quando for enviar para o Master/Main
-//git pull origin master
-//git push -u origin master
+//git pull origin develop
+//git push -u origin (sua branch)
 
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
