@@ -8,19 +8,19 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
        
         
-        Title="imprimir Recibo" Height="834" Width="800" WindowStartupLocation="CenterScreen">
+        Title="imprimir Recibo" Height="834" Width="820" WindowStartupLocation="CenterScreen">
 
 
     <DockPanel Margin="0,0,0,6">
-        <Grid DockPanel.Dock="Top" Height="86" VerticalAlignment="Top">
-            <Button x:Name="butGerarRecibo" 
-                        Content="Gerar Recibo"                     
+        <Grid DockPanel.Dock="Top" Height="86" VerticalAlignment="Top" Background="#FF107C41">
+            <Button x:Name="butImp" 
+                        Content="Imprimir"                     
                         Width="140" 
                         Margin="10,11,0,43"
                         Cursor="Hand" HorizontalAlignment="Left"                       
                     />
-            <Button x:Name="butImp" 
-                        Content="Imprimir"                     
+            <Button x:Name="butGerarRecibo" 
+                        Content="Gerar Recibo"                     
                         Width="140" 
                         Margin="0,10,10,44"
                         Cursor="Hand" HorizontalAlignment="Right"                       
@@ -28,39 +28,42 @@
 
         </Grid>
 
-        <Grid DockPanel.Dock="Top" Width="800" Height="727">
+        <Grid DockPanel.Dock="Top" Width="821" Height="727">
 
             <Label FontSize="50" Content="Recibo" Margin="336,0,0,655" HorizontalAlignment="Left"/>
-            <Label Content="Eu" HorizontalAlignment="Left" Height="24" Margin="10,94,0,0" VerticalAlignment="Top" Width="37"/>
+            <Label Content="Eu" HorizontalAlignment="Left" Height="31" Margin="10,94,0,0" VerticalAlignment="Top" Width="37" FontSize="16"/>
             <Label Content="," HorizontalAlignment="Left" Height="32" Margin="150,136,0,0" VerticalAlignment="Top" Width="24"/>
-            <TextBox x:Name="iNomeRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="24" Margin="33,94,0,0" TextWrapping="Wrap" Text="Nome/Razão" VerticalAlignment="Top" Width="219" Cursor="IBeam"/>
-            <TextBox x:Name="iCPF_CNPJRecebedor" BorderThickness="0" HorizontalAlignment="Left" Margin="257,94,0,0" TextWrapping="Wrap" Text="CPF/CNPJ recebedor" VerticalAlignment="Top" Width="113" Cursor="IBeam" Height="31"/>
-            <Label Content=",  localizado em, " FontSize="12" HorizontalAlignment="Left" Height="30" Margin="368,95,0,0" VerticalAlignment="Top" Width="90"/>
-            <TextBox x:Name="iComplementoRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="16,140,0,0" TextWrapping="Wrap" Text="complemento recebedor" VerticalAlignment="Top" Width="164" Cursor="IBeam"/>
-            <TextBox x:Name="iCEPRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="162,140,0,0" TextWrapping="Wrap" Text="CEP recebedor" VerticalAlignment="Top" Width="87" Cursor="IBeam"/>
-            <TextBox x:Name="iCidadeRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="406,141,0,0" TextWrapping="Wrap" Text="Cidade do recebedor" VerticalAlignment="Top" Width="126" Cursor="IBeam"/>
-            <TextBox x:Name="iFRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="28" Margin="537,140,0,0" TextWrapping="Wrap" Text="Estado" VerticalAlignment="Top" Width="24"/>
-            <Label Content=", declaro para devidos fins que recebi de " HorizontalAlignment="Left" Height="28" Margin="566,140,0,0" VerticalAlignment="Top" Width="224"/>
-            <TextBox x:Name="iNomePagador" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="10,197,0,0" TextWrapping="Wrap" Text="nome/razão social pagador" VerticalAlignment="Top" Width="164"/>
-            <TextBox x:Name="icpF_CNPJPagador" BorderThickness="0" HorizontalAlignment="Left" Margin="179,197,0,0" TextWrapping="Wrap" Text="CPF/CNPJ pagador" VerticalAlignment="Top" Width="120" Cursor="IBeam"/>
-            <Label Content=", o valor de R$" HorizontalAlignment="Left" Margin="286,197,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="iValor" BorderThickness="0" HorizontalAlignment="Left" Height="24" Margin="371,197,0,0" TextWrapping="Wrap" Text="valor do recibo" VerticalAlignment="Top" Width="89" Cursor="IBeam"/>
-            <TextBox x:Name="iLogradouroRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="25" Margin="459,95,0,0" TextWrapping="Wrap" Text="lagradouro recebedor" VerticalAlignment="Top" Width="264" Cursor="IBeam"/>
-            <TextBox x:Name="iNumeroEnderecoRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="25" Margin="728,97,0,0" TextWrapping="Wrap" Text="número endereço recebedor" VerticalAlignment="Top" Width="62" Cursor="IBeam"/>
-            <TextBox x:Name="iValorExtenso" BorderThickness="0" HorizontalAlignment="Left" Height="24" Margin="465,197,0,0" TextWrapping="Wrap" Text="valor do documento por extenso" VerticalAlignment="Top" Width="182"/>
-            <Label Content="em virtude de " HorizontalAlignment="Center" Height="29" Margin="0,226,0,0" VerticalAlignment="Top" Width="780"/>
-            <TextBox x:Name="iObservacao" BorderThickness="0" HorizontalAlignment="Center" Margin="0,255,0,0" TextWrapping="Wrap" Text=" observação do documento." VerticalAlignment="Top" Width="780" Cursor="IBeam" Height="33"/>
-            <TextBox HorizontalAlignment="Left" BorderThickness="0" Height="27" Margin="47,322,0,0" TextWrapping="Wrap" Text="Cidade corrente -" VerticalAlignment="Top" Width="103" Cursor="IBeam"/>
-            <TextBox HorizontalAlignment="Left" BorderThickness="0" Height="27" Margin="143,322,0,0" TextWrapping="Wrap" Text="Estado corrente, " VerticalAlignment="Top" Width="96"/>
-            <TextBox HorizontalAlignment="Left" BorderThickness="0" Height="27" Margin="234,322,0,0" TextWrapping="Wrap" Text="data corrente" VerticalAlignment="Top" Width="118" Cursor="IBeam"/>
-            <TextBox HorizontalAlignment="Left" Height="40" Margin="214,381,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Cursor="IBeam"/>
-            <TextBox HorizontalAlignment="Left" Height="40" Margin="214,541,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Cursor="IBeam"/>
-            <TextBox x:Name="iiNomeRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="270,426,0,0" TextWrapping="Wrap" Text="Nome/Razão Social recebedor" VerticalAlignment="Top" Width="268" Cursor="IBeam"/>
-            <TextBox x:Name="iiCPF_CNPJRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="270,461,0,0" TextWrapping="Wrap" Text="CPF/CNPJ recebedor" VerticalAlignment="Top" Width="268" Cursor="IBeam"/>
-            <TextBox x:Name="iiNomePagador" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="270,586,0,0" TextWrapping="Wrap" Text="Nome/Razão Social pagador" VerticalAlignment="Top" Width="268" Cursor="IBeam"/>
-            <TextBox x:Name="iicpF_CNPJPagador" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="270,621,0,0" TextWrapping="Wrap" Text="CPF/CNPJ  pagador" VerticalAlignment="Top" Width="268" Cursor="IBeam"/>
-            <TextBox x:Name="iBairroRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="249,140,0,0" TextWrapping="Wrap" Text="bairro recebedor," VerticalAlignment="Top" Width="155" Cursor="IBeam"/>
-            <Label Content="-" HorizontalAlignment="Left" Height="31" Margin="521,141,0,0" VerticalAlignment="Top" Width="17"/>
+            <TextBox x:Name="iNomeRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="26" Margin="33,94,0,0" TextWrapping="Wrap" Text="Nome/Razão" VerticalAlignment="Top" Width="173" Cursor="IBeam" FontSize="16" TextAlignment="Center"/>
+            <TextBox x:Name="iCPF_CNPJRecebedor" BorderThickness="0" HorizontalAlignment="Left" Margin="296,94,0,0" TextWrapping="Wrap" Text="CPF/CNPJ receb" VerticalAlignment="Top" Width="149" Cursor="IBeam" Height="31" FontSize="16" TextAlignment="Left"/>
+            <Label Content=",  localizado em, " FontSize="16" HorizontalAlignment="Left" Height="30" Margin="450,95,0,0" VerticalAlignment="Top" Width="124"/>
+            <TextBox x:Name="iComplementoRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="70,141,0,0" TextWrapping="Wrap" Text="complemento recebedor" VerticalAlignment="Top" Width="206" Cursor="IBeam" FontSize="16" TextAlignment="Center"/>
+            <TextBox x:Name="iCEPRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="324,141,0,0" TextWrapping="Wrap" Text="CEP recebedor" VerticalAlignment="Top" Width="86" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iCidadeRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="531,142,0,0" TextWrapping="Wrap" Text="Cidade do recebedor" VerticalAlignment="Top" Width="200" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iFRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="28" Margin="756,144,0,0" TextWrapping="Wrap" Text="UF" VerticalAlignment="Top" Width="28" TextAlignment="Left" FontSize="16"/>
+            <Label Content=", declaro para os devidos fins que recebi de " HorizontalAlignment="Left" Height="28" Margin="10,196,0,0" VerticalAlignment="Top" Width="322" FontSize="16"/>
+            <TextBox x:Name="iNomePagador" BorderThickness="0" HorizontalAlignment="Left" Height="30" Margin="325,196,0,0" TextWrapping="Wrap" Text="nome/razão social pagador" VerticalAlignment="Top" Width="164" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="icpF_CNPJPagador" BorderThickness="0" HorizontalAlignment="Left" Margin="575,195,0,0" TextWrapping="Wrap" Text="CPF/CNPJ paga" VerticalAlignment="Top" Width="163" Cursor="IBeam" TextAlignment="Left" FontSize="16"/>
+            <Label Content=", o valor de R$" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" FontSize="16" Width="121"/>
+            <TextBox x:Name="iValor" BorderThickness="0" HorizontalAlignment="Left" Height="27" Margin="136,261,0,0" TextWrapping="Wrap" Text=" valor do recibo" VerticalAlignment="Top" Width="126" Cursor="IBeam" TextAlignment="Left" FontSize="16"/>
+            <TextBox x:Name="iLogradouroRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="31" Margin="564,94,0,0" TextWrapping="Wrap" Text="lagradouro recebedor" VerticalAlignment="Top" Width="206" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iNumeroEnderecoRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="32" Margin="41,138,0,0" TextWrapping="Wrap" Text="N/S" VerticalAlignment="Top" Width="29" Cursor="IBeam" TextAlignment="Left" FontSize="16"/>
+            <TextBox x:Name="iValorExtenso" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="267,259,0,0" TextWrapping="Wrap" Text="valor por extenso" VerticalAlignment="Top" Width="203" TextAlignment="Left" FontSize="16"/>
+            <Label Content="em virtude de " HorizontalAlignment="Left" Height="28" Margin="475,260,0,0" VerticalAlignment="Top" Width="121" FontSize="16"/>
+            <TextBox x:Name="iObservacao" BorderThickness="0" HorizontalAlignment="Left" Margin="10,311,0,0" TextWrapping="Wrap" Text=" observação do documento." VerticalAlignment="Top" Width="770" Cursor="IBeam" Height="33" FontSize="16" TextAlignment="Left"/>
+            <TextBox x:Name="dataCorrente" HorizontalAlignment="Left" BorderThickness="0" Height="42" Margin="119,397,0,0" TextWrapping="Wrap" Text="data corrente" VerticalAlignment="Top" Width="118" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox HorizontalAlignment="Left" Height="40" Margin="206,465,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="402" Cursor="IBeam"/>
+            <TextBox HorizontalAlignment="Left" Height="40" Margin="206,580,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Cursor="IBeam"/>
+            <TextBox x:Name="iiNomeRecebedor" BorderThickness="0" HorizontalAlignment="Center" Height="30" Margin="0,510,0,0" TextWrapping="Wrap" Text="Nome/Razão Social recebedor" VerticalAlignment="Top" Width="268" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iiCPF_CNPJRecebedor" BorderThickness="0" HorizontalAlignment="Center" Height="30" Margin="0,545,0,0" TextWrapping="Wrap" Text="CPF/CNPJ recebedor" VerticalAlignment="Top" Width="268" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iiNomePagador" BorderThickness="0" HorizontalAlignment="Center" Height="30" Margin="0,625,0,0" TextWrapping="Wrap" Text="Nome/Razão Social pagador" VerticalAlignment="Top" Width="268" Cursor="IBeam" TextAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="iicpF_CNPJPagador" BorderThickness="0" HorizontalAlignment="Center" Height="30" Margin="0,660,0,0" TextWrapping="Wrap" Text="CPF/CNPJ  pagador" VerticalAlignment="Top" Width="268" Cursor="IBeam" FontSize="16" TextAlignment="Center"/>
+            <TextBox x:Name="iBairroRecebedor" BorderThickness="0" HorizontalAlignment="Left" Height="29" Margin="395,142,0,0" TextWrapping="Wrap" Text="bairro recebedor" VerticalAlignment="Top" Width="155" Cursor="IBeam" FontSize="16" TextAlignment="Center"/>
+            <Label Content="-" HorizontalAlignment="Left" Height="30" Margin="731,142,0,0" VerticalAlignment="Top" Width="20" FontSize="16"/>
+            <Label Content="CPF/CNPJ" HorizontalAlignment="Left" Height="30" Margin="206,95,0,0" VerticalAlignment="Top" Width="85" FontSize="16"/>
+            <Label Content="CPF/CNPJ" HorizontalAlignment="Left" Height="30" Margin="485,196,0,0" VerticalAlignment="Top" Width="85" FontSize="16"/>
+            <Label Content="CEP -" HorizontalAlignment="Left" Height="28" Margin="286,140,0,0" VerticalAlignment="Top" Width="46" FontSize="16" VerticalContentAlignment="Center"/>
+            <Label Content="Goiânia - GO" HorizontalAlignment="Left" Height="42" Margin="10,397,0,0" VerticalAlignment="Top" Width="104" FontSize="16"/>
+            <Label Content="N°" HorizontalAlignment="Left" Height="30" Margin="9,137,0,0" VerticalAlignment="Top" Width="32" FontSize="16"/>
 
             <!--RECEBENDO DADOS DO FORMULÁRIO -->
         </Grid>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace ERP.View
 {
@@ -24,11 +25,11 @@ namespace ERP.View
             iComplementoRecebedor.Text = ComplementoRecebedor;
             iCEPRecebedor.Text = CEPRecebedor;
             iBairroRecebedor.Text = BairroRecebedor;
-            iCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
+            iCPF_CNPJRecebedor.Text = Formatar(CPF_CNPJRecebedor);
             iNomePagador.Text = NomePagador;
 
             //PAGADOR
-            icpF_CNPJPagador.Text = cpF_CNPJPagador;
+            icpF_CNPJPagador.Text = Formatar(cpF_CNPJPagador);
             iValor.Text = _Valor.ToString();
             iValorExtenso.Text = ValorExtenso;
             iObservacao.Text = Observacao;
@@ -37,11 +38,23 @@ namespace ERP.View
 
             // NOME E CPF/CNPF que seão plotados no recibo
             iiNomeRecebedor.Text = NomeRecebedor;
-            iiCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
+            iiCPF_CNPJRecebedor.Text = Formatar(CPF_CNPJRecebedor);
             iiNomePagador.Text = NomePagador;
-            iicpF_CNPJPagador.Text = cpF_CNPJPagador;
+            iicpF_CNPJPagador.Text = Formatar(cpF_CNPJPagador);
+            dataCorrente.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
         }
+        public string Formatar(string cncp)
+        {
+            if (cncp.Length == 14)
+            {
+                return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
+            }
+            else
+            {
+                return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
+            }
 
+        }
     }
 }
