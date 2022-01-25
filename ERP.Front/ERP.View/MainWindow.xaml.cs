@@ -35,7 +35,7 @@ namespace ERP.View
         {
 
             Main.Content = new ClienteForm();
-
+           
         }
 
         private void listCliente(object sender, RoutedEventArgs e)
@@ -55,8 +55,6 @@ namespace ERP.View
             cadastroRecibo.Show();
 
         }
-
-
 
     }
 

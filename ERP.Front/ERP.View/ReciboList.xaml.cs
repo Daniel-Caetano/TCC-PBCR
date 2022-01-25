@@ -187,7 +187,7 @@ namespace ERP.View
 
                 /*Dados do Pagador*/
                 string NomePagador = infoRecibo.NomePagador.ToString();
-                string cpF_CNPJPagador = infoRecibo.cpF_CNPJPagador.ToString();
+                string cpF_CNPJPagador = infoRecibo.CpF_CNPJPagador.ToString();
                 double _Valor = (double)infoRecibo.Valor;
                 string ValorExtenso = infoRecibo.ValorExtenso.ToString();
                 string Observacao = infoRecibo.Observacao.ToString();
@@ -198,15 +198,11 @@ namespace ERP.View
 
 
 
-                Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,       
-                                              ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
-                                              cpF_CNPJPagador, _Valor, ValorExtenso,
-                                              Observacao, CidadeRecebedor, UFRecebedor); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
-
-
-
-
+                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
+                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
+                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
+                                             Observacao,  CidadeRecebedor,  UFRecebedor, CPF_CNPJRecebedor, NomePagador);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 

@@ -49,10 +49,18 @@ namespace ERP.Servico.Servicos.Servico
 
         }
 
-        public List<Recibo> BuscaReciboPorCPF_CNPJ(string documento)
+        public List<Recibo> BuscaReciboCPF_CNPJ(string documento)
         {
             var repo = new RepositorioRecibo(_stringConexao);
-            var recibo = repo.BuscaReciboPorCPF_CNPJ(documento);
+            var recibo = repo.BuscaReciboCPF_CNPJ(documento);
+
+            return recibo;
+        }
+
+        public List<Recibo> BuscaReciboNome(string nome)
+        {
+            var repo = new RepositorioRecibo(_stringConexao);
+            var recibo = repo.BuscaReciboNome(nome);
 
             return recibo;
         }
