@@ -15,7 +15,13 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
+        public List<Empresa> Lista()
+        {
 
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            var listEmpresa = repositorio.Lista();
+            return listEmpresa;
+        }
         public List<Empresa> BuscaCnpj(string cnpj)
         {
             try
