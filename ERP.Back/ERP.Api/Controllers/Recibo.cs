@@ -1,5 +1,7 @@
 ﻿using ERP.Servico.Servicos.Servico;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Data;
 
 namespace ERP.Api.Controllers
 {
@@ -62,6 +64,28 @@ namespace ERP.Api.Controllers
             var servico = new ServicoRecibo(_connectionString);
             servico.BuscaReciboNome(nome);
             return Ok(servico.BuscaReciboNome(nome));
+        }
+
+        [HttpPost]
+        [Route("Adicionar/json")]
+        public IActionResult Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            var servico = new ServicoRecibo(_connectionString);
+            servico.Adicionar(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec, UFrec, Pagador, DocumentoPag,
+                Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+            
+            return Ok(servico);
+        }
+
+        [HttpDelete]
+        [Route("Delete/id/json")]
+        public  IActionResult Deletar(int id)
+        {
+            var servico = new ServicoRecibo(_connectionString);
+            servico.Deletar(id);
+            return Ok(servico);
         }
     }
 }

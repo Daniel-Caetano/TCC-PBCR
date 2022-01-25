@@ -1,3 +1,4 @@
+
 ﻿using ReciboJanela;
 using ERP.ViewApi.Servicos.Servico;
 using ERP.ViewApi.Negocio;
@@ -65,6 +66,7 @@ namespace ERP.View
             {
                 if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
                 {
+
                     string search = txtSearch.Text.ToString();
                     CarregaDadosRecibo(search);
                 }
@@ -145,6 +147,7 @@ namespace ERP.View
                 document.Add(paragrafo);
                 document.Close();
             }
+
 
         }
 

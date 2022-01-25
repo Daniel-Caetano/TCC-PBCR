@@ -1,15 +1,4 @@
-﻿using ReciboJanela;
-using ERP.ViewApi.Servicos.Servico;
-using ERP.ViewApi.Negocio;
-using ERP.View.Negocio;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.Collections.ObjectModel;
+﻿using System.Windows;
 namespace ERP.View
 {
     /// <summary>
@@ -35,7 +24,7 @@ namespace ERP.View
         {
 
             Main.Content = new ClienteForm();
-           
+
         }
 
         private void listCliente(object sender, RoutedEventArgs e)
@@ -56,6 +45,11 @@ namespace ERP.View
 
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Sobre sobre = new Sobre();
+            sobre.Show();
+        }
     }
 
 }

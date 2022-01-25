@@ -1,26 +1,16 @@
-﻿using ReciboJanela;
-using ERP.ViewApi.Servicos.Servico;
+﻿using ERP.View.Negocio;
 using ERP.ViewApi.Negocio;
-using ERP.View.Negocio;
+using ERP.ViewApi.Servicos.Servico;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 
 
@@ -31,33 +21,36 @@ namespace ERP.View
     /// </summary>
     public partial class ReciboList : Page
     {
-
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
+ 
 
         public ReciboList()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
-
-#pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
+        
+
         public async Task CarregarGrid()
         {
-            var recibos = await serviceRecibo.GetAsyncAll();  
+
+            var recibos = await serviceRecibo.GetAsyncAll();
 
             dataGridRecibo.ItemsSource = recibos;
         }
-
+        //Metodo verifica se o cpf ou cnpj é válido após isso carrega o mesmo na listagem da janela
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
             if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
@@ -83,32 +76,35 @@ namespace ERP.View
                 CarregarGrid();
         }
 
-
+        //Medo recebe os dados do banco de acordo com a pesquisa e exibe na janela
         public async Task CarregaDadosRecibo(string Dados)
         {
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
+
         }
+
 
 
         public void GerarPDF(   string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
                                  string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
                                  string LogradouroRecebedor, string NumeroEnderecoRecebedor,
                                  string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string  ValorExtenso, string Observacao)
+
         {
             if (NomePagador != ""){
-            
-                //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
 
-                string nomeArquivo = @"C:\PDF\" + NomeRecebedor + ".pdf";
+                //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
+              
+                string nomeArquivo = @"C:\PDF\" + NomeRecebedor+".pdf";
                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
                 Document document = new Document(PageSize.A4);
                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+                string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
 
 
                 document.Open();
                 string dados = "";
-                string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
 
                 //GERANDO OS DADOS PARA PDF
                 iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));              ;
@@ -137,23 +133,28 @@ namespace ERP.View
                 paragrafo.Alignment = Element.ALIGN_CENTER;
                 paragrafo.Add("_________________________________________________________\n");
                 paragrafo.Add(NomePagador + "\n");
-                paragrafo.Add(cpF_CNPJPagador+"n \n\n");
+                paragrafo.Add(cpF_CNPJPagador+" \n\n");
 
 
                 document.Add(paragrafo);
+
                 document.Close();
+                    
+
+
             }
 
         }
 
 
+        //Metodo realiza chamada da janela recibo
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
             recibo.Show();
             MessageBox.Show("Clicou Botão");
         }
-
+        //Metodo carrega na tela a janela de pré-visualização do recibo
         private void Visualizar(object sender, RoutedEventArgs e)
         {
 
@@ -161,7 +162,6 @@ namespace ERP.View
 
             if (infoRecibo != null)
             {
-
 
                 /*Dados dos Recebedor*/
                 string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
@@ -183,8 +183,6 @@ namespace ERP.View
 
                 DateTime Data = infoRecibo.Data;
 
-
-
                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
                 imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
                                              ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
@@ -196,6 +194,7 @@ namespace ERP.View
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                 //MessageBox.Show(dados);
+                
             }
 
 
@@ -223,7 +222,7 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
-                MessageBox.Show("Deletar Recibo");
+                MessageBox.Show("Desja realmente deletar Recibo?");
             }
             else
             {
@@ -237,10 +236,10 @@ namespace ERP.View
             if (txtSearch.Text != "")
             {
                 btnSearch.IsEnabled = true;
-
+               
             }
         }
 
-
+       
     }
 }

@@ -45,5 +45,41 @@ namespace ERP.ViewApi.Servicos.Servico
         {
             return await _customerService.GetAsyncNome(nome);
         }
+
+        public async Task<IList<ReciboResponse>> InsertAsync(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            return await _customerService.InsertAsync(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec,
+                UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _customerService.DeleteAsync(id);
+        }
+
     }
 }
+
+//var Tipo = "A Receber";
+//var Recebedor = "njasd";
+//var DocumentoRec = "asdsa";
+//var EnderecoRec = "zxczx";
+//var NumeroEndRec = "asdqwe";
+//var ComplementoRec = "sadsad";
+//var CEPrec = "xczcxz";
+//var BairroRec = "sadasd";
+//var CidadeRec = "zxczxc";
+//var UFrec = "ew";
+//var Pagador = "cxzcng";
+//var DocumentoPag = "ewqewq";
+//decimal Valor = 2000;
+//var ValorExtenso = "czxczx";
+//var Observacao = "wqeqw";
+//var CidadeRecibo = "asdsa";
+//var UFrecibo = "sa";
+
+
+//var recibosTest = await serviceRecibo.InsertAsync(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec,
+//    UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
