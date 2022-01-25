@@ -23,20 +23,21 @@ namespace ERP.View
         {
             InitializeComponent();
         }
-
+        //METODO RESPOSÁVEL POR PREENCHER O RECIBO
         public void PreVisualizarRecibo(string NomeRecebedor, string LogradouroRecebedor, string NumeroEnderecoRecebedor,
                                          string ComplementoRecebedor,   string CEPRecebedor, string BairroRecebedor,        
                                          string cpF_CNPJPagador, double _Valor, string ValorExtenso, 
-                                         string Observacao, string CidadeRecebedor, string UFRecebedor)
+                                         string Observacao, string CidadeRecebedor, string UFRecebedor, string CPF_CNPJRecebedor, string NomePagador)
         {
+            //RECEBEDOR
             iNomeRecebedor.Text = NomeRecebedor;
             iLogradouroRecebedor.Text = LogradouroRecebedor;
             iNumeroEnderecoRecebedor.Text = NumeroEnderecoRecebedor;
             iComplementoRecebedor.Text = ComplementoRecebedor;
             iCEPRecebedor.Text = CEPRecebedor;
             iBairroRecebedor.Text = BairroRecebedor;
-            //iCPF_CNPJRecebedor = iCPF_CNPJRecebedor;
-            //iNomePagador.Text = NomePagador;
+            iCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
+            iNomePagador.Text = NomePagador;
 
             //PAGADOR
             icpF_CNPJPagador.Text = cpF_CNPJPagador;
@@ -46,5 +47,6 @@ namespace ERP.View
             iCidadeRecebedor.Text = CidadeRecebedor;
             iFRecebedor.Text = UFRecebedor;
         }
+
     }
 }

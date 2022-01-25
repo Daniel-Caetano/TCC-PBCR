@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ReciboJanela
 {
@@ -19,13 +20,15 @@ namespace ReciboJanela
         }
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
-        
+
         public void butSalvar_Click(string data)
         {
 
+
             Dados dados = new Dados();
+
 
             dados.ValorRecebido = (txtValor.Text);
             dados.RecebemosDe = txtExtenso.Text;
@@ -43,7 +46,7 @@ namespace ReciboJanela
                $"a importancia de: {dados.ImportanciDe}\n"
                + $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
                "Informações", MessageBoxButton.OK, MessageBoxImage.Information);
-            
+
             txtValor.Text = "";
             txtExtenso.Text = "";
             txtCpf.Text = "";
@@ -61,14 +64,21 @@ namespace ReciboJanela
         {
             string cpf = txtCpf.Text;
             cpf = Validacao.RetirarMascara(cpf);
-           
+
+
+            if (txtCpf.IsFocused == true)
+            {
+                txtCnpj.IsEnabled = false;
+                txtCnpj.Background = Brushes.Green;
+            }
+
 
             if (!Validacao.ValidarCpf(cpf))
             {
+
                 e.Handled = true;
                 txtCpf_Erro.Visibility = Visibility.Visible;
                 txtCpf_Erro.Focus();
-
             }
             else
             {
@@ -76,29 +86,40 @@ namespace ReciboJanela
             }
 
         }
-        
+
         private void txtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
         {
             string cnpj = txtCnpj.Text;
             cnpj = Validacao.RetirarMascara(cnpj);
 
-            if (txtCpf.IsFocused) {
-                txtCnpj.IsEnabled = false;
-            }  
-                
+            if (txtCnpj.IsFocused == true)
+            {
+                txtCpf.IsEnabled = false;
+            }
 
             if (!Validacao.ValidarCnpj(cnpj))
             {
-                e.Handled = true;                
-                txtCnpj_Erro.Visibility = Visibility.Visible;
-                txtCnpj_Erro.Focus();
-            }
-            else
-            {
-                txtCnpj_Erro.Visibility = Visibility.Collapsed;
+                e.Handled = true;
+
+                if (txtCpf.IsFocused)
+                {
+                    txtCnpj.IsEnabled = false;
+                }
+
+
+                if (!Validacao.ValidarCnpj(cnpj))
+                {
+                    e.Handled = true;
+
+                    txtCnpj_Erro.Visibility = Visibility.Visible;
+                    txtCnpj_Erro.Focus();
+                }
+                else
+                {
+                    txtCnpj_Erro.Visibility = Visibility.Collapsed;
+                }
             }
         }
-
 
     }
 }

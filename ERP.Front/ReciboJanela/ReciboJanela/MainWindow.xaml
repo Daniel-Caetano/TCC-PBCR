@@ -31,6 +31,7 @@
         <StackPanel DockPanel.Dock="Left" Width="124" Margin="5 0" Height="397">
 
 
+
             <Button x:Name="butAdd" Margin="0 2" Height="46" Width="123">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" Padding="10">ADICIONAR</TextBlock>
@@ -45,20 +46,7 @@
 
                 </StackPanel>
             </Button>
-
-            <Button x:Name="butSalvar" Margin="0 2" Height="40" >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="14" Padding="10" Height="24">SALVAR</TextBlock>
-                </StackPanel>
-            </Button>
-
-            <Button x:Name="butImp" Margin="0 2"  Height="43" Click="butImp_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="14" Padding="10">IMPRIMIR</TextBlock>
-
-                </StackPanel>
-            </Button>
-
+            
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -87,12 +75,12 @@
             <TextBox x:Name="txtExtenso" HorizontalAlignment="Left" Height="32" Margin="131,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Cursor="Arrow"/>
             <TextBox x:Name="txtImpor" HorizontalAlignment="Left" Height="32" Margin="123,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
             <wfpTool:MaskedTextBox x:Name="txtCpf" Mask="000\.000\.000-00" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Margin="59,169,0,0" LostKeyboardFocus="txtCpf_LostFocus" Cursor="Arrow" />
-            <TextBox x:Name="txtCpf_Erro" Text="CPF Invalido!" Foreground="Red" Height="27" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,210,510,0" Visibility="Collapsed"/>
+            <TextBox x:Name="txtCpf_Erro" Text="CPF Invalido!" Foreground="Red" Height="27" TextWrapping="Wrap" VerticalAlignment="Top" Margin="162,167,405,0" Visibility="Collapsed"/>
             <TextBox x:Name="txtRef" HorizontalAlignment="Left" Height="32" Margin="91,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
             <DatePicker x:Name="txtData" HorizontalAlignment="Left" Height="32" Margin="529,264,0,0" VerticalAlignment="Top" Width="74"/>
-            <Label Content="CNPJ" HorizontalAlignment="Left" Margin="254,177,0,0" VerticalAlignment="Top"/>
-            <wfpTool:MaskedTextBox x:Name="txtCnpj" Mask="00\.000\.000/0000-00" HorizontalAlignment="Left" Margin="311,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" Cursor="Arrow" LostKeyboardFocus="txtCnpj_TextChanged" Height="23"/>
-            <TextBox x:Name="txtCnpj_Erro" Text="CNPJ Invalido!" Foreground="Red" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Margin="331,210,219,0" Visibility="Collapsed"/>
+            <Label Content="CNPJ" HorizontalAlignment="Left" Margin="326,170,0,0" VerticalAlignment="Top"/>
+            <wfpTool:MaskedTextBox x:Name="txtCnpj" Mask="00\.000\.000/0000-00" HorizontalAlignment="Left" Margin="368,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" Cursor="Arrow" LostKeyboardFocus="txtCnpj_TextChanged" Height="23"/>
+            <TextBox x:Name="txtCnpj_Erro" Text="CNPJ Invalido!" Foreground="Red" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Margin="507,169,59,0" Visibility="Collapsed"/>
 
         </Grid>
         <!-- C# WPF XAML -->

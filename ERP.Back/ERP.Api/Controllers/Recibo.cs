@@ -10,7 +10,7 @@ namespace ERP.Api.Controllers
     {
         [HttpGet]
         [Route("Lista/json")]
-        public IActionResult ListaRecibos() // Lista todos os Recibos
+        public IActionResult ListaRecibos() // Lista todos os recibos
         {
             var servico = new ServicoRecibo(_connectionString);
             servico.ListaRecibos();
@@ -19,7 +19,7 @@ namespace ERP.Api.Controllers
 
         [HttpGet]
         [Route("Completo/{id}/json")]
-        public IActionResult BuscaReciboCompleto(int id) // Busca um Recibo Pelo Id
+        public IActionResult BuscaReciboCompleto(int id) // Busca um recibo Pelo Id
         {
             var servico = new ServicoRecibo(_connectionString);
             servico.BuscaReciboCompleto(id);
@@ -47,13 +47,21 @@ namespace ERP.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Completo/CPF_CNPJ/{documento}json")]
-        public IActionResult BuscaReciboPorCPF_CNPJ(string documento) // Busca um Recibo Pelo Id
+        [Route("Completo/CPF_CNPJ/{documento}/json")]
+        public IActionResult BuscaReciboCPF_CNPJ(string documento) // Busca recibos pelo CPF/CNPJ
         {
             var servico = new ServicoRecibo(_connectionString);
-            servico.BuscaReciboPorCPF_CNPJ(documento);
-            return Ok(servico.BuscaReciboPorCPF_CNPJ(documento));
+            servico.BuscaReciboCPF_CNPJ(documento);
+            return Ok(servico.BuscaReciboCPF_CNPJ(documento));
         }
 
+        [HttpGet]
+        [Route("Completo/Nome/{nome}/json")]
+        public IActionResult BuscaReciboNome(string nome) // Busca recibos pelo Nome/RazãoSocial
+        {
+            var servico = new ServicoRecibo(_connectionString);
+            servico.BuscaReciboNome(nome);
+            return Ok(servico.BuscaReciboNome(nome));
+        }
     }
 }

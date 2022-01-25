@@ -23,6 +23,7 @@ namespace ERP.ViewApi.Negocio
         [JsonProperty("data")]
         public DateTime Data { get; set; }
 
+        // Recebedor
         [JsonProperty("nomeRecebedor")]
         public string NomeRecebedor { get; set; }
 
@@ -55,7 +56,7 @@ namespace ERP.ViewApi.Negocio
         public string NomePagador { get; set; }
 
         [JsonProperty("cpF_CNPJPagador")]
-        public string cpF_CNPJPagador { get; set; }
+        public string CpF_CNPJPagador { get; set; }
 
     }
 }
