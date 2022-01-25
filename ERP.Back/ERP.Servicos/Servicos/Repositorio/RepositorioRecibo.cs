@@ -1,4 +1,5 @@
 ﻿using ERP.Servico.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -47,8 +48,7 @@ namespace ERP.Servicos
                         CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
                         Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                         ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
-                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
-                        Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
+                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"))
                     };
                     recibos.Add(recibo);
                 }
@@ -165,5 +165,72 @@ namespace ERP.Servicos
 
             return recibos;
         }
+
+        public void Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            string MaxID = "SELECT MAX(RECI_ID_PK) FROM RECIBOS";
+
+            int ID_Reci = 0;
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open(); // abre conexão
+
+                // cria objeto do tipo SqlCommand
+                using (var command = new SqlCommand(MaxID, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_Reci = (int)command.ExecuteScalar() + 1;
+
+                }
+                conn.Close();
+            }
+            var sqlReci = new StringBuilder()
+                .AppendLine("INSERT INTO RECIBOS (RECI_TIP, RECI_REC, RECI_REC_DOC, RECI_REC_END, RECI_REC_NUM, RECI_REC_COM, RECI_REC_CEP, " +
+                "RECI_REC_BAI, RECI_REC_CID,RECI_REC_UF, RECI_PAG, RECI_PAG_DOC, RECI_VAL, RECI_VAL_EXT, RECI_OBS, RECI_CID, RECI_UF) " +
+                "VALUES (@Tipo, @Recebedor, @DocumentoRec, @EnderecoRec, @NumeroEndRec, @ComplementoRec, @CEPrec, @BairroRec, @CidadeRec, @UFrec, " +
+                "@Pagador, @DocumentoPag , @Valor , @ValorExtenso , @Observacao , @CidadeRecibo , @UFrecibo) ");
+            
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sqlReci.ToString(), conn);
+                command.Parameters.AddWithValue("@Tipo ", Tipo);
+                command.Parameters.AddWithValue("@Recebedor ", Recebedor);
+                command.Parameters.AddWithValue("@DocumentoRec ", DocumentoRec);
+                command.Parameters.AddWithValue("@EnderecoRec ", EnderecoRec);
+                command.Parameters.AddWithValue("@NumeroEndRec ", NumeroEndRec);
+                command.Parameters.AddWithValue("@ComplementoRec ", ComplementoRec);
+                command.Parameters.AddWithValue("@CEPrec ", CEPrec);
+                command.Parameters.AddWithValue("@BairroRec ", BairroRec);
+                command.Parameters.AddWithValue("@CidadeRec ", CidadeRec);
+                command.Parameters.AddWithValue("@UFrec ", UFrec);
+                command.Parameters.AddWithValue("@Pagador ", Pagador);
+                command.Parameters.AddWithValue("@DocumentoPag ", DocumentoPag);
+                command.Parameters.AddWithValue("@Valor ", Valor);
+                command.Parameters.AddWithValue("@ValorExtenso ", ValorExtenso);
+                command.Parameters.AddWithValue("@Observacao ", Observacao);
+                command.Parameters.AddWithValue("@CidadeRecibo ", CidadeRecibo);
+                command.Parameters.AddWithValue("@UFrecibo ", UFrecibo);
+                var reader = command.ExecuteNonQuery();
+            }
+        }
+
+        public void Deletar(int id)
+        {
+            var sql = new StringBuilder().AppendLine("DELETE FROM RECIBOS WHERE RECI_ID_PK = @id ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                var command = new SqlCommand(sql.ToString(), conn);
+                conn.Open();
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
+                var reader = command.ExecuteReader();
+                reader.Read();
+            }
+        }
+
     }
 }

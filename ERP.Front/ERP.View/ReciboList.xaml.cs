@@ -18,7 +18,6 @@ namespace ERP.View
     /// </summary>
     public partial class ReciboList : Page
     {
-
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
@@ -34,6 +33,8 @@ namespace ERP.View
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
+        
+
         public async Task CarregarGrid()
         {
             var recibos = await serviceRecibo.GetAsyncAll();
@@ -41,7 +42,6 @@ namespace ERP.View
             {
                 // MessageBox.Show(elemento.Numero.ToString());
             }
-
 
             dataGridRecibo.ItemsSource = recibos;
         }
