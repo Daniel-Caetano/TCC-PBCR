@@ -65,6 +65,7 @@ namespace ReciboJanela
 
                 return true;
         }
+      
         public static bool ValidarCpf(string cpf)
         {
             //validar cpf
@@ -82,6 +83,9 @@ namespace ReciboJanela
                     if (!Char.IsDigit(cpf[i]))
                     {
                         cpfValido = false;
+
+                        //MessageBox.Show("O CPF informado não e valido");
+
                         break;
                     }
                 }
@@ -97,12 +101,13 @@ namespace ReciboJanela
                     if (cpf == temp)
                     {
                         cpfValido = false;
-                        //  MessageBox.Show("O CPF informado não e valido");
+                         MessageBox.Show("O CPF informado não e valido");
                         break;
                     }
                 }
 
             }
+           
             //Verificar dígito de controle do cpf
             if (cpfValido)
             {
@@ -151,8 +156,10 @@ namespace ReciboJanela
 
                 }
             }
+          
             return cpfValido;
         }
+    
         public static string RetirarMascara(string mascara)
         {
             return mascara.Trim().Replace(".", "").Replace("-", "").Replace("/", "");

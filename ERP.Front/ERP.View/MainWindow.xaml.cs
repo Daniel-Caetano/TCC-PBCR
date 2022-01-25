@@ -31,7 +31,6 @@ namespace ERP.View
 
         }
 
-
         private void addCliente(object sender, RoutedEventArgs e)
         {
 
@@ -53,10 +52,10 @@ namespace ERP.View
         private void CadastrarRecibo(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow cadastroRecibo = new ReciboJanela.MainWindow();
-            cadastroRecibo.Show();          
+            cadastroRecibo.Show();
 
         }
-        
+
     }
 
 }

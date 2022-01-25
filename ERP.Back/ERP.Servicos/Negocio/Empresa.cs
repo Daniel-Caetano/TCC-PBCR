@@ -14,6 +14,5 @@
         public string Bairro { get; set; }
         public string Localidade { get; set; }
         public string UF { get; set; }
-
     }
 }

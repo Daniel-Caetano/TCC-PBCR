@@ -3,78 +3,56 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Api.Controllers
 {
+    // Rotas Para acesso da API
     [ApiController]
     [Route("Recibo")]
     public class Recibo : BaseController
     {
         [HttpGet]
         [Route("Lista/json")]
-        public IActionResult ListaRecibos()
+        public IActionResult ListaRecibos() // Lista todos os Recibos
         {
             var servico = new ServicoRecibo(_connectionString);
-            var recibo = servico.ListaRecibos();
-            return Ok(recibo);
+            servico.ListaRecibos();
+            return Ok(servico.ListaRecibos());
         }
 
         [HttpGet]
-        [Route("Numero/{id}/json")]
-        public IActionResult BuscaRecibo(int id)
+        [Route("Completo/{id}/json")]
+        public IActionResult BuscaReciboCompleto(int id) // Busca um Recibo Pelo Id
         {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaReciboCompleto(id);
-
-            return Ok(recibo.BuscaReciboCompleto(id));
+            var servico = new ServicoRecibo(_connectionString);
+            servico.BuscaReciboCompleto(id);
+            return Ok(servico.BuscaReciboCompleto(id));
         }
 
         [HttpGet]
-        [Route("Numero/Completo/{id}/json")]
-        public IActionResult BuscaReciboCompleto(int id)
+        [Route("Completo/Apagar/json")]
+        public IActionResult BuscaReciboCompletoApagar() // Lista os recibos do tipo A Pagar
         {
             var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaReciboCompleto(id);
+            recibo.BuscaReciboCompletoApagar();
 
-            return Ok(recibo.BuscaReciboCompleto(id));
+            return Ok(recibo.BuscaReciboCompletoApagar());
         }
 
         [HttpGet]
-        [Route("CPFs/Pagar/{cpf}/json")]
-        public IActionResult BuscaRecibosPagarCpf(string cpf)
+        [Route("Completo/AReceber/json")]
+        public IActionResult BuscaReciboCompletoAreceber() // Lista os recibos do tipo A Receber
         {
             var recibo = new ServicoRecibo(_connectionString);
-            _ = recibo.BuscaRecibosPagarCpf(cpf);
+            recibo.BuscaReciboCompletoAreceber();
 
-            return Ok(recibo.BuscaRecibosPagarCpf(cpf));
+            return Ok(recibo.BuscaReciboCompletoAreceber());
         }
 
         [HttpGet]
-        [Route("CPF/Pagar/{cpf}/json")]
-        public IActionResult BuscaReciboPagarCpf(string cpf)
+        [Route("Completo/CPF_CNPJ/{documento}json")]
+        public IActionResult BuscaReciboPorCPF_CNPJ(string documento) // Busca um Recibo Pelo Id
         {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaReciboPagarCpf(cpf);
-
-            return Ok(recibo.BuscaReciboPagarCpf(cpf));
-        }
-
-        [HttpGet]
-        [Route("CPF/Receber/{cpf}/json")]
-        public IActionResult BuscaReciboReceberCpf(string cpf)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaReciboReceberCpf(cpf);
-
-            return Ok(recibo.BuscaReciboReceberCpf(cpf));
-
-        }
-
-        [HttpGet]
-        [Route("CNPJ/{cnpj}/json")]
-        public IActionResult BuscaReciboCnpj(string cnpj)
-        {
-            var recibo = new ServicoRecibo(_connectionString);
-            recibo.BuscaReciboCnpj(cnpj);
-
-            return Ok(recibo.BuscaReciboCnpj(cnpj));
+            var servico = new ServicoRecibo(_connectionString);
+            servico.BuscaReciboPorCPF_CNPJ(documento);
+            return Ok(servico.BuscaReciboPorCPF_CNPJ(documento));
         }
 
     }

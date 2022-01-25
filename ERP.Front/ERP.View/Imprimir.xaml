@@ -58,15 +58,6 @@
 
             <!--RECEBENDO DADOS DO FORMULÁRIO -->
         </Grid>
-
-
-        <StackPanel DockPanel.Dock="Bottom" Height="55">
-            <Button x:Name="gerarPdf"
-                    Content="Gerar PDF"
-                    DockPanel.Dock="Bottom"
-                    Width="140" Margin="0 10 5 0" 
-                    Cursor="Hand" HorizontalAlignment="Right"/>
-        </StackPanel>
     </DockPanel>
 
 </Window>

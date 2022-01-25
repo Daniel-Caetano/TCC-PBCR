@@ -3,10 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ERP.View"
+      xmlns:local="clr-namespace:ERP.View"       
       mc:Ignorable="d" 
       
-            
+       xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit"         
+      
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -29,20 +30,22 @@
         </Grid.RowDefinitions>
 
         <!--Campo das Busca-->
-        <!--COMENTANDO-->
+
         <Grid Margin="0,0,338,0" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="72*"/>
-                <ColumnDefinition Width="127*"/>
+                <ColumnDefinition Width="192*"/>
+                <ColumnDefinition Width="34*"/>
+                <ColumnDefinition Width="305*"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel        
                                         Grid.Row="0"
                                         Height="50" 
-                                        Width="500" 
+                                        Width="444" 
                                         VerticalAlignment="Top"
-                                        HorizontalAlignment="Center" 
-                                        Margin="110,32,0,0" >
+                                        HorizontalAlignment="Left" 
+                                        Margin="93,32,0,0"
+                                        Grid.ColumnSpan="2" >
 
                 <materialDesign:ColorZone
                                             Mode="Standard"
@@ -51,38 +54,44 @@
                                             Panel.ZIndex="1"
                                             Margin="16 0 0 0"
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1" 
-                                            Height="36">
+                                            Height="37">
 
                     <!--Definições para Campo de Busca-->
-                    <StackPanel Orientation="Horizontal" Width="500" Height="40">
-
-                        <Grid Height="36" VerticalAlignment="Top" Margin="20,0,0,0" Width="300">
+                    <StackPanel>
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300" />
                             </Grid.ColumnDefinitions>
 
                             <!--Campo de Busca-->
-                            <TextBox x:Name="txtSearch"
+                            <TextBox  x:Name="txtSearch"
                                             Grid.Column="0"
                                             Margin="0,0,0,-8"
-                                            materialDesign:HintAssist.Hint="Digite CPF ou CNPJ"
+                                            materialDesign:HintAssist.Hint="Digite o Registro da Empresa"
                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                            BorderThickness="0"
-                                            MinWidth="100"
-                                            Height="40"
-                                            MaxLength="20"
+                                            BorderThickness="0"                                              
+                                            MinWidth="350"
+                                            Height="40"                                            
                                             VerticalAlignment="Center" 
                                             HorizontalAlignment="Left"
-                                            FontSize="16" BorderBrush="#89403F3F"
-                                     
-                                     />
+                                            FontSize="16"
+                                            TextChanged="LiberarBotao"
+                                            MaxLength="50"
+                                            />
+
                         </Grid>
 
                     </StackPanel>
                 </materialDesign:ColorZone>
             </StackPanel>
+            <!--Botão de Pesquisa-->
+            <StackPanel Margin="536,0,0,0"
+                        RenderTransformOrigin="0.5,0.5"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Height="40" 
+                        Width="150" Grid.ColumnSpan="3">
 
-            <StackPanel Margin="-40,0,0,0" RenderTransformOrigin="0.5,0.5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="150">
                 <Button x:Name="btnSearch" 
                         Width="150"
                         Margin="0,0,0,0" 
@@ -90,16 +99,18 @@
                         Panel.ZIndex="6" 
                         Background="#FF10710C"
                         Foreground="White"
-                        FontSize="22" HorizontalAlignment="Stretch"
+                        FontSize="22"
                         VerticalAlignment="Top"
                         BorderBrush="#FF10710C"
                         Click="BuscarRecibo"
+                        IsEnabled="False"
                         >Pesquisar</Button>
 
             </StackPanel>
         </Grid>
 
         <StackPanel Grid.Row="1"  Height="800" VerticalAlignment="Top" Margin="0,0,338,0">
+        
             <!--LISTA DE DADOS-->
             <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1920" >
 
@@ -143,10 +154,13 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Numero" Binding="{Binding NumeroRecibo}" FontSize="16"/>
-                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
-                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor,ConverterCulture='pt-BR',StringFormat=C}"  FontSize="16" />
-                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>                       
+                             <DataGridTextColumn Header="Numero" Binding="{Binding NumeroRecibo}" FontSize="16"/>
+                             <DataGridTextColumn Header="Pagador" Binding="{Binding NomePagador}" FontSize="16"/>
+                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor,ConverterCulture='pt-BR',StringFormat=C}"  FontSize="16" />
+                            <DataGridTextColumn Header="Recebor" Binding="{Binding NomeRecebedor}" FontSize="16"/>
+                            <DataGridTextColumn Header="CPF Recebedor" Binding="{Binding cpF_CNPJRecebedor}" FontSize="16"/>                       
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
+                            <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -54,7 +54,7 @@ namespace ERP.ViewApi.Negocio
         [JsonProperty("nomePagador")]
         public string NomePagador { get; set; }
 
-        [JsonProperty("numeroRecibo")]
+        [JsonProperty("cpF_CNPJPagador")]
         public string cpF_CNPJPagador { get; set; }
 
     }
