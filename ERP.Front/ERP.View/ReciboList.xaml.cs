@@ -103,13 +103,15 @@ namespace ERP.View
           
         }
 
-   
-        private void GerarPdf(object sender, RoutedEventArgs e)
-        {
-            /*
-             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
 
-             if (infoRecibo != null)
+        public void GerarPDF(string NomeRecebedor, string LogradouroRecebedor, string NumeroEnderecoRecebedor, string  ComplementoRecebedor, string CEPRecebedor, string NomePagador,string BairroRecebedor, string  CPF_CNPJRecebedor, string Valor,
+                            string  cpF_CNPJPagador, string  ValorExtenso, string Observacao, string CidadeRecebedor, string FRecebedor)
+
+        {     
+            
+             
+
+             if (NomePagador != "")
              {
 
                  //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
@@ -129,34 +131,34 @@ namespace ERP.View
 
                  paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
                  paragrafo.Alignment = Element.ALIGN_LEFT;
-                 paragrafo.Add("Eu " + infoRecibo.Numero + " (CPF/CNPJ_RECEBOR),localizado em \n <logradouro_recebor>, <número_endereço_recebedor> <complemento_recebedor>,\n <CEP_recebor>,<bairro_recebedor>," +
-                     ",\n declaro para os fins que recebi <nome/razão_social_pagador> (CPF/CNPJ_RECEBOR), o valor de R$ " + infoRecibo.Valor + ", " + infoRecibo.ValorExtenso +
-                     "em virtude de <observação_documento>");
+                 paragrafo.Add("Eu " + NomeRecebedor + CPF_CNPJRecebedor+", localizado em \n"+ LogradouroRecebedor +","+NumeroEnderecoRecebedor + ComplementoRecebedor+",\n"+ CEPRecebedor+ BairroRecebedor +
+                     ",\n declaro para os fins que recebi "+ NomePagador + cpF_CNPJPagador+" o valor de R$ " + Valor + ", " + ValorExtenso +
+                     "em virtude de "+Observacao);
 
                  iTextSharp.text.Paragraph paragrafo1 = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
                  paragrafo.Alignment = Element.ALIGN_CENTER;
-                 paragrafo.Add(infoRecibo.Cidade + "," + infoRecibo.Estado + " \n");
+                paragrafo.Add("infoRecibo.Cidade + infoRecibo.Estado \n");
 
 
+                string DataAtual = DateTime.Now.ToString("dd,MM,yyyy");
                  paragrafo1.Alignment = Element.ALIGN_CENTER;
                  paragrafo1.Add("---------------------------------------------------------- \n");
-                 paragrafo1.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                 paragrafo1.Add("<nome/razão_social_pagador> \n");
-                 paragrafo1.Add(" (CPF/CNPJ_RECEBOR), \n\n\n");
+                 paragrafo1.Add("Goiânia-Goiás\n"+ DataAtual);
+                 paragrafo1.Add(cpF_CNPJPagador);
+                 paragrafo1.Add(CPF_CNPJRecebedor+ ", \n\n\n");
 
-                 string cpf = "1234567891011";
-                 string pagador = "Bruno Cesar de Oliveira";
+             
 
                  paragrafo.Add("---------------------------------------------------------- \n");
-                 paragrafo.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                 paragrafo.Add("<nome/razão_social_pagador> \n");
-                 paragrafo.Add(cpf + pagador + "\n\n\n");
+                 paragrafo.Add("Goiânia-Goiàs\n"+ DataAtual);
+                 paragrafo.Add(cpF_CNPJPagador+"\n");
+                 paragrafo.Add(cpF_CNPJPagador + NomePagador + "\n\n\n");
 
 
                  document.Add(paragrafo);
                  document.Close();
              }
-         */
+         
         }
 
 

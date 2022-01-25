@@ -17,7 +17,8 @@
                         Content="Imprmir Recibo"                     
                         Width="140" 
                         Margin="0 10 5 0"
-                        Cursor="Hand" HorizontalAlignment="Right"                       
+                        Cursor="Hand" HorizontalAlignment="Right" Click="GerarReciboPDF" 
+                            
                     />
 
         </StackPanel >
@@ -27,7 +28,7 @@
             <Label FontSize="50" Content="Recibo" Margin="336,0,0,316" HorizontalAlignment="Left"/>
             <Label Content="Eu" HorizontalAlignment="Left" Height="24" Margin="10,78,0,0" VerticalAlignment="Top" Width="37"/>
             <Label Content="," HorizontalAlignment="Left" Height="30" Margin="174,153,0,0" VerticalAlignment="Top" Width="39"/>
-            <TextBox x:Name="iNomeRecebedor" HorizontalAlignment="Left" Height="24" Margin="33,78,0,0" TextWrapping="Wrap" Text="Nome/Razão" VerticalAlignment="Top" Width="206"/>
+            <TextBox x:Name="iNomeRecebedor" HorizontalAlignment="Left" Height="24" Margin="33,78,0,0" TextWrapping="Wrap" Text="Nome/Razão" VerticalAlignment="Top" Width="206" CaretBrush="{x:Null}"/>
             <TextBox x:Name="iCPF_CNPJRecebedor" HorizontalAlignment="Left" Margin="263,77,0,0" TextWrapping="Wrap" Text="CPF/CNPJ recebedor" VerticalAlignment="Top" Width="120" Cursor="IBeam"/>
             <Label Content=",  localizado em, " HorizontalAlignment="Left" Height="30" Margin="383,85,0,0" VerticalAlignment="Top" Width="90"/>
             <TextBox x:Name="iComplementoRecebedor" HorizontalAlignment="Left" Height="30" Margin="16,140,0,0" TextWrapping="Wrap" Text="complemento recebedor" VerticalAlignment="Top" Width="164" Cursor="IBeam"/>

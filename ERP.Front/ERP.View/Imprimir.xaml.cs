@@ -25,8 +25,8 @@ namespace ERP.View
         }
         //METODO RESPOSÁVEL POR PREENCHER O RECIBO
         public void PreVisualizarRecibo(string NomeRecebedor, string LogradouroRecebedor, string NumeroEnderecoRecebedor,
-                                         string ComplementoRecebedor,   string CEPRecebedor, string BairroRecebedor,        
-                                         string cpF_CNPJPagador, double _Valor, string ValorExtenso, 
+                                         string ComplementoRecebedor, string CEPRecebedor, string BairroRecebedor,
+                                         string cpF_CNPJPagador, double _Valor, string ValorExtenso,
                                          string Observacao, string CidadeRecebedor, string UFRecebedor, string CPF_CNPJRecebedor, string NomePagador)
         {
             //RECEBEDOR
@@ -46,7 +46,34 @@ namespace ERP.View
             iObservacao.Text = Observacao;
             iCidadeRecebedor.Text = CidadeRecebedor;
             iFRecebedor.Text = UFRecebedor;
-        }
 
+
+
+        }
+  
+        private void GerarReciboPDF(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Clicou");
+            //RECEDOR
+            string NomeRecebedor = iNomeRecebedor.Text;
+            string LogradouroRecebedor = iLogradouroRecebedor.Text;
+            string NumeroEnderecoRecebedor = iNumeroEnderecoRecebedor.Text;
+            string ComplementoRecebedor = iComplementoRecebedor.Text;
+            string CEPRecebedor = iCEPRecebedor.Text;
+            string BairroRecebedor = iBairroRecebedor.Text;
+            string CPF_CNPJRecebedor = iCPF_CNPJRecebedor.Text;
+
+            //PAGADOR
+            string NomePagador = iNomePagador.Text;
+            string cpF_CNPJPagador = icpF_CNPJPagador.Text;
+            string Valor = iValor.Text;
+            string ValorExtenso = iValorExtenso.Text;
+            string Observacao = iObservacao.Text;
+            string CidadeRecebedor = iCidadeRecebedor.Text;
+            string FRecebedor = iFRecebedor.Text;
+
+            ReciboList reciboList = new ReciboList();
+            reciboList.GerarPDF(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor, CEPRecebedor, BairroRecebedor, CPF_CNPJRecebedor, NomePagador, cpF_CNPJPagador, Valor, ValorExtenso, Observacao, CidadeRecebedor, FRecebedor);
+        }
     }
 }
