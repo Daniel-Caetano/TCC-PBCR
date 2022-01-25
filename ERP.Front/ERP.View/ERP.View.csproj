@@ -70,6 +70,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="TestDados.cs" />
+    <Compile Include="Imprimir.xaml.cs">
+      <DependentUpon>Imprimir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReciboList.xaml.cs">
+      <DependentUpon>ReciboList.xaml</DependentUpon>
+    </Compile>
     <Page Include="ClienteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,7 +84,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Header.xaml">
+    <Page Include="Imprimir.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,23 +102,17 @@
     <Compile Include="ClienteList.xaml.cs">
       <DependentUpon>ClienteList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Header.xaml.cs">
-      <DependentUpon>Header.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Page1.xaml">
+    <Page Include="ReciboList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Negocio\Recibo\Recibo.cs" />
-    <Compile Include="Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
