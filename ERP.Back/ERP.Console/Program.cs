@@ -1,10 +1,4 @@
-﻿using Caelum.Stella.CSharp.Validation;
-using ERP.Servico.Negocio;
-using ERP.Servico.Servicos.Repositorio;
-using ERP.Servicos;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using ERP.Servico.Negocio;
 
 namespace ERP.Console
 {
@@ -15,7 +9,7 @@ namespace ERP.Console
             var novaEmpresa = new Empresa();
             //var repo = new RepositorioEmpresa();
 
-           // repo.Adicionar(novaEmpresa);
+            // repo.Adicionar(novaEmpresa);
 
             /*while (true)
             {

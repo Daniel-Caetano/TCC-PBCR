@@ -1,5 +1,4 @@
 ﻿using ERP.Servico.Negocio;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -17,6 +16,11 @@ namespace ERP.Servico.Servicos.Repositorio
             _stringConexao = stringConexao;
         }
 
+        private readonly string select = "SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
+                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
+                            "FROM PESSOAS pe " +
+                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
+                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ";
         //Função para receber valores da tabela do BD, criada para não precisar repetir o codigo várias vezes
         public List<Pessoa> RecebeTabela(SqlDataReader reader)
         {
@@ -43,19 +47,15 @@ namespace ERP.Servico.Servicos.Repositorio
             return pessoas;
         }
         public List<Pessoa> Lista()
-        {   
+        {
             //variavel do tipo repositorio criada para chamar a funcao de receber tabela
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
 
             var pessoas = new List<Pessoa>();//Lista de pessoa que será retornada
-            
+
             //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
-                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM PESSOAS pe " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK ");
+                .AppendLine(select);
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -78,12 +78,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var pessoas = new List<Pessoa>();
             var sql = new StringBuilder()
-                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
-                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM PESSOAS pe " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
-                            "WHERE PESS_CPF = @cpf");
+                .AppendLine(select + "WHERE PESS_CPF = @cpf");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -110,12 +105,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine("SELECT PESS_ID_PK, pe.PESS_NOM, pe.PESS_CPF ,PESS_ENDE_ID_FK, ENDE_ID_PK ,e.ENDE_NUM, e.ENDE_COM , CODI_ID_PK ,cp.CODI_CEP , cp.CODI_LOG " +
-                            ", cp.CODI_BAI , cp.CODI_LOC , cp.CODI_UF " +
-                            "FROM PESSOAS pe " +
-                            "INNER JOIN ENDERECOS e ON ENDE_ID_PK = PESS_ENDE_ID_FK " +
-                            "INNER JOIN CODIGOS_POSTAIS cp ON cp.CODI_ID_PK = e.ENDE_CODI_ID_FK " +
-                            "WHERE PESS_NOM = @nome");
+                .AppendLine(select + "WHERE PESS_NOM = @nome");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
