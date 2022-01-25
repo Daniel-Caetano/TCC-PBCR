@@ -47,8 +47,8 @@ namespace ERP.Servico.Servicos.Servico
 
         }
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF)
+                              string NumeroEndereco, string Complemento, string CEP, 
+                              string Logradouro, string Bairro, string Localidade, string UF)
         {
 
             //estrutura para não sobrescrever os dados antigos com null
