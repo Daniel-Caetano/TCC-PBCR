@@ -54,8 +54,7 @@ namespace ERP.View
 
         public async Task CarregarGrid()
         {
-
-            var recibos = await serviceRecibo.GetAsync();
+            var recibos = await serviceRecibo.GetAsyncAll();
             foreach (var elemento in recibos)
             {
                 // MessageBox.Show(elemento.Numero.ToString());
@@ -75,7 +74,7 @@ namespace ERP.View
 
         public async Task CarregaID(int id)
         {
-                var recibos = await serviceReciboID.GetAsync(id);
+                var recibos = await serviceReciboID.GetAsyncID(id);
 
                 dataGridRecibo.ItemsSource = recibos;
         }
