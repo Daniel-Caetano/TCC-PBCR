@@ -4,133 +4,215 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP.View"
-        mc:Ignorable="d"        
+        mc:Ignorable="d"   
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
+        TextElement.FontSize="18"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource MaterialDesignPaper}"      
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="700" Width="800">
+        
+        Title="Ali-Finance" 
+        MinHeight="700" 
+        MaxHeight="1080"           
+        MinWidth="800"        
+        MaxWidth="1930"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        ToolTip="Janela Principal"
+        Icon="/logo-janela.png"      
+        
+        >
     <Grid>
+
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="459*"/>
-            <ColumnDefinition Width="341*"/>
+            <ColumnDefinition Width="Auto" MinWidth="1630"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2">
-            <StackPanel DockPanel.Dock="Top" Width="Auto" Height="37" Background="#FF107C41" >
-                <Grid>
+        <DockPanel>
+
+
+            <!-- PRIMEIRO MENU TOP-->
+            <StackPanel DockPanel.Dock="Top"
+                        Margin="0,28,0,0"
+                        Width="1920" Height="60"
+                        Background="#FF107C41" >
+                <Grid HorizontalAlignment="Stretch"  Height="60">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="106*"/>
-                        <ColumnDefinition Width="427*"/>
-                        <ColumnDefinition Width="267*"/>
+                        <ColumnDefinition Width="103"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="688*"/>
+                        <ColumnDefinition Width="276"/>
+                        <ColumnDefinition Width="124"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <Button x:Name="menu_bar" Width="103" Height="40"   HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,1" Background="#FF107C42" >
-                            <materialDesign:PackIcon Kind="Menu" Width="100" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center"/>
-                        </Button>
+
+                    <!--Menu Hamburguer -->
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                ToolTip="Categorias"
+                                Width="40" Height="40"
+                                Margin="34,12,0,0">
+                        <ToggleButton  HorizontalAlignment="Left"
+                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}">
+                            <materialDesign:PackIcon Kind="Backburger" Height="20" Width="20"/>
+                        </ToggleButton>
+                    </StackPanel>
+
+
+                    <!-- Logo da Empresa  -->
+                    <StackPanel Grid.Column="1" Margin="12 11 5 5">
+                        <TextBlock FontSize="32" 
+                                   Text="Finance"
+                                   FontWeight="Normal"
+                                   Foreground="AntiqueWhite"/>
+                    </StackPanel>
+
+
+
+                    <!--Formulário de Pesquisa-->
+                    <StackPanel Grid.Column="2" Margin="0 12 0 10">
+
+                        <StackPanel>
+                            <materialDesign:ColorZone
+                                            Mode="Standard"
+                                            Padding="8 4 8 4"
+                                            CornerRadius="2"
+                                            Panel.ZIndex="1"
+                                            Margin="16 0 0 0"
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
+
+                                <!--Definições para Campo de Busca -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                                Width="Auto" />
+                                        <ColumnDefinition
+                                                 Width="*" />
+                                        <ColumnDefinition
+                                                 Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+
+                                    <!--Lupa de Busca-->
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Kind="Search" Opacity=".56" Width="25" Height="25"/>
+                                    </Button>
+
+                                    <!--Campo de Busca-->
+                                    <TextBox
+                                            Grid.Column="1"
+                                            Margin="8 0 0 0"
+                                            materialDesign:HintAssist.Hint="Digite as Categorias"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                            BorderThickness="0"
+                                            MinWidth="200"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"/>
+
+                                    <!--Microfone-->
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}" Grid.Column="2">
+                                     <materialDesign:PackIcon  Kind="Microphone" Opacity=".56" Margin="8 0 0 0" Height="23" Width="23" />
+                                    </Button>
+                                </Grid>
+                            </materialDesign:ColorZone>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                    <!--Informações do usuário  -->
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,6,0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                        <TextBlock x:Name="txtData" Margin="12,5,36,0" Foreground="AntiqueWhite" FontStyle="Italic" FontSize="14" >
+                      
+                            
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontStyle="Italic"  Margin="10,4,0,0" Foreground="BlanchedAlmond" TextAlignment="Left">Gestor Fazenda</TextBlock>
+                    </StackPanel>
+
+
+                    <!--Foto do usuário  -->
+                    <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+                        <Grid  Height="60" Margin="0,15,0,1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="131*"/>
+                                <ColumnDefinition Width="189*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="5">
+                                <ToggleButton
+                            Margin="0 10 0 10"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource MaterialDesignActionDarkToggleButton}"
+                            Width="40"
+                            Height="40"
+                            >
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <materialDesign:PackIcon Kind="AccountBox"/>
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                </ToggleButton>
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                 </Grid>
             </StackPanel>
-            <StackPanel DockPanel.Dock="top" Height="40">
-                <Menu FontSize="16" Padding="0" Height="40" >
-                    <MenuItem Header="_Arquivo">
-                        <MenuItem Header="Sair do Sistema"></MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="_Inserir"></MenuItem>
-                    <MenuItem Header="_Clientes"></MenuItem>
-                    <MenuItem Header="_Relatários"></MenuItem>
-                    <MenuItem Header="R_ecibo">
-                        <MenuItem Header="Adicionar"></MenuItem>
+
+            <!--SEGUNDO MENU TOP-->
+            <StackPanel DockPanel.Dock="Top">
+
+                <Menu FontSize="16" Padding="0" Height="40" Margin="10 0 0 0">
+                    <MenuItem Header="_Arquivo" Margin="10,0,0,0" Height="40">
+                        <MenuItem Header="Inicio" Padding="0" Width="130" Height="20" Margin="10,10,0,5" />
+                        <MenuItem Header="Novo" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Abrir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                         <Separator/>
-                        <MenuItem Header="Pesquisar"></MenuItem>
+                        <MenuItem Header="Informações" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Salvar como" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Compartilhar" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Opções" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Sobre" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <Separator/>
+                        <MenuItem Header="Sair" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
 
                     </MenuItem>
+                    <MenuItem Header="_Inserir" Height="40"></MenuItem>
+
+                    <MenuItem x:Name="cliente" Header="_Clientes" Height="40" >
+                        <MenuItem Header="Castastrar" Padding="0"  Width="130" Height="20" Margin="10 0 0 5" Click="addCliente"/>
+                        <MenuItem Header="Consultar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
+                    </MenuItem>
+
+
+                    <MenuItem Header="_Relatários" Height="40"></MenuItem>
+                    
+                    <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" Height="40" >
+                        <MenuItem x:Name="Cadastrar" Header="Cadastrar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="CadastrarRecibo"/>
+                        <MenuItem x:Name="Listar" Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="ListarRecibo"/>                    
+                    </MenuItem>
+                                    
                 </Menu>
             </StackPanel>
 
-            <!--- ESQUERDA-->
-            <StackPanel DockPanel.Dock="Left" Width="81" Height="Auto" RenderTransformOrigin="0.5,0.5">
-                <StackPanel.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="-1.586"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-1.841"/>
-                    </TransformGroup>
-                </StackPanel.RenderTransform>
+            <!--MENU LEFT-->
+            <StackPanel DockPanel.Dock="Left" Width="200" Orientation="Horizontal">
+            </StackPanel>
 
+            <!--PRINCIAPL-->
+            <StackPanel Width="1630" Height="1080">
+                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
             </StackPanel>
 
 
+            <!--FOOTER-->
 
-            <!--CENTRO-->
-            <StackPanel>
-                <Grid Width="Auto" Height="60" Margin="0,15,0,1" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="131*"/>
-                        <ColumnDefinition Width="189*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
-                        <TextBox Width="600" Height="40" BorderBrush="#FF107C41" Margin="0,0,4,0" BorderThickness="1,1,1,1" FontSize="18"/>
-                        <Button Height="42">
-                            <materialDesign:PackIcon Kind="Magnify" Width="35" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-                <Grid Width="Auto" Height="550" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="143*"/>
-                        <ColumnDefinition Width="99*"/>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="439*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <DataGrid x:Name="dataGridRecibo"
-                          AutoGenerateColumns="False"
-                          IsReadOnly="true"
-                          AlternatingRowBackground="LightBlue"
-                          AlternationCount="2" Grid.ColumnSpan="4">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
-                            <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
-                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
-                            <DataGridTextColumn Header="Valor por Extenso" Binding="{Binding ValorExtenso}"/>
-                            <DataGridTextColumn Header="Observação" Binding="{Binding Observacao}"/>
-                            <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}"/>
-                            <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
-                            <DataGridTextColumn Header="Data" Binding="{Binding Data}"/>
-                            <DataGridTemplateColumn Header="Ações">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--<Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
-                                                Content="{materialDesign:PackIcon Kind=FilePdfBox}"
-                                                ToolTip="Gerar Pdf" Click="GerarPdf"/>-->
-                                            <Button Style="{StaticResource MaterialDesignFlatAccentButton}"                                                
-                                                Content="{materialDesign:PackIcon Kind= Eye}"
-                                                ToolTip="Visualizar" Click="Visualizar"/>
-                                            <!--
-                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
-                                                Content="{materialDesign:PackIcon Kind=Delete}"
-                                                ToolTip="Visualizar" Click="Deletar"/>-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-
-            </StackPanel>
-
-            <!--RODAPÉ-->
-            <StackPanel DockPanel.Dock="Bottom" Width="Auto" Height="30">
-
-            </StackPanel>
         </DockPanel>
 
     </Grid>

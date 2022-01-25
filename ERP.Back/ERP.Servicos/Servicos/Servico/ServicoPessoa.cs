@@ -15,7 +15,16 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
-        public Pessoa BuscaCpf(string cpf)
+
+        public List<Pessoa> Lista()
+        {
+            var repo = new RepositorioPessoa(_stringConexao);
+            var pessoas = repo.Lista();
+            return pessoas;
+
+        }
+
+        public List<Pessoa> BuscaCpf(string cpf)
         {
             try
             {
@@ -29,16 +38,78 @@ namespace ERP.Servico.Servicos.Servico
             }
 
             var repo = new RepositorioPessoa(_stringConexao);
-            var pessoa = repo.BuscaCpf(cpf);
-            return pessoa;
+            var pessoas = repo.BuscaCpf(cpf);
+            return pessoas;
         }
 
-        public Pessoa BuscaNome(string nome)
+        public List<Pessoa> BuscaNome(string nome)
         {
             var repo = new RepositorioPessoa(_stringConexao);
-            var pessoa = repo.BuscaNome(nome);
-            return pessoa;
+            var pessoas = repo.BuscaNome(nome);
+            return pessoas;
         }
 
+        public void Adicionar(string Nome, string CPF,
+           string NumeroEndereco, string Complemento, string CEP
+           , string Logradouro, string Bairro, string Localidade, string UF)
+        {
+            var repositorio = new RepositorioPessoa(_stringConexao);
+            repositorio.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+
+        }
+        public void Atualizar(string CpfAtual, string Nome, string Cpf,
+    string NumeroEndereco, string Complemento, string CEP
+    , string Logradouro, string Bairro, string Localidade, string UF)
+        {
+
+            //estrutura para não sobrescrever os dados antigos com null
+            var dadosAntigos = BuscaCpf(Cpf);
+            if (Nome == null)
+            {
+                Nome = dadosAntigos[0].Nome;
+            }
+            if (Cpf == null)
+            {
+                Cpf = dadosAntigos[0].CPF;
+            }
+            if (NumeroEndereco == null)
+            {
+                NumeroEndereco = dadosAntigos[0].NumeroEndereco;
+            }
+            if (Complemento == null)
+            {
+                Complemento = dadosAntigos[0].Complemento;
+            }
+            if (CEP == null)
+            {
+                CEP = dadosAntigos[0].CEP;
+            }
+            if (Logradouro == null)
+            {
+                Logradouro = dadosAntigos[0].Logradouro;
+            }
+            if (Bairro == null)
+            {
+                Bairro = dadosAntigos[0].Bairro;
+            }
+            if (Localidade == null)
+            {
+                Localidade = dadosAntigos[0].Localidade;
+            }
+            if (UF == null)
+            {
+                UF = dadosAntigos[0].UF;
+            }
+
+            var repositorio = new RepositorioPessoa(_stringConexao);
+            repositorio.Atualizar(CpfAtual, Nome, Cpf,
+                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
+                Localidade, UF);
+        }
+        public void Deletar(string cpf)
+        {
+            var repositorio = new RepositorioPessoa(_stringConexao);
+            repositorio.Deletar(cpf);
+        }
     }
 }
