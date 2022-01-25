@@ -83,7 +83,9 @@ namespace ReciboJanela
                     if (!Char.IsDigit(cpf[i]))
                     {
                         cpfValido = false;
+
                         //MessageBox.Show("O CPF informado não e valido");
+
                         break;
                     }
                 }
