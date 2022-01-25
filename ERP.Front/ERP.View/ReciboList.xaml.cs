@@ -33,7 +33,9 @@ namespace ERP.View
 
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
+
         ReciboService serviceRecibo = new ReciboService();
+        ReciboService serviceReciboID = new ReciboService();
 
 
         public ReciboList()
@@ -65,63 +67,81 @@ namespace ERP.View
         }
 
 
-   
-
-
-        private void GerarPdf(object sender, RoutedEventArgs e)
+        public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
-            var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+            int search = int.Parse(txtSearch.Text);
+            if (search > 0)
+                CarregaID(search);
+            else
+                throw  new Exception("Valor digitado inválido");
+            
+        }
 
-            if (infoRecibo != null)
+        public async Task CarregaID(int id)
+        {
+
             {
-
-                //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-                string nomeArquivo = @"C:\Pdf\cliente.pdf";
-                FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
-                Document document = new Document(PageSize.A4);
-                PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
-
-
-                document.Open();
-                string dados = "";
-
-                //GERANDO OS DADOS PARA PDF
-                iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add("RECIBO \n");
-
-                paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
-                paragrafo.Alignment = Element.ALIGN_LEFT;
-                paragrafo.Add("Eu " + infoRecibo.Numero + " (CPF/CNPJ_RECEBOR),localizado em \n <logradouro_recebor>, <número_endereço_recebedor> <complemento_recebedor>,\n <CEP_recebor>,<bairro_recebedor>," +
-                    ",\n declaro para os fins que recebi <nome/razão_social_pagador> (CPF/CNPJ_RECEBOR), o valor de R$ " + infoRecibo.Valor + ", " + infoRecibo.ValorExtenso +
-                    "em virtude de <observação_documento>");
-
-                iTextSharp.text.Paragraph paragrafo1 = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add(infoRecibo.Cidade + "," + infoRecibo.Estado + " \n");
-
-
-                paragrafo1.Alignment = Element.ALIGN_CENTER;
-                paragrafo1.Add("---------------------------------------------------------- \n");
-                paragrafo1.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                paragrafo1.Add("<nome/razão_social_pagador> \n");
-                paragrafo1.Add(" (CPF/CNPJ_RECEBOR), \n\n\n");
-
-                string cpf = "1234567891011";
-                string pagador = "Bruno Cesar de Oliveira";
-
-                paragrafo.Add("---------------------------------------------------------- \n");
-                paragrafo.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                paragrafo.Add("<nome/razão_social_pagador> \n");
-                paragrafo.Add(cpf + pagador + "\n\n\n");
-
-
-                document.Add(paragrafo);
-                document.Close();
+                var recibos = await serviceReciboID.GetAsync(id);
+                dataGridRecibo.ItemsSource = recibos;
             }
 
         }
 
+
+        private void GerarPdf(object sender, RoutedEventArgs e)
+        {
+            /*
+             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+
+             if (infoRecibo != null)
+             {
+
+                 //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
+                 string nomeArquivo = @"C:\Pdf\cliente.pdf";
+                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
+                 Document document = new Document(PageSize.A4);
+                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+
+
+                 document.Open();
+                 string dados = "";
+
+                 //GERANDO OS DADOS PARA PDF
+                 iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
+                 paragrafo.Alignment = Element.ALIGN_CENTER;
+                 paragrafo.Add("RECIBO \n");
+
+                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
+                 paragrafo.Alignment = Element.ALIGN_LEFT;
+                 paragrafo.Add("Eu " + infoRecibo.Numero + " (CPF/CNPJ_RECEBOR),localizado em \n <logradouro_recebor>, <número_endereço_recebedor> <complemento_recebedor>,\n <CEP_recebor>,<bairro_recebedor>," +
+                     ",\n declaro para os fins que recebi <nome/razão_social_pagador> (CPF/CNPJ_RECEBOR), o valor de R$ " + infoRecibo.Valor + ", " + infoRecibo.ValorExtenso +
+                     "em virtude de <observação_documento>");
+
+                 iTextSharp.text.Paragraph paragrafo1 = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
+                 paragrafo.Alignment = Element.ALIGN_CENTER;
+                 paragrafo.Add(infoRecibo.Cidade + "," + infoRecibo.Estado + " \n");
+
+
+                 paragrafo1.Alignment = Element.ALIGN_CENTER;
+                 paragrafo1.Add("---------------------------------------------------------- \n");
+                 paragrafo1.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
+                 paragrafo1.Add("<nome/razão_social_pagador> \n");
+                 paragrafo1.Add(" (CPF/CNPJ_RECEBOR), \n\n\n");
+
+                 string cpf = "1234567891011";
+                 string pagador = "Bruno Cesar de Oliveira";
+
+                 paragrafo.Add("---------------------------------------------------------- \n");
+                 paragrafo.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
+                 paragrafo.Add("<nome/razão_social_pagador> \n");
+                 paragrafo.Add(cpf + pagador + "\n\n\n");
+
+
+                 document.Add(paragrafo);
+                 document.Close();
+             }
+         */
+        }
 
         private void Gerar(object sender, RoutedEventArgs e)
         {
@@ -133,23 +153,42 @@ namespace ERP.View
 
         private void Visualizar(object sender, RoutedEventArgs e)
         {
+        
+    
+
             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
 
             if (infoRecibo != null)
             {
 
-                string Valor = infoRecibo.Valor.ToString();  //Recebendo valor do formulário
-                string Numero = infoRecibo.Numero.ToString();
-                string Tipo = infoRecibo.Tipo.ToString();
+             
+                /*Dados dos Recebedor*/
+                string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
+                string LogradouroRecebedor = infoRecibo.LogradouroRecebedor.ToString();
+                string NumeroEnderecoRecebedor = infoRecibo.NumeroEnderecoRecebedor.ToString();
+                string ComplementoRecebedor = infoRecibo.ComplementoRecebedor.ToString();
+                string CPF_CNPJRecebedor =infoRecibo.CPF_CNPJRecebedor.ToString();  
+                string CEPRecebedor = infoRecibo.CEPRecebedor.ToString();
+                string BairroRecebedor = infoRecibo.BairroRecebedor.ToString();
+
+                /*Dados do Pagador*/
+                string NomePagador = infoRecibo.NomePagador.ToString();
+                string cpF_CNPJPagador = infoRecibo.cpF_CNPJPagador.ToString();
+                double _Valor = (double) infoRecibo.Valor;
+                string ValorExtenso = infoRecibo.ValorExtenso.ToString();
                 string Observacao = infoRecibo.Observacao.ToString();
-                string Cidade = infoRecibo.Cidade.ToString();
-                string Estado = infoRecibo.Estado.ToString();
+                string CidadeRecebedor = infoRecibo.CidadeRecebedor.ToString();
+                string UFRecebedor = infoRecibo.UFRecebedor.ToString();
+           
                 DateTime Data = infoRecibo.Data;
+                
 
 
-
-                 ReciboJanela.Imprimir imprimir = new ReciboJanela.Imprimir();  //Instancia a classe da JanelaRecibo()
-                imprimir.VisualizarRecibo(Numero, Tipo, Valor, Observacao, Cidade, Estado, Data); //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
+                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
+                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
+                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
+                                             Observacao,  CidadeRecebedor,  UFRecebedor);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
                 //imprimir.VisualizarRecibo(infoRecibo.ToString());  //Envidando todos os das
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
@@ -157,6 +196,7 @@ namespace ERP.View
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                //MessageBox.Show(dados);
             }
+            
 
         }
 
@@ -166,7 +206,7 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
-               
+
                 ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
                 recibo.Show();
                 MessageBox.Show("Selecionou para Editar");

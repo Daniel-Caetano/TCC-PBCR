@@ -93,6 +93,7 @@
                         FontSize="22" HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
                         BorderBrush="#FF10710C"
+                        Click="BuscarRecibo"
                         >Pesquisar</Button>
 
             </StackPanel>
@@ -142,13 +143,10 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" FontSize="16"/>
+                        <DataGridTextColumn Header="Numero" Binding="{Binding NumeroRecibo}" FontSize="16"/>
                         <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
-                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"  FontSize="16" />
-                        <DataGridTextColumn Header="Observacao" Binding="{Binding Observacao}" FontSize="16"/>
-                        <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}" FontSize="16"/>
-                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" FontSize="16"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>
+                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor,ConverterCulture='pt-BR',StringFormat=C}"  FontSize="16" />
+                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" FontSize="16"/>                       
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

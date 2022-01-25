@@ -22,6 +22,10 @@ namespace ERP.View
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            txtData.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            int Hora = DateTime.Now.Hour;
+            int Minutos = DateTime.Now.Minute;
+            
 
         }
 
@@ -29,7 +33,7 @@ namespace ERP.View
         {
 
         }
-                
+
 
         private void addCliente(object sender, RoutedEventArgs e)
         {
@@ -49,8 +53,12 @@ namespace ERP.View
             Main.Content = new ReciboList();
         }
 
-    
-        
+        private void CadastrarRecibo(object sender, RoutedEventArgs e)
+        {
+            ReciboJanela.MainWindow cadastroRecibo = new ReciboJanela.MainWindow();
+            cadastroRecibo.Show();
+           
+        }
     }
 
 }

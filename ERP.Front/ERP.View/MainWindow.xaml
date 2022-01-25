@@ -17,8 +17,8 @@
         
         Title="Ali-Finance" 
         MinHeight="700" 
-        MaxHeight="1080"
-        MinWidth="800"         
+        MaxHeight="1080"           
+        MinWidth="800"        
         MaxWidth="1930"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
@@ -38,7 +38,7 @@
 
             <!-- PRIMEIRO MENU TOP-->
             <StackPanel DockPanel.Dock="Top"
-                        Margin="0 0 0 0"
+                        Margin="0,28,0,0"
                         Width="1920" Height="60"
                         Background="#FF107C41" >
                 <Grid HorizontalAlignment="Stretch"  Height="60">
@@ -66,16 +66,17 @@
 
 
                     <!-- Logo da Empresa  -->
-                    <StackPanel Grid.Column="1" Margin="10 10 5 5">
-                        <TextBlock FontSize="36" 
+                    <StackPanel Grid.Column="1" Margin="12 11 5 5">
+                        <TextBlock FontSize="32" 
                                    Text="Finance"
-                                   FontWeight="Normal"/>
+                                   FontWeight="Normal"
+                                   Foreground="AntiqueWhite"/>
                     </StackPanel>
 
 
 
                     <!--Formulário de Pesquisa-->
-                    <StackPanel Grid.Column="2" Margin="0 10 0 10">
+                    <StackPanel Grid.Column="2" Margin="0 12 0 10">
 
                         <StackPanel>
                             <materialDesign:ColorZone
@@ -99,11 +100,8 @@
 
 
                                     <!--Lupa de Busca-->
-                                    <Button
-                                                Style="{DynamicResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon
-                                                 Kind="Search"
-                                                  Opacity=".56" />
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Kind="Search" Opacity=".56" Width="25" Height="25"/>
                                     </Button>
 
                                     <!--Campo de Busca-->
@@ -114,16 +112,12 @@
                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                             BorderThickness="0"
                                             MinWidth="200"
-                                            VerticalAlignment="Center" />
+                                            VerticalAlignment="Center"
+                                            FontSize="20"/>
 
                                     <!--Microfone-->
-                                    <Button
-                                                 Style="{DynamicResource MaterialDesignToolButton}"
-                                                 Grid.Column="2">
-                                        <materialDesign:PackIcon
-                                                       Kind="Microphone"
-                                                       Opacity=".56"
-                                                       Margin="8 0 0 0" />
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}" Grid.Column="2">
+                                     <materialDesign:PackIcon  Kind="Microphone" Opacity=".56" Margin="8 0 0 0" Height="23" Width="23" />
                                     </Button>
                                 </Grid>
                             </materialDesign:ColorZone>
@@ -134,8 +128,11 @@
 
                     <!--Informações do usuário  -->
                     <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,6,0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                        <TextBlock Margin="10,4,36,0" Foreground="Orange" FontStyle="Italic" FontSize="14">10:15:16</TextBlock>
-                        <TextBlock FontSize="15" FontStyle="Italic"  Margin="10,4,0,0" Foreground="Orange" TextAlignment="Left">Bruno Cesar</TextBlock>
+                        <TextBlock x:Name="txtData" Margin="12,5,36,0" Foreground="AntiqueWhite" FontStyle="Italic" FontSize="14" >
+                      
+                            
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontStyle="Italic"  Margin="10,4,0,0" Foreground="BlanchedAlmond" TextAlignment="Left">Gestor Fazenda</TextBlock>
                     </StackPanel>
 
 
@@ -170,8 +167,8 @@
             <StackPanel DockPanel.Dock="Top">
 
                 <Menu FontSize="16" Padding="0" Height="40" Margin="10 0 0 0">
-                    <MenuItem Header="_Arquivo" Margin="10 0 0 0">
-                        <MenuItem Header="Inicio" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                    <MenuItem Header="_Arquivo" Margin="10,0,0,0" Height="40">
+                        <MenuItem Header="Inicio" Padding="0" Width="130" Height="20" Margin="10,10,0,5" />
                         <MenuItem Header="Novo" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                         <MenuItem Header="Abrir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                         <Separator/>
@@ -185,36 +182,18 @@
                         <MenuItem Header="Sair" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
 
                     </MenuItem>
-                    <MenuItem Header="_Inserir"></MenuItem>
+                    <MenuItem Header="_Inserir" Height="40"></MenuItem>
 
-                    <MenuItem x:Name="cliente" Header="_Clientes">
-                        <MenuItem Header="Castastrar"
-                                  Padding="0" 
-                                  Width="130" 
-                                  Height="20"
-                                  Margin="10 0 0 5" 
-                                  Click="addCliente"/>
-
-                        <MenuItem Header="Consultar" 
-                                  Padding="0" Width="130" 
-                                  Height="20" Margin="10 0 0 5"
-                                  Click="listCliente"/>
-
-                        <MenuItem Header="Excluir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                    <MenuItem x:Name="cliente" Header="_Clientes" Height="40" >
+                        <MenuItem Header="Castastrar" Padding="0"  Width="130" Height="20" Margin="10 0 0 5" Click="addCliente"/>
+                        <MenuItem Header="Consultar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
                     </MenuItem>
 
-                    <MenuItem Header="_Relatários"></MenuItem>
-
-                    <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" >
-
-
-                     <MenuItem x:Name="Listar" Header="Listar"
-                                  Padding="0" Width="130"
-                                  Height="20" Margin="10 0 0 5"
-                                  Click="ListarRecibo"                                  
-                                  />
-
-                        <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                    <MenuItem Header="_Relatários" Height="40"></MenuItem>
+                    
+                    <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" Height="40" >
+                        <MenuItem x:Name="Cadastrar" Header="Cadastrar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="CadastrarRecibo"/>
+                        <MenuItem x:Name="Listar" Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="ListarRecibo"/>
                     </MenuItem>
                 </Menu>
             </StackPanel>
@@ -226,7 +205,7 @@
 
             <!--PRINCIAPL-->
 
-            <StackPanel Width="1630" Height="1080">
+            <StackPanel Width="1630" Height="932">
                 <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
             </StackPanel>
 
