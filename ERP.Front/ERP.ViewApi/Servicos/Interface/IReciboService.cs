@@ -19,9 +19,11 @@ namespace ERP.ViewApi.Servicos.Interface
         [Get("/Recibo/Completo/AReceber/json")]
         Task<IList<ReciboResponse>> GetAsyncAreceber();
 
-        [Get("/Recibo/Completo/CPF_CNPJ/{documento}json")]
+        [Get("/Recibo/Completo/CPF_CNPJ/{documento}/json")]
         Task<IList<ReciboResponse>> GetAsyncDocumento(string documento);
 
+        [Get("/Recibo/Completo/Nome/{nome}/json")]
+        Task<IList<ReciboResponse>> GetAsyncNome(string nome);
     }
 }
 

@@ -40,5 +40,10 @@ namespace ERP.ViewApi.Servicos.Servico
         {
             return await _customerService.GetAsyncDocumento(documento);
         }
+
+        public async Task<IList<ReciboResponse>> GetAsyncNome(string nome)
+        {
+            return await _customerService.GetAsyncNome(nome);
+        }
     }
 }
