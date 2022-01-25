@@ -85,8 +85,8 @@ namespace ERP.Servico.Servicos.Repositorio
         }
 
         public void Adicionar(string razao, string cnpj,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF)
+                              string NumeroEndereco, string Complemento, string CEP,
+                              string Logradouro, string Bairro, string Localidade, string UF)
         {
             //string com comandos max 
             string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
@@ -185,6 +185,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 var reader = command.ExecuteNonQuery();
             }
         }
+
         public void Atualizar(string cnpjAtual, string razao, string cnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
@@ -290,5 +291,6 @@ namespace ERP.Servico.Servicos.Repositorio
             }
 
         }
+
     }
 }
