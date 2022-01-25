@@ -1,9 +1,6 @@
-﻿using Caelum.Stella.CSharp.Validation;
-using ERP.Servico.Negocio;
+﻿using ERP.Servico.Negocio;
 using ERP.Servicos;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace ERP.Servico.Servicos.Servico
 {

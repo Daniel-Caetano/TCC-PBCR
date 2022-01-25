@@ -1,9 +1,6 @@
 ﻿using ERP.ViewApi.Negocio;
 using Refit;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ERP.ViewApi.Servicos.Interface
@@ -25,7 +22,7 @@ namespace ERP.ViewApi.Servicos.Interface
         Task<IList<PessoaResponse>> InsertAsync(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF);
 
 
-        [Put("/Pessoa/Atualizar/cpfatual/json")]
+        [Put("/Pessoa/{cpfatual}/json")]
         Task<IList<PessoaResponse>> UpdateAsync(string CpfAtual, string Nome, string CPF,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF);

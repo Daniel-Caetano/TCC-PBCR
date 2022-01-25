@@ -1,7 +1,6 @@
 ﻿using ERP.ViewApi.Negocio;
 using ERP.ViewApi.Servicos.Interface;
 using Refit;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

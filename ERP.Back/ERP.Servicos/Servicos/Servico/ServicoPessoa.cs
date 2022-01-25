@@ -4,7 +4,6 @@ using ERP.Servico.Servicos.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace ERP.Servico.Servicos.Servico
 {
@@ -63,7 +62,7 @@ namespace ERP.Servico.Servicos.Servico
         {
 
             //estrutura para não sobrescrever os dados antigos com null
-            var dadosAntigos = BuscaCpf(Cpf);
+            var dadosAntigos = BuscaCpf(CpfAtual);
             if (Nome == null)
             {
                 Nome = dadosAntigos[0].Nome;

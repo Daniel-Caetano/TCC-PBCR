@@ -1,7 +1,5 @@
-﻿using ERP.Servico.Servicos.Repositorio;
-using ERP.Servico.Servicos.Servico;
+﻿using ERP.Servico.Servicos.Servico;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace ERP.Api.Controllers
 {
@@ -29,9 +27,9 @@ namespace ERP.Api.Controllers
 
         [HttpPost]
         [Route("Adicionar/json")]
-        public IActionResult Adicionar(string razao, string cnpj,string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        public IActionResult Adicionar(string razao, string cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-            
+
             var repo = new ServicoEmpresa(_connectionString);
             repo.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
@@ -39,7 +37,7 @@ namespace ERP.Api.Controllers
         }
 
         [HttpPut]
-        [Route("Atualizar/cnpjatual/json")]
+        [Route("Atualizar/{cnpjAtual}/json")]
         public IActionResult Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)

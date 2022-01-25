@@ -1,10 +1,5 @@
 ﻿using ERP.Servico.Servicos.Servico;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ERP.Api.Controllers
 {
@@ -51,14 +46,14 @@ namespace ERP.Api.Controllers
         }
 
         [HttpPut]
-        [Route("Atualizar/cpfatual/json")]
-        public IActionResult Atualizar(string CpfAtual, string Nome, string CPF,
+        [Route("Atualizar/{cpfatual}/json")]
+        public IActionResult Atualizar(string cpfatual, string Nome, string CPF,
          string NumeroEndereco, string Complemento, string CEP
          , string Logradouro, string Bairro, string Localidade, string UF)
         {
 
             var repo = new ServicoPessoa(_connectionString);
-            repo.Atualizar(CpfAtual, Nome, CPF,
+            repo.Atualizar(cpfatual, Nome, CPF,
                 NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
                 Localidade, UF);
 

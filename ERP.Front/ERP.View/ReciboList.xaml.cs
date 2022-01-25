@@ -1,26 +1,13 @@
-﻿using ReciboJanela;
-using ERP.ViewApi.Servicos.Servico;
+﻿using ERP.View.Negocio;
 using ERP.ViewApi.Negocio;
-using ERP.View.Negocio;
+using ERP.ViewApi.Servicos.Servico;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 
 
@@ -35,7 +22,7 @@ namespace ERP.View
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
-       
+
         public ReciboList()
         {
             InitializeComponent();
@@ -44,10 +31,6 @@ namespace ERP.View
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
-
-            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
-
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
@@ -68,8 +51,8 @@ namespace ERP.View
             if (Regex.IsMatch(txtSearch.Text, @"^[0-9]+$"))
             {
                 if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
-                {                    
-                     string search =txtSearch.Text.ToString();
+                {
+                    string search = txtSearch.Text.ToString();
                     CarregaDadosRecibo(search);
                 }
                 else if (txtSearch.Text != "" && txtSearch.Text.Length == 14)
@@ -94,9 +77,10 @@ namespace ERP.View
         {
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
+
         }
 
-   
+
         private void GerarPdf(object sender, RoutedEventArgs e)
         {
             /*
@@ -168,7 +152,6 @@ namespace ERP.View
             if (infoRecibo != null)
             {
 
-
                 /*Dados dos Recebedor*/
                 string NomeRecebedor = infoRecibo.NomeRecebedor.ToString();
                 string LogradouroRecebedor = infoRecibo.LogradouroRecebedor.ToString();
@@ -191,11 +174,11 @@ namespace ERP.View
 
 
 
-                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
-                imprimir.PreVisualizarRecibo ( NomeRecebedor,  LogradouroRecebedor,  NumeroEnderecoRecebedor,
-                                             ComplementoRecebedor,  CEPRecebedor,  BairroRecebedor,
-                                             cpF_CNPJPagador,  _Valor,  ValorExtenso,
-                                             Observacao,  CidadeRecebedor,  UFRecebedor, CPF_CNPJRecebedor, NomePagador);; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
+                Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
+                imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
+                                             ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
+                                             cpF_CNPJPagador, _Valor, ValorExtenso,
+                                             Observacao, CidadeRecebedor, UFRecebedor, CPF_CNPJRecebedor, NomePagador); ; //Enviando somente 1 dados (valor) NÃO PRECISA COLOCAR O TIPO DE VARIÁVEL
 
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
