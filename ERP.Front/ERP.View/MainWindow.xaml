@@ -27,14 +27,14 @@
         
         >
     <Grid>
-       
-       
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="1630"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <DockPanel>
-     
+
 
             <!-- PRIMEIRO MENU TOP-->
             <StackPanel DockPanel.Dock="Top"
@@ -206,20 +206,14 @@
                     <MenuItem Header="_Relatários"></MenuItem>
 
                     <MenuItem Header="R_ecibo" Margin=" 0 0 0 0" >
-                        <MenuItem Header="Gerar"
-                                  Padding="0"
-                                  Width="130" 
-                                  Height="20" 
-                                  Margin="10 0 0 5" 
-                                  Click="gerarRecibo"/>
 
 
-                        <MenuItem x:Name="Listar" Header="Listar"
+                     <MenuItem x:Name="Listar" Header="Listar"
                                   Padding="0" Width="130"
                                   Height="20" Margin="10 0 0 5"
                                   Click="ListarRecibo"                                  
                                   />
-                            
+
                         <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                     </MenuItem>
                 </Menu>
@@ -232,22 +226,14 @@
 
             <!--PRINCIAPL-->
 
-            <!--
-            <StackPanel Width="1226" Height="100" DockPanel.Dock="Top">
-                <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
-            </StackPanel>
-            -->
-            <!--LISTA DE RECIBOS-->
-            
             <StackPanel Width="1630" Height="1080">
                 <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
             </StackPanel>
 
-        
 
             <!--FOOTER-->
-            
-         
+
+
         </DockPanel>
 
     </Grid>
