@@ -10,6 +10,9 @@ namespace ERP.ViewApi.Servicos.Interface
 {
     public interface IPessoaService
     {
+        [Get("/Pessoa/Lista/json")]
+        Task<IList<PessoaResponse>> GetAsyncAll();
+
         [Get("/Pessoa/Cpf/{cpf}/json")]
         Task<IList<PessoaResponse>> GetAsync(string cpf);
 
