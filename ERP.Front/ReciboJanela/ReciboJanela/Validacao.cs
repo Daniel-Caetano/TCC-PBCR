@@ -39,12 +39,13 @@ namespace ReciboJanela
                     resto = 11 - resto;
 
                 digito += resto.ToString();
-
+               
                 return cnpj.EndsWith(digito);
+               
             }
             else
-
-                return true;
+             MessageBox.Show("CNPJ Invalido!");
+            return true;
         }
 
         public bool ValidarCpf(string cpf)
@@ -55,7 +56,7 @@ namespace ReciboJanela
             if (cpf.Length != 11)
             {
                 cpfValido = false;
-                // MessageBox.Show("O CPF informado não e valido");
+                MessageBox.Show("O CPF informado não e valido");
             }
             else
             {    //verifica se todos os caracteres de cpf são digitos numéricos
@@ -64,8 +65,7 @@ namespace ReciboJanela
                     if (!Char.IsDigit(cpf[i]))
                     {
                         cpfValido = false;
-
-                        //MessageBox.Show("O CPF informado não e valido");
+                        MessageBox.Show("O CPF informado não e valido");
 
                         break;
                     }
@@ -109,7 +109,7 @@ namespace ReciboJanela
                 if (digVerificador1 != Convert.ToInt32(cpf.Substring(9, 1)))
                 {
                     cpfValido = false;
-                    //  MessageBox.Show("O CPF informado não e valido");
+                    MessageBox.Show("O CPF informado não e valido");
                 }
                 //valida o segundo número (dígito) de controle
                 if (cpfValido)
@@ -130,7 +130,7 @@ namespace ReciboJanela
                     if (digVerificador2 != Convert.ToInt32(cpf.Substring(10, 1)))
                     {
                         cpfValido = false;
-                        // MessageBox.Show("O CPF informado não e valido");
+                        MessageBox.Show("O CPF informado não e valido");
                     }
                 }
             }
