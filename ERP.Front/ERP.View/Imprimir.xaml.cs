@@ -52,10 +52,11 @@ namespace ERP.View
             {
                 return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
             }
-            else
+            else if(cncp.Length == 11)
             {
                 return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
             }
+            return cncp;
         }
 
         private void butGerarRecibo_Click(object sender, RoutedEventArgs e)

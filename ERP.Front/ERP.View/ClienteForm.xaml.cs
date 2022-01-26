@@ -16,19 +16,20 @@ namespace ERP.View
 
         private void txtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Imprimi imp = new Imprimi();
-           string txt = imp.Formatar(txtCpfCnpj.Text);
+           Imprimi imp = new Imprimi();
+           string txt = txtCpfCnpj.Text;
 
             ReciboJanela.Validacao val = new ReciboJanela.Validacao();
 
 
-            if(!val.ValidarCpf(txt))
-           {
-               txtCpfCnpj.Text = "CPF"; 
-           }
-            else if (val.ValidarCnpj(txt))
+            if(txt.Length >= 11 && txt.Length <= 11)
             {
-                txtCpfCnpj.Text = "CNPJ";
+                val.ValidarCpf(txt);
+            }
+
+            if(txt.Length >= 14 && txt.Length <= 14)
+            {
+                val.ValidarCnpj(txt);
             }
         }
     }
