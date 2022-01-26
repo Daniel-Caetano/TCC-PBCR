@@ -33,8 +33,6 @@ namespace ERP.View
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
-
-
         public async Task CarregarGrid()
         {
             var recibos = await serviceRecibo.GetAsyncAll();
