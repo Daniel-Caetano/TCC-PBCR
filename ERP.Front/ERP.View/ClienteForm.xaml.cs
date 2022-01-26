@@ -40,6 +40,23 @@ namespace ERP.View
 
         private void CadastrarCliente(object sender, System.Windows.RoutedEventArgs e)
         {
+<<<<<<< HEAD
+           Imprimi imp = new Imprimi();
+           string txt = txtCpfCnpj.Text;
+
+            ReciboJanela.Validacao val = new ReciboJanela.Validacao();
+
+
+            if(txt.Length >= 11 && txt.Length <= 11)
+            {
+                val.ValidarCpf(txt);
+            }
+
+            if(txt.Length >= 14 && txt.Length <= 14)
+            {
+                val.ValidarCnpj(txt);
+            }
+=======
             string Nome = txtNome.Text;
             string CPF = txtCpfCnpj.Text;
             string CEP = txtCep.Text;
@@ -61,6 +78,7 @@ namespace ERP.View
        
 
 
+>>>>>>> 3fa636d3d82162093ccf21c3c18b35b43b029f0a
         }
         public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
