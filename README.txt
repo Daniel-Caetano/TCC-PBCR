@@ -1,6 +1,8 @@
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
 
+Sistema para gerar um RECIBO em PDF
+
 SCRIPT para rodar o sistema
 Instalar banco de dados no Docker
 -1: Instalar o Docker
@@ -30,20 +32,20 @@ Credenciais
 
 Nome: Bruno Cesar de Oliveira 
 email: brunocesardeoliveira2018@gmail.com
-Funções:Analista Desenvolvimento:Front-End
+Funções:Analista Desenvolvimento-Front-End
 
 Nome:Alan Soares da Costa
 email:alan.kostta14@gmail.com
-Função:Alanlista de Desenvolvimento - Back End
+Função:Alanlista de Desenvolvimento-Back-End
 
 Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
-Funções:Analista de desenvolvimento
+Funções:Analista de desenvolvimento-Back-End
 
 Nome: Gerson Otavio Fernandes Moreira
 email: gersonofernandes@gmail.com
-Funções: Analista de Desenvolvimento - DBA
+Funções: Analista de Desenvolvimento-DBA
 
 Nome: Guilherme Gomes da Silva
 email: gomesguilherme.s@outlook.com
-Funções: Analista de Desenvolvimento: Back-End
+Funções: Analista de Desenvolvimento-Back-End
