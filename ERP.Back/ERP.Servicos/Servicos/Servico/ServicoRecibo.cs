@@ -75,9 +75,17 @@ namespace ERP.Servico.Servicos.Servico
 
         public void Deletar(int id)
         {
+            var repositorioRecibo = new RepositorioRecibo(_stringConexao);
+            if (repositorioRecibo.BuscaReciboCompleto(id).Count > 0)
+            {
+                var repositorio = new RepositorioRecibo(_stringConexao);
+                repositorio.Deletar(id);
+            }
+            else
+            {
+                Console.WriteLine("Recibo não encontrado!"); 
+            }
 
-            var repositorio = new RepositorioRecibo(_stringConexao);
-            repositorio.Deletar(id);
         }
 
         public void Atualizar(int id, string Tipo, decimal Valor, string ValorExtenso,

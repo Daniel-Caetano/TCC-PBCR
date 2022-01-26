@@ -194,8 +194,17 @@ namespace ERP.Servico.Servicos.Servico
         }
         public void Deletar(string cnpj)
         {
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Deletar(cnpj);
+            var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);
+            if (repositorioEmpresa.BuscaCnpj(cnpj).Count > 0)
+            {
+                var repositorio = new RepositorioEmpresa(_stringConexao);
+                repositorio.Deletar(cnpj);
+            }
+            else
+            {
+                Console.WriteLine("Empresa não existe");
+            }
+
         }
     }
 }
