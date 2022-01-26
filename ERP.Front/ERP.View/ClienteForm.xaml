@@ -128,15 +128,16 @@
                     >
                     <Grid>
                         <TextBox x:Name="txtCpfCnpj"
-                        Grid.Column="0"
-                        materialDesign:HintAssist.Hint="CPF/CNPJ"
-                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                        BorderThickness="0"
-                        Width="399"
-                        Height="40"
-                        MaxLength="100"   
-                        Padding="10 0 0 0"
-                        VerticalContentAlignment="Center"                           
+                            Grid.Column="0"
+                            materialDesign:HintAssist.Hint="CPF/CNPJ"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            BorderThickness="0"
+                            Width="399"
+                            Height="40"
+                            MaxLength="100"   
+                            Padding="10 0 0 0"
+                            VerticalContentAlignment="Center"  
+                                 
                         />
 
                     </Grid>
