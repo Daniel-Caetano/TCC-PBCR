@@ -75,6 +75,7 @@ namespace ERP.Servico.Servicos.Servico
 
         public void Deletar(int id)
         {
+
             var repositorio = new RepositorioRecibo(_stringConexao);
             repositorio.Deletar(id);
         }
