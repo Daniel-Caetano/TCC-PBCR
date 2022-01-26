@@ -49,18 +49,9 @@ namespace ERP.View
 
         private void GerarReciboPDF()
         {
-<<<<<<< HEAD
-            if (cncp.Length == 14)
-            {
-                return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
-            }
-            else if(cncp.Length == 11)
-            {
-                return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
-            }
-            return cncp;
-=======
-            
+
+      
+
             //RECEDOR
 
 
@@ -87,7 +78,7 @@ namespace ERP.View
                                  LogradouroRecebedor, NumeroEnderecoRecebedor,
                                  BairroRecebedor, NomePagador, cpF_CNPJPagador, Valor, ValorExtenso, Observacao);
             this.Close();
->>>>>>> 3fa636d3d82162093ccf21c3c18b35b43b029f0a
+
         }
 
         public string Formatar( string cncp)

@@ -40,7 +40,7 @@ namespace ERP.View
 
         private void CadastrarCliente(object sender, System.Windows.RoutedEventArgs e)
         {
-<<<<<<< HEAD
+
            Imprimi imp = new Imprimi();
            string txt = txtCpfCnpj.Text;
 
@@ -56,7 +56,7 @@ namespace ERP.View
             {
                 val.ValidarCnpj(txt);
             }
-=======
+
             string Nome = txtNome.Text;
             string CPF = txtCpfCnpj.Text;
             string CEP = txtCep.Text;
@@ -71,14 +71,13 @@ namespace ERP.View
             MessageBox.Show("Cadastro Efetuado com sucesso!");
             
             ClienteList Cliente = new ClienteList();   
-            Cliente.InitializeComponent();
-           
+            Cliente.InitializeComponent();      
            
             
        
 
 
->>>>>>> 3fa636d3d82162093ccf21c3c18b35b43b029f0a
+
         }
         public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
