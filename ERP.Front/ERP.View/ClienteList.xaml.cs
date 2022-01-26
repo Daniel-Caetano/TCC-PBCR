@@ -50,7 +50,7 @@ namespace ERP.View
         {
 
 
-                #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
@@ -81,7 +81,7 @@ namespace ERP.View
             }
             else if (Regex.IsMatch(txtSearch.Text, @"^[a-z A-Z]+$"))
             {
-               
+
 
             }
             else
@@ -127,13 +127,9 @@ namespace ERP.View
                 {
                     PessoaService deletarPessoa = new PessoaService();
                     deletarPessoa.DeleteAsync(deletarCliente.CPF);
-                    if (deletarPessoa != null)
-                    {
-                        this.InitializeComponent();
-                        CarregarGrid();
-                        this.DataContext = null;
-
-                    }
+                    this.CarregarGrid();
+                   
+                    
 
                 }
                 else
@@ -143,6 +139,7 @@ namespace ERP.View
 
             }
         }
+
 
         private void LiberarBotao(object sender, RoutedEventArgs e)
         {
