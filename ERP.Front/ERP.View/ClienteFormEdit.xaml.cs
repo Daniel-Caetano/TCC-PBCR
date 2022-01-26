@@ -21,23 +21,28 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-
-
-
+using System;
 namespace ERP.View
 {
     /// <summary>
-    /// Interaction logic for ClienteForm.xaml
+    /// Interaction logic for ClienteFormEdit.xaml
     /// </summary>
-    public partial class ClienteForm : Page
+    public partial class ClienteFormEdit : Window
     {
         PessoaService pessoaService = new PessoaService();
-        public ClienteForm()
-        {
-            InitializeComponent();
-        }
 
-        private void CadastrarCliente(object sender, System.Windows.RoutedEventArgs e)
+
+        public ClienteFormEdit()
+        { 
+
+            
+            InitializeComponent();     
+            
+           
+        }
+    
+
+        private void AtualizarCliente(object sender, RoutedEventArgs e)
         {
             string Nome = txtNome.Text;
             string CPF = txtCpf.Text;
@@ -45,21 +50,18 @@ namespace ERP.View
             string Bairro = txtBairro.Text;
             string Localidade = txtCidade.Text;
             string UF = txtEstado.Text;
-            string Complemento = txtComplemento.Text;            
-            string Logradouro = txtLogadouro.Text;
+            string Complemento = txtComplemento.Text;
+            string Logradouro = txtLogradouro.Text;
             string NumeroEndereco = txtNumero.Text;
-            Complemento += txtComplementoApt;
-            InserirCliente(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
+            
 
+           AtualizarClienteBanco(CPF,Nome, CPF,  NumeroEndereco,  Complemento,  CEP,  Logradouro,  Bairro,  Localidade,  UF);
         }
-        public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        public async Task AtualizarClienteBanco(string CpfAutal,string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-            var Insert = await pessoaService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            var Atualizar = await pessoaService.UpdateAsync(CpfAutal, Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+           this.Close();    
         }
-
-
-
     }
-
 }

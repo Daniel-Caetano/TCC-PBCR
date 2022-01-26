@@ -111,13 +111,13 @@
 
         </Grid>
         <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="250 40  50 30" >
-            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="True">
+            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="False" x:Name="Receber" Checked="Receber_Checked">
                 Receber
             </CheckBox>
         </StackPanel>
 
         <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="0 40  50 30" >
-            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="True">
+            <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="False"  x:Name="Pagar" Checked="Pagar_Checked">
                 Pagar
             </CheckBox>
         </StackPanel>

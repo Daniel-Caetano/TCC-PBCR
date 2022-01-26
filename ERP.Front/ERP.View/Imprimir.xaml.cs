@@ -47,7 +47,7 @@ namespace ERP.View
 
         private void GerarReciboPDF(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clicou");
+            
             //RECEDOR
 
 

@@ -95,8 +95,12 @@
                                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                     Height="40">
                             <Grid>
-                                <TextBox
-                                   Grid.Column="0"
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="147*"/>
+                                    <ColumnDefinition Width="248*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="txtNome"
+                                    Grid.Column="0"
                                     materialDesign:HintAssist.Hint="Nome / Razão Social"
                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                     BorderThickness="0"
@@ -104,7 +108,7 @@
                                     Height="40"
                                     MaxLength="100"   
                                     Padding="10 0 0 0"
-                                    VerticalContentAlignment="Center"  
+                                    VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-4,0"  
                                    
                             />
                             </Grid>
@@ -123,7 +127,7 @@
                     Height="40"                
                     >
                     <Grid>
-                        <TextBox
+                        <TextBox x:Name="txtCpf"
                         Grid.Column="0"
                         materialDesign:HintAssist.Hint="CPF/CNPJ"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -140,7 +144,7 @@
             </StackPanel>
 
 
-            <!--CAMPO CEP--> 
+            <!--CAMPO CEP-->
             <StackPanel Width="395" Height="40" Grid.Row="2" Background="#FFF5F6F7" Margin="10 10 0 0">
                 <materialDesign:ColorZone 
                             Mode="Standard"
@@ -151,7 +155,7 @@
                     >
 
                     <Grid>
-                        <TextBox
+                        <TextBox x:Name="txtCep"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="CEP"
                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -166,7 +170,7 @@
                 </materialDesign:ColorZone>
 
             </StackPanel>
-           
+
             <!---COMPLEMENTO / NÚMERO-->
             <StackPanel Width="395" Height="40" Grid.Row="2" Background="#FFF5F6F7" Margin="10 10 0 0">
                 <materialDesign:ColorZone 
@@ -178,6 +182,7 @@
 
                     <Grid>
                         <TextBox
+                         x:Name="txtComplemento"
                         Grid.Column="0"
                         materialDesign:HintAssist.Hint="Complemento"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -194,7 +199,7 @@
             </StackPanel>
 
             <!--Campos de Endererços-->
-            <StackPanel x:Name="cpEndereco" >
+            <StackPanel x:Name="txtEndereco" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -204,14 +209,17 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Width="150" Margin="10 10 0 0 ">
-                        <ComboBox Width="150"
+                        <ComboBox
+                             x:Name="txtLogadouro"
+                            Width="150"
                                   materialDesign:HintAssist.Hint="Logadouro"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem>Avenida Brasil</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Width="150" Margin="10 10 0 0 ">
-                        <ComboBox Width="150"
+                        <ComboBox  x:Name="txtBairro"
+                            Width="150"
                                   materialDesign:HintAssist.Hint="Bairro/Distrito"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem>Jardim Belo Horizonte</ComboBoxItem>
@@ -222,7 +230,7 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel  x:Name="estado">
+            <StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -232,15 +240,18 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Width="150" Margin="10 10 0 0 ">
-                        <ComboBox Width="150"
+                        <ComboBox  x:Name="txtEstado"
+                                Width="150"
                                   materialDesign:HintAssist.Hint="Estado"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem>Goiás</ComboBoxItem>
-                            <ComboBoxItem>São Paulo</ComboBoxItem>
+                            <ComboBoxItem>GO</ComboBoxItem>
+                            <ComboBoxItem>SP</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Width="150" Margin="10 10 0 0 ">
-                        <ComboBox Width="150"
+                        <ComboBox 
+                                 x:Name="txtCidade"    
+                            Width="150"
                                   materialDesign:HintAssist.Hint="Cidades"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem>Goiânia</ComboBoxItem>
@@ -261,12 +272,13 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Width="300" Margin="10 10 0 0 ">
-                        <TextBox
+                        <TextBox  Name="txtComplementoApt"
                                   materialDesign:HintAssist.Hint="Condomínio, Blc.  Apart."
                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="303" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Width="83" Margin="10 10 0 0 ">
                         <TextBox
+                                x:Name="txtNumero"
                                   materialDesign:HintAssist.Hint="Número"
                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                   VerticalAlignment="Center" />
@@ -286,7 +298,7 @@
                           BorderBrush="{x:Null}" 
                           FontSize="16" 
                           Foreground="White"
-                          FontWeight="Bold" />
+                          FontWeight="Bold" Click="CadastrarCliente" />
             </StackPanel>
 
         </StackPanel>

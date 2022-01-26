@@ -24,23 +24,22 @@ namespace ERP.View
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
- 
+
 
         public ReciboList()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+        #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
 
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
-
 
 
         public async Task CarregarGrid()
@@ -67,14 +66,18 @@ namespace ERP.View
 
                 }
             }
-            else if (Regex.IsMatch(txtSearch.Text, @"^[a-z A-Z]+$"))
+            else if(txtSearch.Text !="")
             {
-                MessageBox.Show("Digitou string");
+                
+                string search = txtSearch.Text.ToString();
+                CarregarDadosNome(search);
 
             }
             else
                 CarregarGrid();
+          
         }
+
 
         //Medo recebe os dados do banco de acordo com a pesquisa e exibe na janela
         public async Task CarregaDadosRecibo(string Dados)
@@ -83,20 +86,26 @@ namespace ERP.View
             dataGridRecibo.ItemsSource = recibos;
 
         }
+     
+        public async Task CarregarDadosNome(string Dados)
+        {
+            var recibos = await serviceRecibo.GetAsyncNome(Dados);
+            dataGridRecibo.ItemsSource = recibos;
 
+        }
 
-
-        public void GerarPDF(   string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
+        public void GerarPDF(string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
                                  string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
                                  string LogradouroRecebedor, string NumeroEnderecoRecebedor,
-                                 string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string  ValorExtenso, string Observacao)
+                                 string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string ValorExtenso, string Observacao)
 
         {
-            if (NomePagador != ""){
+            if (NomePagador != "")
+            {
 
                 //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-              
-                string nomeArquivo = @"C:\PDF\" + NomeRecebedor+".pdf";
+
+                string nomeArquivo = @"C:\PDF\" + NomeRecebedor + ".pdf";
                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
                 Document document = new Document(PageSize.A4);
                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
@@ -107,39 +116,39 @@ namespace ERP.View
                 string dados = "";
 
                 //GERANDO OS DADOS PARA PDF
-                iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));              ;
-                paragrafo.Alignment = Element.ALIGN_LEFT;           
+                iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD)); ;
+                paragrafo.Alignment = Element.ALIGN_LEFT;
 
                 paragrafo.Add("RECIBO \n \n");
 
                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                paragrafo.Add("Eu " + NomeRecebedor + "(" + CPF_CNPJRecebedor + "),  localizado em " 
-                            + LogradouroRecebedor + ", " + NumeroEnderecoRecebedor + ", " + ComplementoRecebedor + ",\n" 
-                            +  CEPRecebedor + ", " + BairroRecebedor +","+CidadeRecebedor+"-"+FRecebedor+" \n " +
-                            " declaro para os fins que recebi " + NomePagador + "(" + cpF_CNPJPagador + ") o valor de R$ " + Valor + ", " 
-                            + ValorExtenso +", em virtude de " + Observacao+".\n \n");
+                paragrafo.Add("Eu " + NomeRecebedor + "(" + CPF_CNPJRecebedor + "),  localizado em "
+                            + LogradouroRecebedor + ", " + NumeroEnderecoRecebedor + ", " + ComplementoRecebedor + ",\n"
+                            + CEPRecebedor + ", " + BairroRecebedor + "," + CidadeRecebedor + "-" + FRecebedor + " \n " +
+                            " declaro para os fins que recebi " + NomePagador + "(" + cpF_CNPJPagador + ") o valor de R$ " + Valor + ", "
+                            + ValorExtenso + ", em virtude de " + Observacao + ".\n \n");
 
-               
+
                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                paragrafo.Add("Goiânia-GO, " + DataAtual+"\n \n");                 
+                paragrafo.Add("Goiânia-GO, " + DataAtual + "\n \n");
 
 
                 paragrafo.Alignment = Element.ALIGN_CENTER;
                 paragrafo.Add("_________________________________________________________\n");
                 paragrafo.Add(NomeRecebedor + "\n");
-                paragrafo.Add(CPF_CNPJRecebedor + "\n \n");           
-                
+                paragrafo.Add(CPF_CNPJRecebedor + "\n \n");
+
                 paragrafo.Alignment = Element.ALIGN_CENTER;
                 paragrafo.Add("_________________________________________________________\n");
                 paragrafo.Add(NomePagador + "\n");
-                paragrafo.Add(cpF_CNPJPagador+" \n\n");
+                paragrafo.Add(cpF_CNPJPagador + " \n\n");
 
 
                 document.Add(paragrafo);
 
                 document.Close();
-                    
+
 
 
             }
@@ -152,8 +161,9 @@ namespace ERP.View
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
             recibo.Show();
-            MessageBox.Show("Clicou Botão");
+          
         }
+       
         //Metodo carrega na tela a janela de pré-visualização do recibo
         private void Visualizar(object sender, RoutedEventArgs e)
         {
@@ -194,7 +204,7 @@ namespace ERP.View
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                 //MessageBox.Show(dados);
-                
+
             }
 
 
@@ -208,7 +218,7 @@ namespace ERP.View
 
                 ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
                 recibo.Show();
-                MessageBox.Show("Selecionou para Editar");
+              
             }
             else
             {
@@ -223,6 +233,9 @@ namespace ERP.View
             if (deletarRecibo != null)
             {
                 MessageBox.Show("Desja realmente deletar Recibo?");
+
+                this.InitializeComponent();
+                CarregarGrid();
             }
             else
             {
@@ -236,8 +249,41 @@ namespace ERP.View
             if (txtSearch.Text != "")
             {
                 btnSearch.IsEnabled = true;
-               
+
             }
+        }
+
+        public async Task ListarAreceber()
+        {
+            var recibos = await serviceRecibo.GetAsyncAreceber();
+            dataGridRecibo.ItemsSource = recibos;
+
+        }
+       
+        public async Task ListarApagar()
+        {
+            var recibos = await serviceRecibo.GetAsyncApagar();
+            dataGridRecibo.ItemsSource = recibos;
+
+        }
+        
+        private void Receber_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Receber.IsChecked == true ){
+                ListarAreceber();
+
+
+            }          
+           
+        }
+      
+        private void Pagar_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Pagar.IsChecked == true)
+            {
+                ListarApagar();
+            }
+           
         }
 
        

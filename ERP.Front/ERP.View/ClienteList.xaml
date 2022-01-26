@@ -28,6 +28,8 @@
             <RowDefinition Height="700"/>
         </Grid.RowDefinitions>
 
+        <!---Abrir Formulário de Edição-->
+
         <!--Campo das Busca-->
 
         <Grid Margin="0,0,338,0" >
@@ -100,8 +102,7 @@
                         Foreground="White"
                         FontSize="22"
                         VerticalAlignment="Top"
-                        BorderBrush="#FF10710C"
-                        Click="BuscarRecibo"
+                        BorderBrush="#FF10710C"                      
                         IsEnabled="False"
                         >Pesquisar</Button>
 
@@ -145,7 +146,8 @@
                                                     Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                    
                                                     Content="{materialDesign:PackIcon Kind= SquareEditOutline,Size=30}"
                                                     ToolTip="Editar"
-                                                    Click="Editar"                                                          
+                                                    Click="Editar"   
+                                                
                                             />
                                     </StackPanel>
 
@@ -155,23 +157,24 @@
                         <DataGridTextColumn Header="Registro" Binding="{Binding ID}" FontSize="16"/>
                         <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" FontSize="16"/>
                         <DataGridTextColumn Header="Cpf" Binding="{Binding CPF}"  FontSize="16" />
-                        <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}" FontSize="16"/>
-                        <DataGridTextColumn Header="Cep" Binding="{Binding CEP}" FontSize="16"/>
-                        <DataGridTextColumn Header="Data da Cadastro" Binding="{Binding Data}" FontSize="16"/>
-                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"  FontSize="16"/>
+                        <DataGridTextColumn Header="Endereço" Binding="{Binding Logradouro}" FontSize="16"/>
+                        <DataGridTextColumn Header="Cep" Binding="{Binding CEP}" FontSize="16"/>                                        
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
+                                        <!--<ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                     Content="{materialDesign:PackIcon Kind= Eye}"
                                                     ToolTip="Visualizar" 
                                                     Margin="0 0 10 0"
-                                                    Click="Visualizar" />
+                                                    />-->
                                         <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
-                                                        Content="{materialDesign:PackIcon Kind=Delete}"                                                    
-                                                        ToolTip="Deletar"
-                                                        Click="Deletar"/>
+                                                    Content="{materialDesign:PackIcon Kind= Delete}"
+                                                    ToolTip="Visualizar" 
+                                                    Margin="0 0 10 0"
+                                                    Click="Deletar"
+                                                    />                                       
+
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
