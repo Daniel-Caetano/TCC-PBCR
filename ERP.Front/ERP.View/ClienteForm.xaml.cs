@@ -51,33 +51,46 @@ namespace ERP.View
             string NumeroEndereco = txtNumero.Text;
             Complemento += txtComplementoApt;
             InserirCliente(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            MessageBox.Show("Cadastro Efetuado com sucesso!");
+            
+            ClienteList Cliente = new ClienteList();   
+            Cliente.InitializeComponent();
+           
+           
+            
+       
 
 
         }
         public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-            var Insert = await pessoaService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+             var Insert = await pessoaService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+                  
+           
         }
 
 
-        //private void txtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    Imprimi imp = new Imprimi();
-        //   string txt = imp.Formatar(txtCpfCnpj.Text);
+        private void txtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Imprimi imp = new Imprimi();
+            string txt = imp.Formatar(txtCpfCnpj.Text);
 
-        //    ReciboJanela.Validacao val = new ReciboJanela.Validacao();
+            ReciboJanela.Validacao val = new ReciboJanela.Validacao();
 
+            if (val.ValidarCpf(txt))
+            {
+                MessageBox.Show("validou");
+            }
+            else if (val.ValidarCnpj(txt))
+            {
+                MessageBox.Show("Não validou");
+            }
+        }
 
-        //    if(!val.ValidarCpf(txt))
-        //   {
-        //       txtCpfCnpj.Text = "CPF"; 
-        //   }
-        //    else if (val.ValidarCnpj(txt))
-        //    {
-        //        txtCpfCnpj.Text = "CNPJ";
-        //    }
-        //}
+        private void txtCpfCnpj_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
 
+        }
     }
 
 }

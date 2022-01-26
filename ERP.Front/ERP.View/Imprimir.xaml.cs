@@ -78,17 +78,17 @@ namespace ERP.View
             this.Close();
         }
 
-        //public string Formatar(string cncp)
-        //{
-        //    if (cncp.Length == 14)
-        //    {
-        //        return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
-        //    }
-        //    else
-        //    {
-        //        return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
-        //    }
-        //}
+        public string Formatar( string cncp)
+        {
+            if (cncp.Length == 14)
+            {
+                return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000\-00");
+            }
+            else
+            {
+                return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000\-00");
+            }
+        }
 
         private void butGerarRecibo_Click(object sender, RoutedEventArgs e)
         {
