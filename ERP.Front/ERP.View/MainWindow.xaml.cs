@@ -29,7 +29,7 @@ namespace ERP.View
 
         private void listCliente(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new ClienteList();
         }
 
         private void ListarRecibo(object sender, RoutedEventArgs e)

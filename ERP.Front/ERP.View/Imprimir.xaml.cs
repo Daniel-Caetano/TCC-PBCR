@@ -27,27 +27,29 @@ namespace ERP.View
             iComplementoRecebedor.Text = ComplementoRecebedor;
             iCEPRecebedor.Text = CEPRecebedor;
             iBairroRecebedor.Text = BairroRecebedor;
-            iCPF_CNPJRecebedor.Text = Formatar(CPF_CNPJRecebedor);
+            iCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
             iNomePagador.Text = NomePagador;
 
             //PAGADOR
-            icpF_CNPJPagador.Text = Formatar(cpF_CNPJPagador);
+            icpF_CNPJPagador.Text = cpF_CNPJPagador;
             iValor.Text = _Valor.ToString();
             iValorExtenso.Text = ValorExtenso;
             iObservacao.Text = Observacao;
             iCidadeRecebedor.Text = CidadeRecebedor;
             iFRecebedor.Text = UFRecebedor;
-
             // NOME E CPF/CNPF que seão plotados no recibo
             iiNomeRecebedor.Text = NomeRecebedor;
-            iiCPF_CNPJRecebedor.Text = Formatar(CPF_CNPJRecebedor);
+            iiCPF_CNPJRecebedor.Text = CPF_CNPJRecebedor;
             iiNomePagador.Text = NomePagador;
-            iicpF_CNPJPagador.Text = Formatar(cpF_CNPJPagador);
+            iicpF_CNPJPagador.Text = cpF_CNPJPagador;
             dataCorrente.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
         }
-        public string Formatar(string cncp)
+
+
+        private void GerarReciboPDF()
         {
+<<<<<<< HEAD
             if (cncp.Length == 14)
             {
                 return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
@@ -57,12 +59,56 @@ namespace ERP.View
                 return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
             }
             return cncp;
+=======
+            
+            //RECEDOR
+
+
+            string NomeRecebedor = iNomeRecebedor.Text;
+            string CPF_CNPJRecebedor = iCPF_CNPJRecebedor.Text;
+            string ComplementoRecebedor = iComplementoRecebedor.Text;
+            string CEPRecebedor = iCEPRecebedor.Text;
+            string CidadeRecebedor = iCidadeRecebedor.Text;
+            string FRecebedor = iFRecebedor.Text;
+            string LogradouroRecebedor = iLogradouroRecebedor.Text;
+            string NumeroEnderecoRecebedor = iNumeroEnderecoRecebedor.Text;
+            string BairroRecebedor = iBairroRecebedor.Text;
+
+            //PAGADOR
+            string NomePagador = iNomePagador.Text;
+            string cpF_CNPJPagador = icpF_CNPJPagador.Text;
+            string Valor = iValor.Text;
+            string ValorExtenso = iValorExtenso.Text;
+            string Observacao = iObservacao.Text;
+
+            ReciboList reciboList = new ReciboList();
+            reciboList.GerarPDF(NomeRecebedor, CPF_CNPJRecebedor, ComplementoRecebedor,
+                                 CEPRecebedor, CidadeRecebedor, FRecebedor,
+                                 LogradouroRecebedor, NumeroEnderecoRecebedor,
+                                 BairroRecebedor, NomePagador, cpF_CNPJPagador, Valor, ValorExtenso, Observacao);
+            this.Close();
+>>>>>>> 3fa636d3d82162093ccf21c3c18b35b43b029f0a
         }
+
+        //public string Formatar(string cncp)
+        //{
+        //    if (cncp.Length == 14)
+        //    {
+        //        return Convert.ToInt64(cncp).ToString(@"00\.000\.000\/0000-00");
+        //    }
+        //    else
+        //    {
+        //        return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
+        //    }
+        //}
 
         private void butGerarRecibo_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Gerar o PDF?\nLocal - C:\\PDF", "Gerar PDF", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+            if(result == MessageBoxResult.Yes)
+            {
+                GerarReciboPDF();
+            }
             //if (result == MessageBoxResult.Yes)
                // this.Close();
         }

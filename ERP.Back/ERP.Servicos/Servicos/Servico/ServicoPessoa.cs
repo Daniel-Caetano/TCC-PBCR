@@ -122,9 +122,8 @@ namespace ERP.Servico.Servicos.Servico
 
             catch (Exception ex)
             {
-                Debug.WriteLine("CPF invalido!" + ex.Message);
+                Debug.WriteLine("CPF inválido!" + ex.Message);
             }
-
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.BuscaCpf(cpf);
             return pessoas;
@@ -205,8 +204,16 @@ namespace ERP.Servico.Servicos.Servico
         }
         public void Deletar(string cpf)
         {
-            var repositorio = new RepositorioPessoa(_stringConexao);
-            repositorio.Deletar(cpf);
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+            if (repositorioPessoa.BuscaCpf(cpf).Count > 0)
+            {
+                var repositorio = new RepositorioPessoa(_stringConexao);
+                repositorio.Deletar(cpf);
+            }
+            else
+            {
+                Console.WriteLine("Cliente não encontrado");
+            }
         }
     }
 }
