@@ -177,9 +177,9 @@
                         <MenuItem Header="Imprimir" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                         <MenuItem Header="Compartilhar" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
                         <MenuItem Header="Opções" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
-                        <MenuItem Header="Sobre" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="MenuItem_Click"/>
+                        <MenuItem Header="Sobre" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="MenuItem_Sobre"/>
                         <Separator/>
-                        <MenuItem Header="Sair" Padding="0" Width="130" Height="20" Margin="10 0 0 5"/>
+                        <MenuItem Header="Sair" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="MenuItem_Sair"/>
 
                     </MenuItem>
                     <MenuItem Header="_Inserir" Height="40"></MenuItem>
