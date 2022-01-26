@@ -1,9 +1,12 @@
 ﻿using ERP.View.Negocio;
 using ERP.ViewApi.Negocio;
 using ERP.ViewApi.Servicos.Servico;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,25 +25,29 @@ namespace ERP.View
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
 
+
         public ReciboList()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+        #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
+
+
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
 
+
         public async Task CarregarGrid()
         {
+
             var recibos = await serviceRecibo.GetAsyncAll();
-            foreach (var elemento in recibos)
-            {
-                // MessageBox.Show(elemento.Numero.ToString());
-            }
-    
+
+
             dataGridRecibo.ItemsSource = recibos;
         }
         //Metodo verifica se o cpf ou cnpj é válido após isso carrega o mesmo na listagem da janela
@@ -60,15 +67,18 @@ namespace ERP.View
 
                 }
             }
-            else if (Regex.IsMatch(txtSearch.Text, @"^[a-z A-Z]+$"))
+            else if(txtSearch.Text !="")
             {
-                MessageBox.Show("Digitou string");
+                
+                string search = txtSearch.Text.ToString();
+                CarregarDadosNome(search);
 
             }
             else
-
                 CarregarGrid();
+          
         }
+
 
         //Medo recebe os dados do banco de acordo com a pesquisa e exibe na janela
         public async Task CarregaDadosRecibo(string Dados)
@@ -77,70 +87,84 @@ namespace ERP.View
             dataGridRecibo.ItemsSource = recibos;
 
         }
-
-
-        private void GerarPdf(object sender, RoutedEventArgs e)
+     
+        public async Task CarregarDadosNome(string Dados)
         {
-            /*
-             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+            var recibos = await serviceRecibo.GetAsyncNome(Dados);
+            dataGridRecibo.ItemsSource = recibos;
 
-             if (infoRecibo != null)
-             {
-
-                 //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
-                 string nomeArquivo = @"C:\Pdf\cliente.pdf";
-                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
-                 Document document = new Document(PageSize.A4);
-                 PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
-
-
-                 document.Open();
-                 string dados = "";
-
-                 //GERANDO OS DADOS PARA PDF
-                 iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                 paragrafo.Add("RECIBO \n");
-
-                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
-                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                 paragrafo.Add("Eu " + infoRecibo.Numero + " (CPF/CNPJ_RECEBOR),localizado em \n <logradouro_recebor>, <número_endereço_recebedor> <complemento_recebedor>,\n <CEP_recebor>,<bairro_recebedor>," +
-                     ",\n declaro para os fins que recebi <nome/razão_social_pagador> (CPF/CNPJ_RECEBOR), o valor de R$ " + infoRecibo.Valor + ", " + infoRecibo.ValorExtenso +
-                     "em virtude de <observação_documento>");
-
-                 iTextSharp.text.Paragraph paragrafo1 = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD));
-                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                 paragrafo.Add(infoRecibo.Cidade + "," + infoRecibo.Estado + " \n");
-
-
-                 paragrafo1.Alignment = Element.ALIGN_CENTER;
-                 paragrafo1.Add("---------------------------------------------------------- \n");
-                 paragrafo1.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                 paragrafo1.Add("<nome/razão_social_pagador> \n");
-                 paragrafo1.Add(" (CPF/CNPJ_RECEBOR), \n\n\n");
-
-                 string cpf = "1234567891011";
-                 string pagador = "Bruno Cesar de Oliveira";
-
-                 paragrafo.Add("---------------------------------------------------------- \n");
-                 paragrafo.Add("<cidade_corrente>-<estado_corrente>,<data_corrente> \n");
-                 paragrafo.Add("<nome/razão_social_pagador> \n");
-                 paragrafo.Add(cpf + pagador + "\n\n\n");
-
-
-                 document.Add(paragrafo);
-                 document.Close();
-             }
-         */
         }
+
+        public void GerarPDF(string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
+                                 string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
+                                 string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                                 string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string ValorExtenso, string Observacao)
+
+        {
+            if (NomePagador != "")
+            {
+
+                //CHAMANDO A BIBLIOTECA COM  O CAMINHO E INSTANCIANDO A CLASSE PARA GERAR O PDF
+
+                string nomeArquivo = @"C:\PDF\" + NomeRecebedor + ".pdf";
+                FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
+                Document document = new Document(PageSize.A4);
+                PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+                string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+                document.Open();
+                string dados = "";
+
+                //GERANDO OS DADOS PARA PDF
+                iTextSharp.text.Paragraph paragrafo = new iTextSharp.text.Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, iTextSharp.text.Font.BOLD)); ;
+                paragrafo.Alignment = Element.ALIGN_LEFT;
+
+                paragrafo.Add("RECIBO \n \n");
+
+                paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
+                paragrafo.Alignment = Element.ALIGN_LEFT;
+                paragrafo.Add("Eu " + NomeRecebedor + "(" + CPF_CNPJRecebedor + "),  localizado em "
+                            + LogradouroRecebedor + ", " + NumeroEnderecoRecebedor + ", " + ComplementoRecebedor + ",\n"
+                            + CEPRecebedor + ", " + BairroRecebedor + "," + CidadeRecebedor + "-" + FRecebedor + " \n " +
+                            " declaro para os fins que recebi " + NomePagador + "(" + cpF_CNPJPagador + ") o valor de R$ " + Valor + ", "
+                            + ValorExtenso + ", em virtude de " + Observacao + ".\n \n");
+
+
+                paragrafo.Alignment = Element.ALIGN_LEFT;
+                paragrafo.Add("Goiânia-GO, " + DataAtual + "\n \n");
+
+
+                paragrafo.Alignment = Element.ALIGN_CENTER;
+                paragrafo.Add("_________________________________________________________\n");
+                paragrafo.Add(NomeRecebedor + "\n");
+                paragrafo.Add(CPF_CNPJRecebedor + "\n \n");
+
+                paragrafo.Alignment = Element.ALIGN_CENTER;
+                paragrafo.Add("_________________________________________________________\n");
+                paragrafo.Add(NomePagador + "\n");
+                paragrafo.Add(cpF_CNPJPagador + " \n\n");
+
+
+                document.Add(paragrafo);
+
+                document.Close();
+
+
+
+            }
+
+        }
+
 
         //Metodo realiza chamada da janela recibo
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
             recibo.Show();
-            MessageBox.Show("Clicou Botão");
+          
         }
+       
         //Metodo carrega na tela a janela de pré-visualização do recibo
         private void Visualizar(object sender, RoutedEventArgs e)
         {
@@ -170,8 +194,6 @@ namespace ERP.View
 
                 DateTime Data = infoRecibo.Data;
 
-
-
                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
                 imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
                                              ComplementoRecebedor, CEPRecebedor, BairroRecebedor,
@@ -183,6 +205,7 @@ namespace ERP.View
 
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                 //MessageBox.Show(dados);
+
             }
 
 
@@ -196,7 +219,7 @@ namespace ERP.View
 
                 ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
                 recibo.Show();
-                MessageBox.Show("Selecionou para Editar");
+              
             }
             else
             {
@@ -210,7 +233,13 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
+
+                MessageBox.Show("Desja realmente deletar Recibo?");
+
+                this.InitializeComponent();
+                CarregarGrid();
                 MessageBoxResult message = MessageBox.Show("Desja realmente deletar Recibo?","Lista", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             }
             else
             {
@@ -228,6 +257,39 @@ namespace ERP.View
             }
         }
 
+        public async Task ListarAreceber()
+        {
+            var recibos = await serviceRecibo.GetAsyncAreceber();
+            dataGridRecibo.ItemsSource = recibos;
 
+        }
+       
+        public async Task ListarApagar()
+        {
+            var recibos = await serviceRecibo.GetAsyncApagar();
+            dataGridRecibo.ItemsSource = recibos;
+
+        }
+        
+        private void Receber_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Receber.IsChecked == true ){
+                ListarAreceber();
+
+
+            }          
+           
+        }
+      
+        private void Pagar_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Pagar.IsChecked == true)
+            {
+                ListarApagar();
+            }
+           
+        }
+
+       
     }
 }

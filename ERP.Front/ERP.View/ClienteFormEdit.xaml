@@ -1,0 +1,396 @@
+﻿<Window x:Class="ERP.View.ClienteFormEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERP.View"
+        mc:Ignorable="d"
+     
+         
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"       
+        
+        Title="ClienteForm" 
+        Height="831"
+        Width="704">
+    <Grid>
+
+
+        <DockPanel
+        Height="600"
+        Width="432"                  
+  >
+            <StackPanel  
+            DockPanel.Dock="top"
+            Width="432"
+            Height="82" Background="#FFF"             
+            >
+                <Grid Height="82" Margin="10,0,10,0" Width="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock FontSize="32" Height="38"
+                               Foreground="#FF1C1E21" 
+                               Width="400" FontWeight="Bold"
+                               HorizontalAlignment="Left" > Editar Cliente</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Height="24" 
+                           Padding=" 3 0 0 0"> É rápido e fácil</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel          
+            Width="432"
+            Height="600"
+            Background="#FFF"    
+            Margin="0 10 0 0"
+            >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+
+                </Grid>
+                <!--INFORMAÇÃO DE CADASTRO-->
+                <StackPanel Width="400" Height="50" Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+
+                        </Grid.ColumnDefinitions>
+                        <!---CAMPOS DO FOMULÁRIO-->
+
+                        <!--CAMPO NOME/RAZÃO SOCIAL-->
+                        <StackPanel Width="395" Height="40" Grid.Column="0" Background="#FFF5F6F7" Margin="5 0 0 0" >
+                            <materialDesign:ColorZone
+                                    Mode="Standard"                  
+                                    CornerRadius="5"
+                                    Panel.ZIndex="1"                     
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                    Height="40">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="147*"/>
+                                        <ColumnDefinition Width="248*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="txtNome"
+                                    Grid.Column="0"
+                                    materialDesign:HintAssist.Hint="Nome / Razão Social"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderThickness="0"
+                                    Width="399"
+                                    Height="40"
+                                    MaxLength="100"   
+                                    Padding="10 0 0 0"
+                                    VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-4,0"  
+                                   
+                            />
+                                </Grid>
+                            </materialDesign:ColorZone>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- CAMPO CPF/CNPJ-->
+                <StackPanel Width="395" Height="40" Grid.Row="1" Background="#FFF5F6F7" Margin="8 0 0 0">
+                    <materialDesign:ColorZone
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"                
+                    >
+                        <Grid>
+                            <TextBox x:Name="txtCpf"
+                        Grid.Column="0"
+                        materialDesign:HintAssist.Hint="CPF/CNPJ"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"
+                        Width="399"
+                        Height="40"
+                        MaxLength="100"   
+                        Padding="10 0 0 0"
+                        VerticalContentAlignment="Center"                           
+                        />
+
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+
+                <!--CAMPO CEP-->
+                <StackPanel Width="395" Height="40" Grid.Row="2" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                            Mode="Standard"
+                            CornerRadius="5"
+                            Panel.ZIndex="1"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                            Height="40"                            
+                    >
+
+                        <Grid>
+                            <TextBox x:Name="txtCep"
+                            Grid.Column="0"
+                            materialDesign:HintAssist.Hint="CEP"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            BorderThickness="0"
+                            Width="399"
+                            Height="40"
+                            MaxLength="100"   
+                            Padding="10 0 0 0"
+                            VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+
+                </StackPanel>
+
+                <!---COMPLEMENTO-->
+                <StackPanel Width="395" Height="40" Grid.Row="3" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtComplemento"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Complemento"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Width="399"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+
+
+                </StackPanel>
+
+                <!---ENDEREÇO-->
+                <StackPanel Width="395" Height="40" Grid.Row="4" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtEndereco"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Endereço"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Width="399"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+                <!---LOGRADOURO-->
+                <StackPanel Width="395" Height="40" Grid.Row="5" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtLogradouro"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="logradouro"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Width="399"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+                <!---BAIRRO-->
+                <StackPanel Width="395" Height="40" Grid.Row="6" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtBairro"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Bairro"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Width="399"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+                <!---CIDADE-->
+                <StackPanel Width="395" Height="40" Grid.Row="6" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtCidade"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Cidade"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Width="399"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center" Margin="0,0,0,10"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="-18,0,0,0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+          
+                    <!---ESTADO-->
+                    <StackPanel Width="80" Height="40" Grid.Column="0" Background="#FFF5F6F7" Margin="10 10 0 0">
+                        <materialDesign:ColorZone 
+                        Mode="Standard"
+                        CornerRadius="5"
+                        Panel.ZIndex="1"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        Height="40"            >
+
+                            <Grid>
+                                <TextBox
+                                     x:Name="txtEstado"
+                                    Grid.Column="0"
+                                    materialDesign:HintAssist.Hint="UF"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderThickness="0"
+                                    Height="40"
+                                    MaxLength="100"   
+                                    Padding="10 0 0 0"
+                                    VerticalContentAlignment="Center" Margin="0,0,-96,0" HorizontalAlignment="Stretch"                           
+                            />
+                            </Grid>
+                        </materialDesign:ColorZone>
+                    </StackPanel>
+                    <!---NUMERO-->
+                    <StackPanel Width="100" Height="40" Grid.Column="1" Background="#FFF5F6F7" Margin="10 10 0 0">
+                    <materialDesign:ColorZone 
+                    Mode="Standard"
+                    CornerRadius="5"
+                    Panel.ZIndex="1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Height="40"            >
+
+                        <Grid>
+                            <TextBox
+                                 x:Name="txtNumero"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Numero"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                Height="40"
+                                MaxLength="100"   
+                                Padding="10 0 0 0"
+                                VerticalContentAlignment="Center"                           
+                        />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </StackPanel>
+
+                </Grid>
+
+
+                <!---BOTÃO DE CADASTRO-->
+                <StackPanel Width="197"  VerticalAlignment="Center" Margin="0 20,0,0" Orientation="Vertical">
+                    <Button x:Name="btn_Cadastrar"
+                          Style="{StaticResource MaterialDesignRaisedAccentButton}"                     
+                          ToolTip="Editar  Cliente"
+                          materialDesign:RippleAssist.Feedback="#DD000000"
+                          Content="Cadastrar-se"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                          Background="#FF00A400" 
+                          BorderBrush="{x:Null}" 
+                          FontSize="16" 
+                          Foreground="White"
+                          FontWeight="Bold" 
+                          Click="AtualizarCliente"/>
+                </StackPanel>
+
+
+
+            </StackPanel>
+        </DockPanel>
+
+
+    </Grid>
+</Window>

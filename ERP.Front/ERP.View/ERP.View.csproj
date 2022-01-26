@@ -85,6 +85,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClienteFormEdit.xaml.cs">
+      <DependentUpon>ClienteFormEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sobre.xaml.cs">
       <DependentUpon>Sobre.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <DependentUpon>ReciboList.xaml</DependentUpon>
     </Compile>
     <Page Include="ClienteForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClienteFormEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
