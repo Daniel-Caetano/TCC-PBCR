@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing.Printing;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ERP.View
 {
@@ -54,7 +56,20 @@ namespace ERP.View
             {
                 return Convert.ToInt64(cncp).ToString(@"000\.000\.000\.000-00");
             }
+        }
 
+        private void butGerarRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Gerar o PDF?\nLocal - C:\\PDF", "Gerar PDF", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            //if (result == MessageBoxResult.Yes)
+               // this.Close();
+        }
+
+        private void butImp_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog tmp = new PrintDialog();
+            tmp.ShowDialog();
         }
     }
 }

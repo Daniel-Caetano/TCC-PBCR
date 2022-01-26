@@ -5,27 +5,12 @@ namespace ReciboJanela
 {
     public class Validacao : Dados
     {
-        public static bool ValidarCnpj(string cnpj)
+        public bool ValidarCnpj(string cnpj)
         {
             //números que serão utilizados para calcular o primeiro e segundo dígito que valida se o CNPJ é ou não valido
             int[] fator1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] fator2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-            //verifica se o CNPJ tem 14 digitos
-            if (cnpj.Length != 14)
-            {
-                return false;
-            }
-            else
-            {
-                for (int i = 0; i < cnpj.Length; i++)
-                {
-                    if (!Char.IsDigit(cnpj[i]))
-                    {
-                        return false;
-                    }
-                }
-            }
             //calcula o primeiro dígito do CNPJ
             int soma = 0;
             for (int i = 0; i < 12; i++)
@@ -62,7 +47,7 @@ namespace ReciboJanela
                 return true;
         }
 
-        public static bool ValidarCpf(string cpf)
+        public bool ValidarCpf(string cpf)
         {
             //validar cpf
             bool cpfValido = true;
@@ -85,7 +70,6 @@ namespace ReciboJanela
                         break;
                     }
                 }
-
             }
 
             //verifica se é 00000000000...99999999999
@@ -101,7 +85,6 @@ namespace ReciboJanela
                         break;
                     }
                 }
-
             }
 
             //Verificar dígito de controle do cpf
@@ -149,19 +132,15 @@ namespace ReciboJanela
                         cpfValido = false;
                         // MessageBox.Show("O CPF informado não e valido");
                     }
-
                 }
             }
-
             return cpfValido;
         }
-
-        public static string RetirarMascara(string mascara)
+        public string RetirarMascara(string mascara)
         {
             return mascara.Trim().Replace(".", "").Replace("-", "").Replace("/", "");
         }
     }
-
 }
 
 

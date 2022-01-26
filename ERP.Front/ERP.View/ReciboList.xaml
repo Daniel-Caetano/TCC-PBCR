@@ -165,7 +165,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
+                                        <ToggleButton x:Name="btnVisualizar" Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
                                                     Content="{materialDesign:PackIcon Kind= Eye}"
                                                     ToolTip="Visualizar" 
                                                     Margin="0 0 10 0"

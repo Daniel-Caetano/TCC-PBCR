@@ -40,7 +40,7 @@ namespace ERP.View
             {
                 // MessageBox.Show(elemento.Numero.ToString());
             }
-
+    
             dataGridRecibo.ItemsSource = recibos;
         }
         //Metodo verifica se o cpf ou cnpj é válido após isso carrega o mesmo na listagem da janela
@@ -210,7 +210,7 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
-                MessageBox.Show("Desja realmente deletar Recibo?");
+                MessageBoxResult message = MessageBox.Show("Desja realmente deletar Recibo?","Lista", MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
             else
             {
