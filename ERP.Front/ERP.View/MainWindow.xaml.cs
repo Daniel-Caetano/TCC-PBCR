@@ -45,10 +45,15 @@ namespace ERP.View
 
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Sobre(object sender, RoutedEventArgs e)
         {
             Sobre sobre = new Sobre();
             sobre.Show();
+        }
+
+        private void MenuItem_Sair(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 

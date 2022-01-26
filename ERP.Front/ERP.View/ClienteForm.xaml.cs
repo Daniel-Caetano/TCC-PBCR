@@ -21,7 +21,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-
+using System.Dynamic;
 
 
 namespace ERP.View
@@ -37,10 +37,11 @@ namespace ERP.View
             InitializeComponent();
         }
 
+
         private void CadastrarCliente(object sender, System.Windows.RoutedEventArgs e)
         {
             string Nome = txtNome.Text;
-            string CPF = txtCpf.Text;
+            string CPF = txtCpfCnpj.Text;
             string CEP = txtCep.Text;
             string Bairro = txtBairro.Text;
             string Localidade = txtCidade.Text;
@@ -59,6 +60,23 @@ namespace ERP.View
         }
 
 
+        //private void txtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    Imprimi imp = new Imprimi();
+        //   string txt = imp.Formatar(txtCpfCnpj.Text);
+
+        //    ReciboJanela.Validacao val = new ReciboJanela.Validacao();
+
+
+        //    if(!val.ValidarCpf(txt))
+        //   {
+        //       txtCpfCnpj.Text = "CPF"; 
+        //   }
+        //    else if (val.ValidarCnpj(txt))
+        //    {
+        //        txtCpfCnpj.Text = "CNPJ";
+        //    }
+        //}
 
     }
 

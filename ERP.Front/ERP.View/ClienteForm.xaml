@@ -127,7 +127,7 @@
                     Height="40"                
                     >
                     <Grid>
-                        <TextBox x:Name="txtCpf"
+                        <TextBox x:Name="txtCpfCnpj"
                         Grid.Column="0"
                         materialDesign:HintAssist.Hint="CPF/CNPJ"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"

@@ -14,28 +14,116 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
+        public bool verificaNull(string Nome, string CPF, string NumeroEndereco,
+                                 string Complemento, string CEP,
+                                 string Logradouro, string Bairro,
+                                 string Localidade, string UF)
+        {
+            if (Nome == null)
+            {
+                Console.WriteLine("Nome INVÁLIDO");
+                return false;
+            }
+            if (CPF == null)
+            {
+                Console.WriteLine("CPF INVÁLIDO");
+                return false;
+            }
+            if (NumeroEndereco == null)
+            {
+                Console.WriteLine("NumeroEndereco INVÁLIDO");
+                return false;
+            }
+            if (Complemento == null)
+            {
+                Console.WriteLine("Complemento INVÁLIDO");
+                return false;
+            }
+            if (CEP == null)
+            {
+                Console.WriteLine("CEP INVÁLIDO");
+                return false;
+            }
+            if (Logradouro == null)
+            {
+                Console.WriteLine("Logradouro INVÁLIDO");
+                return false;
+            }
+            if (Bairro == null)
+            {
+                Console.WriteLine("Bairro INVÁLIDO");
+                return false;
+            }
+            if (Localidade == null)
+            {
+                Console.WriteLine("Localidade INVÁLIDO");
+                return false;
+            }
+            if (UF == null)
+            {
+                Console.WriteLine("UF INVÁLIDO");
+                return false;
+            }
+            return true;
+        }
 
+        public bool validaPessoa(string Nome, string CPF, string NumeroEndereco,
+                                 string Complemento, string CEP,
+                                 string Logradouro, string Bairro,
+                                 string Localidade, string UF)
+        {
+
+            if (!(verificaNull(Nome, CPF, NumeroEndereco,
+                              Complemento, CEP,
+                              Logradouro, Bairro,
+                              Localidade, UF)))
+            {
+                Console.WriteLine("Contém dados Nulos");
+                return false;
+            }
+            var pessoaNova = BuscaCpf(CPF);
+
+            if (CPF.Length != 11)
+            {
+                Console.WriteLine("CPF INVÁLIDO");
+                return false;
+            }
+            if (pessoaNova.Count > 0)
+            {
+                Console.WriteLine("CPF JA EXISTENTE");
+                return false;
+            }
+            if (UF.Length != 2)
+            {
+                Console.WriteLine("Digito UF para estado inválido");
+                return false;
+            }
+
+            if (CEP.Length != 8)
+            {
+                Console.WriteLine("CEP inválido");
+                return false;
+            }
+            return true;
+        }
         public List<Pessoa> Lista()
         {
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.Lista();
             return pessoas;
-
         }
 
         public List<Pessoa> BuscaCpf(string cpf)
         {
             try
             {
-                _ = cpf.Length != 11;
                 new CPFValidator().AssertValid(cpf);
             }
 
             catch (Exception ex)
             {
-                Debug.WriteLine("CPF invalido!" + ex.Message);
+                Debug.WriteLine("CPF inválido!" + ex.Message);
             }
-
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.BuscaCpf(cpf);
             return pessoas;
@@ -52,13 +140,24 @@ namespace ERP.Servico.Servicos.Servico
            string NumeroEndereco, string Complemento, string CEP
            , string Logradouro, string Bairro, string Localidade, string UF)
         {
-            var repositorio = new RepositorioPessoa(_stringConexao);
-            repositorio.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
+            if (validaPessoa(Nome, CPF, NumeroEndereco,
+                              Complemento, CEP,
+                              Logradouro, Bairro,
+                              Localidade, UF))
+            {
+                var repositorio = new RepositorioPessoa(_stringConexao);
+                repositorio.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            }
+            else
+            {
+                Console.WriteLine("Falha ao adicionar, dados inválidos");
+            }
         }
         public void Atualizar(string CpfAtual, string Nome, string Cpf,
-    string NumeroEndereco, string Complemento, string CEP
-    , string Logradouro, string Bairro, string Localidade, string UF)
+                              string NumeroEndereco, string Complemento,
+                              string CEP, string Logradouro, string Bairro,
+                              string Localidade, string UF)
         {
 
             //estrutura para não sobrescrever os dados antigos com null
@@ -100,10 +199,8 @@ namespace ERP.Servico.Servicos.Servico
                 UF = dadosAntigos[0].UF;
             }
 
-            var repositorio = new RepositorioPessoa(_stringConexao);
-            repositorio.Atualizar(CpfAtual, Nome, Cpf,
-                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
-                Localidade, UF);
+                var repositorio = new RepositorioPessoa(_stringConexao);
+                repositorio.Atualizar(CpfAtual, Nome, Cpf, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
         }
         public void Deletar(string cpf)
         {
