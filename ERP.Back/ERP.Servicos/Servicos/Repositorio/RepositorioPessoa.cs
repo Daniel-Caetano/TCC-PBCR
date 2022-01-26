@@ -291,7 +291,7 @@ namespace ERP.Servico.Servicos.Repositorio
         public bool DeletarCodigoPostal(Pessoa pessoaDeletada)
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
-                                                 "WHERE CODI_ID_PK = @ID_CEP");
+                                                     "WHERE CODI_ID_PK = @ID_CEP");
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
@@ -305,8 +305,10 @@ namespace ERP.Servico.Servicos.Repositorio
         //65990298170/ID 10
         public void Deletar(string cpf)
         {
+
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
             var pessoaDeletada = new Pessoa();
+
             //SQL para pegar o ENDERECO e CODIGO_POSTAL em comum com CPF
             var sql = new StringBuilder().AppendLine("SELECT PESS_CPF ,PESS_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
                                                      "FROM PESSOAS " +
@@ -338,9 +340,10 @@ namespace ERP.Servico.Servicos.Repositorio
             }
 
             //Estrutura para deletar em cascata manualmente
-            repositorioPessoa.DeletarPessoa(pessoaDeletada); 
+            repositorioPessoa.DeletarPessoa(pessoaDeletada);
             repositorioPessoa.DeletarEndereco(pessoaDeletada);
             repositorioPessoa.DeletarCodigoPostal(pessoaDeletada);
+
         }
     }
 }

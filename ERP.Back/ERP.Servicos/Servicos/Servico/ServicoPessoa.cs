@@ -204,8 +204,16 @@ namespace ERP.Servico.Servicos.Servico
         }
         public void Deletar(string cpf)
         {
-            var repositorio = new RepositorioPessoa(_stringConexao);
-            repositorio.Deletar(cpf);
+            var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+            if (repositorioPessoa.BuscaCpf(cpf).Count > 0)
+            {
+                var repositorio = new RepositorioPessoa(_stringConexao);
+                repositorio.Deletar(cpf);
+            }
+            else
+            {
+                Console.WriteLine("Cliente não encontrado");
+            }
         }
     }
 }
