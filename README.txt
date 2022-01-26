@@ -12,9 +12,9 @@ Instalar banco de dados no Docker
 -2: Instalar o https://docs.docker.com/desktop/windows/wsl/
 -3: Abrir o CMD e digitar o comando a baixo
 -->> docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Tccpbcr123@ ' -p 1401:1433 --name TCC_PBCR -d mcr.microsoft.com/mssql/server:2017-latest  <<---
--4: Fazer conexão com IDE mssql e criar um Banco de Dados com nome "ERP"
+-4: Fazer conexão com IDE mssql 
 -5: Abrir o Docker e colocar para rodar o container criado pelo comando do passo 3 
--6: Criar como conexão localhost , 1401 , usuario 'sa' e senha Tccpbcr123@ 
+-6: Criar como conexão localhost, 1401 , usuario 'sa' e senha Tccpbcr123@ como na figura "conexão_mssqlserver" na pasta \TCC-PBCR\ERP.BD
 -7: Rodar o script geral do banco de dados ou fazer a restauração , ambos estão em \TCC-PBCR\ERP.BD
 -8: Abrir o projeto ERP.Console.sln localizado em TCC-PBCR\ERP.Back
 -9: Utilizar o ERP.Api como projeto de inicialização padrão
