@@ -1,10 +1,3 @@
-//Comandos básicos
-//git status
-//git add .
-//git commit -m "Comentário"
-//git pull origin develop
-//git push -u origin (sua branch)
-
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
 Grupo 1
@@ -27,7 +20,7 @@ Função:Alanlista de Desenvolvimento - Back End
 
 Nome:Daniel Caetano de Souza Ferreira
 email:danielcaetano.sf@gmail.com
-Funções:Scrum Master e Analista de desenvolvimento
+Funções:Analista de desenvolvimento
 
 Nome: Gerson Otavio Fernandes Moreira
 email: gersonofernandes@gmail.com
