@@ -1,6 +1,8 @@
 Projeto de TCC para o protocolo Bicicleta de Rodinhas da Aliare
 Data inicio 13/01/2022
 
+Sistema para gerar um RECIBO em PDF
+
 SCRIPT para rodar o sistema
 Instalar banco de dados no Docker
 -1: Instalar o Docker
