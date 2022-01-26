@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -55,14 +56,14 @@ namespace ReciboJanela
 
         private void butImp_Click(object sender, RoutedEventArgs e)
         {
-            //  Imprimir imp = new Imprimir();
-            //   imp.ShowDialog();
+            PrintDialog imp = new PrintDialog();
+           imp.ShowDialog();
         }
         private void txtCpf_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string cpf = txtCpf.Text;
-            cpf = Validacao.RetirarMascara(cpf);
-
+            Validacao tmp = new Validacao();
+            string tratativa = tmp.RetirarMascara(txtCpf.Text);
+            
 
             if (txtCpf.IsFocused == true)
             {
@@ -71,7 +72,7 @@ namespace ReciboJanela
             }
 
 
-            if (!Validacao.ValidarCpf(cpf))
+            if (!tmp.ValidarCpf(tratativa))
             {
 
                 e.Handled = true;
@@ -87,38 +88,27 @@ namespace ReciboJanela
 
         private void txtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string cnpj = txtCnpj.Text;
-            cnpj = Validacao.RetirarMascara(cnpj);
+            Validacao tmp = new Validacao();
+            string tratativa = tmp.RetirarMascara(txtCnpj.Text);
+
 
             if (txtCnpj.IsFocused == true)
             {
                 txtCpf.IsEnabled = false;
+                txtCpf.Background = Brushes.Green;
             }
 
-            if (!Validacao.ValidarCnpj(cnpj))
+            if(!tmp.ValidarCnpj(tratativa))
+            { 
+                txtCnpj_Erro.Visibility = Visibility.Visible;
+                txtCnpj_Erro.Focus();
+            }
+            else
             {
-                e.Handled = true;
-
-                if (txtCpf.IsFocused)
-                {
-                    txtCnpj.IsEnabled = false;
-                }
-
-
-                if (!Validacao.ValidarCnpj(cnpj))
-                {
-                    e.Handled = true;
-
-                    txtCnpj_Erro.Visibility = Visibility.Visible;
-                    txtCnpj_Erro.Focus();
-                }
-                else
-                {
-                    txtCnpj_Erro.Visibility = Visibility.Collapsed;
-                }
+                txtCnpj_Erro.Visibility = Visibility.Collapsed;
+                
             }
         }
-
     }
 }
 
