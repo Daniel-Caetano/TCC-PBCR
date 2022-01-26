@@ -140,7 +140,6 @@ namespace ERP.View
             }
         }
 
-
         private void LiberarBotao(object sender, RoutedEventArgs e)
         {
             if (txtSearch.Text != "")
