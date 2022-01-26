@@ -22,15 +22,13 @@ namespace ERP.View
             ReciboJanela.Validacao val = new ReciboJanela.Validacao();
 
 
-            if(txt.Length != 11)
+            if(!val.ValidarCpf(txt))
            {
-               string tmp1 = val.ValidarCpf(txt).ToString();
-               // MessageBox.Show("Sucesso!! ");
+               txtCpfCnpj.Text = "CPF"; 
            }
-            else
-           {
-                string tmp2 = val.ValidarCnpj(txt).ToString();
-                //MessageBox.Show("Derrota!! ");
+            else if (val.ValidarCnpj(txt))
+            {
+                txtCpfCnpj.Text = "CNPJ";
             }
         }
     }

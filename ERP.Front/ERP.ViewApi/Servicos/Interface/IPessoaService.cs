@@ -19,14 +19,15 @@ namespace ERP.ViewApi.Servicos.Interface
 
 
         [Post("/Pessoa/Adicionar/json")]
-        Task<IList<PessoaResponse>> InsertAsync(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF);
+        Task<IList<PessoaResponse>> InsertAsync(string Nome, string CPF, string NumeroEndereco, 
+                                                string Complemento, string CEP, string Logradouro, 
+                                                string Bairro, string Localidade, string UF);
 
 
-        [Put("/Pessoa/{cpfatual}/json")]
+        [Put("/Pessoa/Atualizar/{cpfatual}/json")]
         Task<IList<PessoaResponse>> UpdateAsync(string CpfAtual, string Nome, string CPF,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF);
-
+                                                string NumeroEndereco, string Complemento, string CEP , 
+                                                string Logradouro, string Bairro, string Localidade, string UF);
 
         [Delete("/Pessoa/Deletar/cpf/json")]
         Task DeleteAsync(string cpf);

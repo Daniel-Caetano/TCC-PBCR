@@ -15,6 +15,18 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
+        public bool validaCnpj(string cnpj)
+        {
+            if(cnpj.Length == 14)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("CNPJ INVÁLIDO");
+                return false;
+            }
+        }
         public List<Empresa> Lista()
         {
 
@@ -42,13 +54,22 @@ namespace ERP.Servico.Servicos.Servico
             string NumeroEndereco, string Complemento, string CEP
             , string Logradouro, string Bairro, string Localidade, string UF)
         {
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
+            var novaEmpresa = BuscaCnpj(cnpj);
+
+            if (novaEmpresa.Count==0 && validaCnpj(cnpj))
+            {
+                var repositorio = new RepositorioEmpresa(_stringConexao);
+                repositorio.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            }
+            else
+            {
+                Console.WriteLine("FALHA AO ADICIONAR, CNPJ EXISTENTE!");
+            }
         }
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF)
+                              string NumeroEndereco, string Complemento, string CEP, 
+                              string Logradouro, string Bairro, string Localidade, string UF)
         {
 
             //estrutura para não sobrescrever os dados antigos com null

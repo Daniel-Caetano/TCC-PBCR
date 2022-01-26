@@ -1,4 +1,5 @@
 ﻿using ERP.Servico.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -47,8 +48,7 @@ namespace ERP.Servicos
                         CPF_CNPJPagador = reader.GetString(reader.GetOrdinal("RECI_PAG_DOC")),
                         Valor = reader.GetDecimal(reader.GetOrdinal("RECI_VAL")),
                         ValorExtenso = reader.GetString(reader.GetOrdinal("RECI_VAL_EXT")),
-                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS")),
-                        Data = reader.GetDateTime(reader.GetOrdinal("RECI_DAT"))
+                        Observacao = reader.GetString(reader.GetOrdinal("RECI_OBS"))
                     };
                     recibos.Add(recibo);
                 }
@@ -133,7 +133,7 @@ namespace ERP.Servicos
             var tabelaRecibo = new RepositorioRecibo(_stringConexao);
             var sql = new StringBuilder()
                 .AppendLine(select + " WHERE RE.[RECI_REC_DOC] = @documento OR RE.[RECI_PAG_DOC] = @documento");
-            
+
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -165,5 +165,125 @@ namespace ERP.Servicos
 
             return recibos;
         }
+
+        public void Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            string MaxID = "SELECT MAX(RECI_ID_PK) FROM RECIBOS";
+
+            int ID_Reci = 0;
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open(); // abre conexão
+
+                // cria objeto do tipo SqlCommand
+                using (var command = new SqlCommand(MaxID, conn))
+                {
+                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    ID_Reci = (int)command.ExecuteScalar() + 1;
+
+                }
+                conn.Close();
+            }
+            var sqlReci = new StringBuilder()
+                .AppendLine("INSERT INTO RECIBOS (RECI_TIP, RECI_REC, RECI_REC_DOC, RECI_REC_END, RECI_REC_NUM, RECI_REC_COM, RECI_REC_CEP, " +
+                "RECI_REC_BAI, RECI_REC_CID,RECI_REC_UF, RECI_PAG, RECI_PAG_DOC, RECI_VAL, RECI_VAL_EXT, RECI_OBS, RECI_CID, RECI_UF) " +
+                "VALUES (@Tipo, @Recebedor, @DocumentoRec, @EnderecoRec, @NumeroEndRec, @ComplementoRec, @CEPrec, @BairroRec, @CidadeRec, @UFrec, " +
+                "@Pagador, @DocumentoPag , @Valor , @ValorExtenso , @Observacao , @CidadeRecibo , @UFrecibo) ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sqlReci.ToString(), conn);
+                command.Parameters.AddWithValue("@Tipo ", Tipo);
+                command.Parameters.AddWithValue("@Recebedor ", Recebedor);
+                command.Parameters.AddWithValue("@DocumentoRec ", DocumentoRec);
+                command.Parameters.AddWithValue("@EnderecoRec ", EnderecoRec);
+                command.Parameters.AddWithValue("@NumeroEndRec ", NumeroEndRec);
+                command.Parameters.AddWithValue("@ComplementoRec ", ComplementoRec);
+                command.Parameters.AddWithValue("@CEPrec ", CEPrec);
+                command.Parameters.AddWithValue("@BairroRec ", BairroRec);
+                command.Parameters.AddWithValue("@CidadeRec ", CidadeRec);
+                command.Parameters.AddWithValue("@UFrec ", UFrec);
+                command.Parameters.AddWithValue("@Pagador ", Pagador);
+                command.Parameters.AddWithValue("@DocumentoPag ", DocumentoPag);
+                command.Parameters.AddWithValue("@Valor ", Valor);
+                command.Parameters.AddWithValue("@ValorExtenso ", ValorExtenso);
+                command.Parameters.AddWithValue("@Observacao ", Observacao);
+                command.Parameters.AddWithValue("@CidadeRecibo ", CidadeRecibo);
+                command.Parameters.AddWithValue("@UFrecibo ", UFrecibo);
+                var reader = command.ExecuteNonQuery();
+            }
+        }
+
+        public void Deletar(int id)
+        {
+            var sql = new StringBuilder().AppendLine("DELETE FROM RECIBOS WHERE RECI_ID_PK = @id ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                var command = new SqlCommand(sql.ToString(), conn);
+                conn.Open();
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
+                var reader = command.ExecuteReader();
+                reader.Read();
+            }
+        }
+
+        public void Atualizar(int id, string Tipo, decimal Valor, string ValorExtenso,
+                              string Observacao, string NomeRecebedor, string CPF_CNPJRecebedor,
+                              string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                              string ComplementoRecebedor, string CEPRecebedor,
+                              string BairroRecebedor, string CidadeRecebedor,
+                              string UFRecebedor, string NomePagador, string CPF_CNPJPagador)
+        {
+
+            //var dadosAntigos = BuscaReciboCompleto(id);
+
+            var sql = new StringBuilder().AppendLine("UPDATE RECIBOS "+
+                                                     "SET[RECI_TIP] = @Tipo " +
+                                                     ",[RECI_REC] = @Recebedor " +
+                                                     ",[RECI_REC_DOC] = @DocumentoRec " +
+                                                     ",[RECI_REC_END] = @EnderecoRec " +
+                                                     ",[RECI_REC_NUM] = @NumeroEndRec " +
+                                                     ",[RECI_REC_COM] = @ComplementoRec " +
+                                                     ",[RECI_REC_CEP] = @CEPrec " +
+                                                     ",[RECI_REC_BAI] = @BairroRec " +
+                                                     ",[RECI_REC_CID] = @CidadeRec " +
+                                                     ",[RECI_REC_UF] = @UFrec " +
+                                                     ",[RECI_PAG] = @Pagador " +
+                                                     ",[RECI_PAG_DOC] = @DocumentoPag " +
+                                                     ",[RECI_VAL] = @Valor " +
+                                                     ",[RECI_VAL_EXT] = @ValorExtenso " +
+                                                     ",[RECI_OBS] = @Observacao " +
+                                                      "WHERE RECI_ID_PK = @id ");
+
+            using (var conn = new SqlConnection(_stringConexao))
+            {
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@id ", id);
+                command.Parameters.AddWithValue("@Tipo ", Tipo);
+                command.Parameters.AddWithValue("@Recebedor ", NomeRecebedor);
+                command.Parameters.AddWithValue("@DocumentoRec ", CPF_CNPJRecebedor);
+                command.Parameters.AddWithValue("@EnderecoRec ", LogradouroRecebedor);
+                command.Parameters.AddWithValue("@NumeroEndRec ", NumeroEnderecoRecebedor);
+                command.Parameters.AddWithValue("@ComplementoRec ", ComplementoRecebedor);
+                command.Parameters.AddWithValue("@CEPrec ", CEPRecebedor);
+                command.Parameters.AddWithValue("@BairroRec ", BairroRecebedor);
+                command.Parameters.AddWithValue("@CidadeRec ", CidadeRecebedor);
+                command.Parameters.AddWithValue("@UFrec ", UFRecebedor);
+                command.Parameters.AddWithValue("@Pagador ", NomePagador);
+                command.Parameters.AddWithValue("@DocumentoPag ", CPF_CNPJPagador);
+                command.Parameters.AddWithValue("@Valor ", Valor);
+                command.Parameters.AddWithValue("@ValorExtenso ", ValorExtenso);
+                command.Parameters.AddWithValue("@Observacao ", Observacao);
+
+                var reader = command.ExecuteNonQuery();
+            }
+        }
+
     }
 }
