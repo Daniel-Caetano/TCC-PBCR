@@ -4,13 +4,15 @@ namespace ERP.Servico.Negocio
 {
     public class Recibo
     {
-        // Recebedor
+        //Recibo
         public int NumeroRecibo { get; set; }
         public string Tipo { get; set; }
         public decimal Valor { get; set; }
         public string ValorExtenso { get; set; }
         public string Observacao { get; set; }
         public DateTime Data { get; set; }
+
+        // Recebedor
         public string NomeRecebedor { get; set; }
         public string CPF_CNPJRecebedor { get; set; }
         public string LogradouroRecebedor { get; set; }

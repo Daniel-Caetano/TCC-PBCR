@@ -15,11 +15,13 @@ namespace ERP.Servico.Servicos.Servico
         {
             _stringConexao = stringConexao;
         }
-        public bool verificaNull(string razao, string cnpj,
+
+        public bool VerificaNull(string razao, string cnpj,
                                  string NumeroEndereco, string Complemento,
                                  string CEP, string Logradouro, string Bairro,
                                  string Localidade, string UF)
         {
+
             if (razao == null)
             {
                 Console.WriteLine("Razao INVÁLIDO");
@@ -68,13 +70,13 @@ namespace ERP.Servico.Servicos.Servico
             return true;
         }
 
-        public bool validaEmpresa(string razao, string cnpj,
-                                 string NumeroEndereco, string Complemento, 
-                                 string CEP, string Logradouro, string Bairro, 
+        public bool ValidaEmpresa(string razao, string cnpj,
+                                 string NumeroEndereco, string Complemento,
+                                 string CEP, string Logradouro, string Bairro,
                                  string Localidade, string UF)
         {
 
-            if (!(verificaNull(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF)))
+            if (!(VerificaNull(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF)))
             {
                 Console.WriteLine("Contém dados Nulos");
                 return false;
@@ -107,9 +109,9 @@ namespace ERP.Servico.Servicos.Servico
 
         public List<Empresa> Lista()
         {
-
             var repositorio = new RepositorioEmpresa(_stringConexao);
             var listEmpresa = repositorio.Lista();
+
             return listEmpresa;
         }
         public List<Empresa> BuscaCnpj(string cnpj)
@@ -125,15 +127,16 @@ namespace ERP.Servico.Servicos.Servico
 
             var repositorio = new RepositorioEmpresa(_stringConexao);
             var listEmpresa = repositorio.BuscaCnpj(cnpj);
+
             return listEmpresa;
         }
 
         public void Adicionar(string razao, string cnpj,
-            string NumeroEndereco, string Complemento, string CEP
-            , string Logradouro, string Bairro, string Localidade, string UF)
+                              string NumeroEndereco, string Complemento, string CEP,
+                              string Logradouro, string Bairro, string Localidade, string UF)
         {
 
-            if (validaEmpresa(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF))
+            if (ValidaEmpresa(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF))
             {
                 var repositorio = new RepositorioEmpresa(_stringConexao);
                 repositorio.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
@@ -143,8 +146,9 @@ namespace ERP.Servico.Servicos.Servico
                 Console.WriteLine("FALHA AO ADICIONAR, CONTÉM DADOS INVÁLIDOS!");
             }
         }
+
         public void Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
-                              string NumeroEndereco, string Complemento, string CEP, 
+                              string NumeroEndereco, string Complemento, string CEP,
                               string Logradouro, string Bairro, string Localidade, string UF)
         {
 
@@ -189,12 +193,14 @@ namespace ERP.Servico.Servicos.Servico
 
             var repositorio = new RepositorioEmpresa(_stringConexao);
             repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj,
-                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
-                Localidade, UF);
+                                  NumeroEndereco, Complemento, CEP, Logradouro,
+                                  Bairro, Localidade, UF);
         }
+
         public void Deletar(string cnpj)
         {
             var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);
+
             if (repositorioEmpresa.BuscaCnpj(cnpj).Count > 0)
             {
                 var repositorio = new RepositorioEmpresa(_stringConexao);
@@ -204,7 +210,6 @@ namespace ERP.Servico.Servicos.Servico
             {
                 Console.WriteLine("Empresa não existe");
             }
-
         }
     }
 }

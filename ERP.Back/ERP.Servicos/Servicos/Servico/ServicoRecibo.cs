@@ -2,7 +2,6 @@
 using ERP.Servicos;
 using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace ERP.Servico.Servicos.Servico
 {
@@ -65,12 +64,12 @@ namespace ERP.Servico.Servicos.Servico
         }
 
         public void Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
-            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
-            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+                              string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+                              decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
         {
             var repositorio = new RepositorioRecibo(_stringConexao);
             repositorio.Adicionar(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec, UFrec, Pagador, DocumentoPag,
-                Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+                                  Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
         }
 
         public void Deletar(int id)
@@ -83,9 +82,8 @@ namespace ERP.Servico.Servicos.Servico
             }
             else
             {
-                Console.WriteLine("Recibo não encontrado!"); 
+                Console.WriteLine("Recibo não encontrado!");
             }
-
         }
 
         public void Atualizar(int id, string Tipo, decimal Valor, string ValorExtenso,

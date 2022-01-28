@@ -10,11 +10,13 @@ namespace ERP.Servico.Servicos.Servico
     public class ServicoPessoa
     {
         private readonly string _stringConexao;
+
         public ServicoPessoa(string stringConexao)
         {
             _stringConexao = stringConexao;
         }
-        public bool verificaNull(string Nome, string CPF, string NumeroEndereco,
+
+        public bool VerificaNull(string Nome, string CPF, string NumeroEndereco,
                                  string Complemento, string CEP,
                                  string Logradouro, string Bairro,
                                  string Localidade, string UF)
@@ -67,13 +69,13 @@ namespace ERP.Servico.Servicos.Servico
             return true;
         }
 
-        public bool validaPessoa(string Nome, string CPF, string NumeroEndereco,
+        public bool ValidaPessoa(string Nome, string CPF, string NumeroEndereco,
                                  string Complemento, string CEP,
                                  string Logradouro, string Bairro,
                                  string Localidade, string UF)
         {
 
-            if (!(verificaNull(Nome, CPF, NumeroEndereco,
+            if (!(VerificaNull(Nome, CPF, NumeroEndereco,
                               Complemento, CEP,
                               Logradouro, Bairro,
                               Localidade, UF)))
@@ -106,10 +108,12 @@ namespace ERP.Servico.Servicos.Servico
             }
             return true;
         }
+
         public List<Pessoa> Lista()
         {
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.Lista();
+
             return pessoas;
         }
 
@@ -126,6 +130,7 @@ namespace ERP.Servico.Servicos.Servico
             }
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.BuscaCpf(cpf);
+
             return pessoas;
         }
 
@@ -133,18 +138,19 @@ namespace ERP.Servico.Servicos.Servico
         {
             var repo = new RepositorioPessoa(_stringConexao);
             var pessoas = repo.BuscaNome(nome);
+
             return pessoas;
         }
 
-        public void Adicionar(string Nome, string CPF,
-           string NumeroEndereco, string Complemento, string CEP
-           , string Logradouro, string Bairro, string Localidade, string UF)
+        public void Adicionar(string Nome, string CPF, string NumeroEndereco,
+                              string Complemento, string CEP, string Logradouro,
+                              string Bairro, string Localidade, string UF)
         {
 
-            if (validaPessoa(Nome, CPF, NumeroEndereco,
-                              Complemento, CEP,
-                              Logradouro, Bairro,
-                              Localidade, UF))
+            if (ValidaPessoa(Nome, CPF, NumeroEndereco,
+                             Complemento, CEP,
+                             Logradouro, Bairro,
+                             Localidade, UF))
             {
                 var repositorio = new RepositorioPessoa(_stringConexao);
                 repositorio.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
@@ -154,6 +160,7 @@ namespace ERP.Servico.Servicos.Servico
                 Console.WriteLine("Falha ao adicionar, dados inválidos");
             }
         }
+
         public void Atualizar(string CpfAtual, string Nome, string Cpf,
                               string NumeroEndereco, string Complemento,
                               string CEP, string Logradouro, string Bairro,
@@ -198,13 +205,14 @@ namespace ERP.Servico.Servicos.Servico
             {
                 UF = dadosAntigos[0].UF;
             }
-
-                var repositorio = new RepositorioPessoa(_stringConexao);
-                repositorio.Atualizar(CpfAtual, Nome, Cpf, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            var repositorio = new RepositorioPessoa(_stringConexao);
+            repositorio.Atualizar(CpfAtual, Nome, Cpf, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
         }
+
         public void Deletar(string cpf)
         {
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+
             if (repositorioPessoa.BuscaCpf(cpf).Count > 0)
             {
                 var repositorio = new RepositorioPessoa(_stringConexao);

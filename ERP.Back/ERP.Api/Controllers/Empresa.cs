@@ -27,9 +27,9 @@ namespace ERP.Api.Controllers
 
         [HttpPost]
         [Route("Adicionar/json")]
-        public IActionResult Adicionar(string razao, string cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        public IActionResult Adicionar(string razao, string cnpj, string NumeroEndereco, string Complemento,
+                                       string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-
             var repo = new ServicoEmpresa(_connectionString);
             repo.Adicionar(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
@@ -39,14 +39,13 @@ namespace ERP.Api.Controllers
         [HttpPut]
         [Route("Atualizar/{cnpjAtual}/json")]
         public IActionResult Atualizar(string cnpjAtual, string novaRazao, string novoCnpj,
-                                       string NumeroEndereco, string Complemento, string CEP, 
+                                       string NumeroEndereco, string Complemento, string CEP,
                                        string Logradouro, string Bairro, string Localidade, string UF)
         {
-
             var repo = new ServicoEmpresa(_connectionString);
             repo.Atualizar(cnpjAtual, novaRazao, novoCnpj,
-                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
-                Localidade, UF);
+                           NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
+                           Localidade, UF);
 
             return Ok(repo);
         }
@@ -55,7 +54,6 @@ namespace ERP.Api.Controllers
         [Route("Deletar/cnpj/json")]
         public IActionResult Deletar(string cnpj)
         {
-
             var repo = new ServicoEmpresa(_connectionString);
             repo.Deletar(cnpj);
 

@@ -13,6 +13,7 @@ namespace ERP.Api.Controllers
         public IActionResult Lista()
         {
             var pessoas = new ServicoPessoa(_connectionString);
+
             return Ok(pessoas.Lista());
         }
 
@@ -21,6 +22,7 @@ namespace ERP.Api.Controllers
         public IActionResult BuscaPorCpf(string cpf)
         {
             var pessoa = new ServicoPessoa(_connectionString);
+
             return Ok(pessoa.BuscaCpf(cpf));
         }
 
@@ -36,9 +38,9 @@ namespace ERP.Api.Controllers
 
         [HttpPost]
         [Route("Adicionar/json")]
-        public IActionResult Adicionar(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        public IActionResult Adicionar(string Nome, string CPF, string NumeroEndereco, string Complemento,
+                                       string CEP, string Logradouro, string Bairro, string Localidade, string UF)
         {
-
             var repo = new ServicoPessoa(_connectionString);
             repo.Adicionar(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
@@ -48,14 +50,12 @@ namespace ERP.Api.Controllers
         [HttpPut]
         [Route("Atualizar/{cpfatual}/json")]
         public IActionResult Atualizar(string cpfatual, string Nome, string CPF,
-         string NumeroEndereco, string Complemento, string CEP
-         , string Logradouro, string Bairro, string Localidade, string UF)
+                                       string NumeroEndereco, string Complemento, string CEP,
+                                       string Logradouro, string Bairro, string Localidade, string UF)
         {
-
             var repo = new ServicoPessoa(_connectionString);
-            repo.Atualizar(cpfatual, Nome, CPF,
-                NumeroEndereco, Complemento, CEP, Logradouro, Bairro,
-                Localidade, UF);
+            repo.Atualizar(cpfatual, Nome, CPF, NumeroEndereco,
+                           Complemento, CEP, Logradouro, Bairro, Localidade, UF);
 
             return Ok(repo);
         }
