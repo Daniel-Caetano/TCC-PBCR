@@ -109,7 +109,7 @@ namespace ERP.View
                 string nomeArquivo = @"C:\PDF\" + NomeRecebedor + ".pdf";
                 FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
                 Document document = new Document(PageSize.A4);
-                PdfWriter escritorPDF = PdfWriter.GetInstance(document, arquivoPDF);
+                _ = PdfWriter.GetInstance(document, arquivoPDF);
                 string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
 
 
@@ -124,10 +124,10 @@ namespace ERP.View
 
                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                paragrafo.Add("Eu " + NomeRecebedor + "(" + CPF_CNPJRecebedor + "),  localizado em "
-                            + LogradouroRecebedor + ", " + NumeroEnderecoRecebedor + ", " + ComplementoRecebedor + ",\n"
-                            + CEPRecebedor + ", " + BairroRecebedor + "," + CidadeRecebedor + "-" + FRecebedor + " \n " +
-                            " declaro para os fins que recebi " + NomePagador + "(" + cpF_CNPJPagador + ") o valor de R$ " + Valor + ", "
+                paragrafo.Add("Eu " + NomeRecebedor + " de CPF/CNPJ " + CPF_CNPJRecebedor +  ", localizado em "
+                            + LogradouroRecebedor + " " + NumeroEnderecoRecebedor + ComplementoRecebedor + ", "
+                            + CEPRecebedor + ", \n" + BairroRecebedor + ", " + CidadeRecebedor + " - " + FRecebedor + ", \n " +
+                            " declaro para os devidos fins que recebi de " + NomePagador + " CPF/CNPJ " + cpF_CNPJPagador + ", o valor de R$ " + Valor + ", "
                             + ValorExtenso + ", em virtude de " + Observacao + ".\n \n");
 
 
