@@ -212,7 +212,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Close(); // fecha a conexao
             }
 
-            //Crianda a tabela Pessoa com chave estrangeira de ENDERECO
+            //Criando a tabela Pessoa com chave estrangeira de ENDERECO
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();

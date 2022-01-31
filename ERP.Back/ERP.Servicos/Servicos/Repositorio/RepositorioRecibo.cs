@@ -238,8 +238,6 @@ namespace ERP.Servicos
                               string UFRecebedor, string NomePagador, string CPF_CNPJPagador)
         {
 
-            //var dadosAntigos = BuscaReciboCompleto(id);
-
             var sql = new StringBuilder().AppendLine("UPDATE RECIBOS " +
                                                      "SET[RECI_TIP] = @Tipo " +
                                                      ",[RECI_REC] = @Recebedor " +
@@ -281,6 +279,5 @@ namespace ERP.Servicos
 
             var reader = command.ExecuteNonQuery();
         }
-
     }
 }

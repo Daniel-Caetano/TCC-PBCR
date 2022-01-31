@@ -25,7 +25,6 @@ namespace ERP.View
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
 
-
         public ReciboList()
         {
             InitializeComponent();
@@ -37,16 +36,13 @@ namespace ERP.View
         {
         #pragma warning disable CS4014 // Como esta chamada não é esperada, a execução do método atual continua antes de a chamada ser concluída
 
-
             _ = Dispatcher.BeginInvoke(new Action(() => CarregarGrid()), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
-
 
         public async Task CarregarGrid()
         {
 
             var recibos = await serviceRecibo.GetAsyncAll();
-
 
             dataGridRecibo.ItemsSource = recibos;
         }
@@ -75,30 +71,28 @@ namespace ERP.View
 
             }
             else
-                CarregarGrid();
+                
+            CarregarGrid();
           
         }
-
 
         //Medo recebe os dados do banco de acordo com a pesquisa e exibe na janela
         public async Task CarregaDadosRecibo(string Dados)
         {
             var recibos = await serviceRecibo.GetAsyncDocumento(Dados);
             dataGridRecibo.ItemsSource = recibos;
-
         }
      
         public async Task CarregarDadosNome(string Dados)
         {
             var recibos = await serviceRecibo.GetAsyncNome(Dados);
             dataGridRecibo.ItemsSource = recibos;
-
         }
 
         public void GerarPDF(string NomeRecebedor, string CPF_CNPJRecebedor, string ComplementoRecebedor,
-                                 string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
-                                 string LogradouroRecebedor, string NumeroEnderecoRecebedor,
-                                 string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string ValorExtenso, string Observacao)
+                             string CEPRecebedor, string CidadeRecebedor, string FRecebedor,
+                             string LogradouroRecebedor, string NumeroEnderecoRecebedor,
+                             string BairroRecebedor, string NomePagador, string cpF_CNPJPagador, string Valor, string ValorExtenso, string Observacao)
 
         {
             if (NomePagador != "")
@@ -112,7 +106,6 @@ namespace ERP.View
                 _ = PdfWriter.GetInstance(document, arquivoPDF);
                 string DataAtual = DateTime.Now.ToString("dd/MM/yyyy");
 
-
                 document.Open();
                 string dados = "";
 
@@ -124,16 +117,14 @@ namespace ERP.View
 
                 paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14);
                 paragrafo.Alignment = Element.ALIGN_LEFT;
-                paragrafo.Add("Eu " + NomeRecebedor + " de CPF/CNPJ " + CPF_CNPJRecebedor +  ", localizado em "
-                            + LogradouroRecebedor + " " + NumeroEnderecoRecebedor + ComplementoRecebedor + ", "
-                            + CEPRecebedor + ", \n" + BairroRecebedor + ", " + CidadeRecebedor + " - " + FRecebedor + ", \n " +
+                paragrafo.Add("Eu " + NomeRecebedor + " de CPF/CNPJ " + CPF_CNPJRecebedor +  ",\n localizado em "
+                            + LogradouroRecebedor + " " + NumeroEnderecoRecebedor + ComplementoRecebedor + ", \n"
+                            + CEPRecebedor + ", " + BairroRecebedor + ", " + CidadeRecebedor + " - " + FRecebedor + ", \n " +
                             " declaro para os devidos fins que recebi de " + NomePagador + " CPF/CNPJ " + cpF_CNPJPagador + ", o valor de R$ " + Valor + ", "
                             + ValorExtenso + ", em virtude de " + Observacao + ".\n \n");
 
-
                 paragrafo.Alignment = Element.ALIGN_LEFT;
                 paragrafo.Add("Goiânia-GO, " + DataAtual + "\n \n");
-
 
                 paragrafo.Alignment = Element.ALIGN_CENTER;
                 paragrafo.Add("_________________________________________________________\n");
@@ -145,15 +136,10 @@ namespace ERP.View
                 paragrafo.Add(NomePagador + "\n");
                 paragrafo.Add(cpF_CNPJPagador + " \n\n");
 
-
                 document.Add(paragrafo);
 
                 document.Close();
-
-
-
             }
-
         }
 
 
@@ -161,14 +147,12 @@ namespace ERP.View
         private void Gerar(object sender, RoutedEventArgs e)
         {
             ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
-            recibo.Show();
-          
+            recibo.Show();  
         }
        
         //Metodo carrega na tela a janela de pré-visualização do recibo
         private void Visualizar(object sender, RoutedEventArgs e)
         {
-
             var infoRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
 
             if (infoRecibo != null)
@@ -191,8 +175,7 @@ namespace ERP.View
                 string Observacao = infoRecibo.Observacao.ToString();
                 string CidadeRecebedor = infoRecibo.CidadeRecebedor.ToString();
                 string UFRecebedor = infoRecibo.UFRecebedor.ToString();
-
-                DateTime Data = infoRecibo.Data;
+                _ = infoRecibo.Data;
 
                 Imprimi imprimir = new Imprimi();  //Instancia a classe da JanelaRecibo()
                 imprimir.PreVisualizarRecibo(NomeRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor,
@@ -202,30 +185,25 @@ namespace ERP.View
 
                 imprimir.Show(); //Precisa para imprimir o objeto na tela
 
-
                 //recibo.VisualizaRecibo(dados); //Pega o método da classe 
                 //MessageBox.Show(dados);
-
             }
-
 
         }
 
         private void Editar(object sender, RoutedEventArgs e)
         {
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+
             if (deletarRecibo != null)
             {
-
                 ReciboJanela.MainWindow recibo = new ReciboJanela.MainWindow();
-                recibo.Show();
-              
+                recibo.Show(); 
             }
             else
             {
                 MessageBox.Show("Recibo Não Válido");
             }
-
         }
 
         private void Deletar(object sender, RoutedEventArgs e)
@@ -233,19 +211,17 @@ namespace ERP.View
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
             if (deletarRecibo != null)
             {
-
                 MessageBox.Show("Desja realmente deletar Recibo?");
 
                 this.InitializeComponent();
                 CarregarGrid();
-                MessageBoxResult message = MessageBox.Show("Desja realmente deletar Recibo?","Lista", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+                _ = MessageBox.Show("Desja realmente deletar Recibo?", "Lista", MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
             else
             {
                 MessageBox.Show("Recibo Não Válido");
             }
-
         }
 
         private void LiberarBotao(object sender, RoutedEventArgs e)
@@ -253,7 +229,6 @@ namespace ERP.View
             if (txtSearch.Text != "")
             {
                 btnSearch.IsEnabled = true;
-
             }
         }
 
@@ -261,26 +236,22 @@ namespace ERP.View
         {
             var recibos = await serviceRecibo.GetAsyncAreceber();
             dataGridRecibo.ItemsSource = recibos;
-
         }
        
         public async Task ListarApagar()
         {
             var recibos = await serviceRecibo.GetAsyncApagar();
             dataGridRecibo.ItemsSource = recibos;
-
         }
         
         private void Receber_Checked(object sender, RoutedEventArgs e)
         {
             if (Receber.IsChecked == true ){
                 ListarAreceber();
-
-
             }          
            
         }
-      
+
         private void Pagar_Checked(object sender, RoutedEventArgs e)
         {
             if (Pagar.IsChecked == true)
@@ -289,7 +260,5 @@ namespace ERP.View
             }
            
         }
-
-       
     }
 }

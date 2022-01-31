@@ -101,7 +101,6 @@ namespace ERP.Api.Controllers
                                        string BairroRecebedor, string CidadeRecebedor,
                                        string UFRecebedor, string NomePagador, string CPF_CNPJPagador)
         {
-
             var repo = new ServicoRecibo(_connectionString);
             repo.Atualizar(id, Tipo, Valor, ValorExtenso, Observacao, NomeRecebedor,
                            CPF_CNPJRecebedor, LogradouroRecebedor, NumeroEnderecoRecebedor, ComplementoRecebedor,
