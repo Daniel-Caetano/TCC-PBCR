@@ -23,7 +23,7 @@ namespace ERP.View
     {
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
-        ReciboService serviceRecibo = new ReciboService();
+        readonly ReciboService serviceRecibo = new ReciboService();
 
         public ReciboList()
         {
@@ -209,14 +209,18 @@ namespace ERP.View
         private void Deletar(object sender, RoutedEventArgs e)
         {
             var deletarRecibo = dataGridRecibo.SelectedItem as ReciboResponse;
+
             if (deletarRecibo != null)
             {
+                var deletado = new ReciboService();
                 MessageBox.Show("Desja realmente deletar Recibo?");
 
                 this.InitializeComponent();
                 CarregarGrid();
 
                 _ = MessageBox.Show("Desja realmente deletar Recibo?", "Lista", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                deletado.DeleteAsync(deletarRecibo.NumeroRecibo);
             }
             else
             {

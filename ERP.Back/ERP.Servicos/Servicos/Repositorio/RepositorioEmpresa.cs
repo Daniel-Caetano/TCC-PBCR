@@ -80,13 +80,13 @@ namespace ERP.Servico.Servicos.Repositorio
             _ = new List<Empresa>();
 
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE es.EMPR_CNPJ = @cnpj");
+                .AppendLine(select + "WHERE EM.EMPR_CNPJ = @cnpj");
 
             using var conn = new SqlConnection(_stringConexao);
             //Bloco para conexão com banco de dados com SQL enviado pela string sql
             conn.Open();
             var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+            _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
             var reader = command.ExecuteReader();
             //fim bloco de conexao 
 
@@ -286,7 +286,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 var reader = command.ExecuteReader();
 
                 //Salvando as informações para deletar as tabelas certas

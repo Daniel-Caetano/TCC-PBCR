@@ -84,7 +84,7 @@ namespace ERP.Servico.Servicos.Repositorio
             var pessoas = new List<Pessoa>();
 
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PESS_CPF = @cpf"); //o comando padrao select será concatenado com a string
+                .AppendLine(select + "WHERE PE.PESS_CPF = @cpf"); //o comando padrao select será concatenado com a string
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -92,7 +92,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
 
-                command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+                _ = command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
                 var reader = command.ExecuteReader();
                 //fim bloco de conexao 
 
@@ -112,7 +112,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PESS_NOM = @nome");
+                .AppendLine(select + "WHERE PE.PESS_NOM = @nome");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -120,7 +120,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
 
-                command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
                 var reader = command.ExecuteReader();
                 //fim bloco de conexao 
 
@@ -153,7 +153,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var sqlEmpresa = new StringBuilder()
                 .AppendLine("INSERT INTO PESSOAS " +
-                            "(PESS_NOM,PESS_CPF,PESS_ENDE_ID_FK) " +
+                            "(PESS_NOM, PESS_CPF, PESS_ENDE_ID_FK) " +
                             "VALUES(@nome,@cpf,@ID_end); ");//ID_END foi encontrado na estrutura do MAX
 
             //FIM variaveis SQL

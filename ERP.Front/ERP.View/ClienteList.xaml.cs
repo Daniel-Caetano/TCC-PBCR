@@ -42,7 +42,7 @@ namespace ERP.View
         ObservableCollection<Recibo> collection = new ObservableCollection<Recibo>();
         List<Recibo> listaRecibos = new List<Recibo>();
         ReciboService serviceRecibo = new ReciboService();
-        PessoaService servicePessoa = new PessoaService();
+        readonly PessoaService servicePessoa = new PessoaService();
 
         public object FormEdit { get; private set; }
 
@@ -68,13 +68,12 @@ namespace ERP.View
             {
                 if (txtSearch.Text != "" && txtSearch.Text.Length == 11)
                 {
-
-                    string search = txtSearch.Text.ToString();
+                    _ = txtSearch.Text.ToString();
                     //   CarregaDadosCliente(search);
                 }
                 else if (txtSearch.Text != "" && txtSearch.Text.Length == 14)
                 {
-                    string search = txtSearch.Text.ToString();
+                    _ = txtSearch.Text.ToString();
                     //    CarregaDadosCliente(search);
 
                 }
@@ -128,9 +127,6 @@ namespace ERP.View
                     PessoaService deletarPessoa = new PessoaService();
                     deletarPessoa.DeleteAsync(deletarCliente.CPF);
                     this.CarregarGrid();
-                   
-                    
-
                 }
                 else
                 {
@@ -148,8 +144,5 @@ namespace ERP.View
 
             }
         }
-
-
-
     }
 }

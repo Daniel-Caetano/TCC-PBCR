@@ -85,7 +85,7 @@ namespace ERP.Servicos
             conn.Open();
 
             var command = new SqlCommand(sql.ToString(), conn);
-            _ = command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
+            _ = command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
 
             var reader = command.ExecuteReader();
             List<Recibo> recibos = tabelaRecibo.Tabela(reader);
@@ -140,7 +140,7 @@ namespace ERP.Servicos
             conn.Open();
 
             var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
+            _ = command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
 
             var reader = command.ExecuteReader();
             List<Recibo> recibos = tabelaRecibo.Tabela(reader);
@@ -159,7 +159,7 @@ namespace ERP.Servicos
             conn.Open();
 
             var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+            _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
 
             var reader = command.ExecuteReader();
             List<Recibo> recibos = tabelaRecibo.Tabela(reader);
@@ -224,7 +224,7 @@ namespace ERP.Servicos
             var command = new SqlCommand(sql.ToString(), conn);
 
             conn.Open();
-            command.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar) { Value = id });
+            _ = command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
 
             var reader = command.ExecuteReader();
             reader.Read();
