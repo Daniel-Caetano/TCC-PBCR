@@ -21,7 +21,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using System;
+
 namespace ERP.View
 {
     /// <summary>
@@ -29,8 +29,7 @@ namespace ERP.View
     /// </summary>
     public partial class ClienteFormEdit : Window
     {
-        PessoaService pessoaService = new PessoaService();
-
+        readonly PessoaService pessoaService = new PessoaService();
 
         public ClienteFormEdit()
         { 
@@ -39,8 +38,7 @@ namespace ERP.View
             InitializeComponent();     
             
            
-        }
-    
+        }    
 
         private void AtualizarCliente(object sender, RoutedEventArgs e)
         {
@@ -54,14 +52,20 @@ namespace ERP.View
             string Logradouro = txtLogradouro.Text;
             string NumeroEndereco = txtNumero.Text;
 
-            
-
-           AtualizarClienteBanco(CPF,Nome, CPF,  NumeroEndereco,  Complemento,  CEP,  Logradouro,  Bairro,  Localidade,  UF);
+            _ = AtualizarClienteBanco(CPF, Nome, CPF, NumeroEndereco, 
+                                      Complemento, CEP, Logradouro, 
+                                      Bairro, Localidade, UF);
         }
-        public async Task AtualizarClienteBanco(string CpfAutal,string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+
+        public async Task AtualizarClienteBanco(string CpfAutal, string Nome, string CPF, 
+                                                string NumeroEndereco, string Complemento, 
+                                                string CEP, string Logradouro, string Bairro, 
+                                                string Localidade, string UF)
         {
-            var Atualizar = await pessoaService.UpdateAsync(CpfAutal, Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
-           this.Close();    
+            _ = await pessoaService.UpdateAsync(CpfAutal, Nome, CPF, 
+                                                NumeroEndereco, Complemento, 
+                                                CEP, Logradouro, Bairro, Localidade, UF);
+            Close();    
         }
     }
 }

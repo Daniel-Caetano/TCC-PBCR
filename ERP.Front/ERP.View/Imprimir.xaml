@@ -18,14 +18,14 @@
                         Content="Imprimir"                     
                         Width="140" 
                         Margin="10,11,0,43"                         
-                        Cursor="Hand" HorizontalAlignment="Left" Click="butImp_Click"                       
+                        Cursor="Hand" HorizontalAlignment="Left" Click="ButImp_Click"                       
 
                     />
             <Button x:Name="butGerarRecibo" 
                         Content="Gerar Recibo"                     
                         Width="140" 
                         Margin="0,10,10,44"                              
-                        Cursor="Hand" HorizontalAlignment="Right" Click="butGerarRecibo_Click"                       
+                        Cursor="Hand" HorizontalAlignment="Right" Click="ButGerarRecibo_Click"                       
                     />
 
 

@@ -16,7 +16,7 @@ namespace ERP.Servico.Servicos.Servico
             _stringConexao = stringConexao;
         }
 
-        public bool VerificaNull(string razao, string cnpj,
+        private bool VerificaNull(string razao, string cnpj,
                                  string NumeroEndereco, string Complemento,
                                  string CEP, string Logradouro, string Bairro,
                                  string Localidade, string UF)
@@ -70,13 +70,15 @@ namespace ERP.Servico.Servicos.Servico
             return true;
         }
 
-        public bool ValidaEmpresa(string razao, string cnpj,
+        private bool ValidaEmpresa(string razao, string cnpj,
                                  string NumeroEndereco, string Complemento,
                                  string CEP, string Logradouro, string Bairro,
                                  string Localidade, string UF)
         {
 
-            if (!(VerificaNull(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF)))
+            if (!VerificaNull(razao, cnpj, NumeroEndereco, 
+                              Complemento, CEP, Logradouro, 
+                              Bairro, Localidade, UF))
             {
                 Console.WriteLine("Contém dados Nulos");
                 return false;
@@ -192,8 +194,8 @@ namespace ERP.Servico.Servicos.Servico
             }
 
             var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj,
-                                  NumeroEndereco, Complemento, CEP, Logradouro,
+            repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj, NumeroEndereco, 
+                                  Complemento, CEP, Logradouro,
                                   Bairro, Localidade, UF);
         }
 

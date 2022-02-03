@@ -26,18 +26,28 @@ namespace ERP.ViewApi.Servicos.Servico
         {
             return await _customerService.GetAsync(cpf);
         }
+
         public async Task<IList<PessoaResponse>> GetAsyncNome(string nome)
         {
             return await _customerService.GetAsyncNome(nome);
         }
-        public async Task<IList<PessoaResponse>> InsertAsync(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+
+        public async Task<IList<PessoaResponse>> InsertAsync(string Nome, string CPF, string NumeroEndereco, 
+                                                             string Complemento, string CEP, string Logradouro, 
+                                                             string Bairro, string Localidade, string UF)
         {
-            return await _customerService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            return await _customerService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, 
+                                                      CEP, Logradouro, Bairro, Localidade, UF);
         }
-        public async Task<IList<PessoaResponse>> UpdateAsync(string CpfAtual, string Nome, string CPF,string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+
+        public async Task<IList<PessoaResponse>> UpdateAsync(string CpfAtual, string Nome, string CPF, 
+                                                             string NumeroEndereco, string Complemento, string CEP, 
+                                                             string Logradouro, string Bairro, string Localidade, string UF)
         {
-            return await _customerService.UpdateAsync(CpfAtual, Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            return await _customerService.UpdateAsync(CpfAtual, Nome, CPF, NumeroEndereco, Complemento, 
+                                                      CEP, Logradouro, Bairro, Localidade, UF);
         }
+
         public async Task DeleteAsync(string cpf)
         {
             await _customerService.DeleteAsync(cpf);

@@ -264,8 +264,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public bool DeletarPessoa(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS " +
-                                                     "WHERE PESS_CPF = @cpf ");
+            var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS PE " +
+                                                     "WHERE PE.PESS_CPF = @cpf ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -280,8 +280,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public bool DeletarEndereco(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
-                                                     "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
+            var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS EN " +
+                                                     "WHERE EN.ENDE_CODI_ID_FK = @ID_Endereco ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -296,8 +296,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public bool DeletarCodigoPostal(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
-                                                     "WHERE CODI_ID_PK = @ID_CEP");
+            var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS CO " +
+                                                     "WHERE CO.CODI_ID_PK = @ID_CEP");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -316,13 +316,13 @@ namespace ERP.Servico.Servicos.Repositorio
             var pessoaDeletada = new Pessoa();
 
             //SQL para pegar o ENDERECO e CODIGO_POSTAL em comum com CPF
-            var sql = new StringBuilder().AppendLine("SELECT PESS_CPF ,PESS_ENDE_ID_FK, ENDE_CODI_ID_FK , CODI_ID_PK " +
-                                                     "FROM PESSOAS " +
-                                                     "INNER JOIN ENDERECOS " +
-                                                     "ON ENDE_CODI_ID_FK = PESS_ENDE_ID_FK " +
-                                                     "INNER JOIN CODIGOS_POSTAIS " +
-                                                     "ON CODI_ID_PK = ENDE_CODI_ID_FK " +
-                                                     "WHERE PESS_CPF = @cpf");
+            var sql = new StringBuilder().AppendLine("SELECT PE.PESS_CPF, PE.PESS_ENDE_ID_FK, EN.ENDE_CODI_ID_FK, CO.CODI_ID_PK " +
+                                                     "FROM PESSOAS PE " +
+                                                     "INNER JOIN ENDERECOS EN " +
+                                                     "ON EN.ENDE_CODI_ID_FK = PE.PESS_ENDE_ID_FK " +
+                                                     "INNER JOIN CODIGOS_POSTAIS CO " +
+                                                     "ON CO.CODI_ID_PK = EN.ENDE_CODI_ID_FK " +
+                                                     "WHERE PE.PESS_CPF = @cpf");
 
             using (var conn = new SqlConnection(_stringConexao))
             {

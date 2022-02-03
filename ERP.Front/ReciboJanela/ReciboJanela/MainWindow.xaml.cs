@@ -17,34 +17,36 @@ namespace ReciboJanela
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
+
         public void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
 
-        public void butSalvar_Click(string data)
+        public void ButSalvar_Click(string data)
         {
 
 
-            Dados dados = new Dados();
+            Dados dados = new Dados
+            {
+                ValorRecebido = (txtValor.Text),
+                RecebemosDe = txtExtenso.Text,
+                Cpf = txtCpf.Text,
+                Cnpj = txtCnpj.Text,
+                ImportanciDe = txtImpor.Text,
+                Referente = txtRef.Text
+            };
 
-
-            dados.ValorRecebido = (txtValor.Text);
-            dados.RecebemosDe = txtExtenso.Text;
-            dados.Cpf = txtCpf.Text;
-            dados.Cnpj = txtCnpj.Text;
-            dados.ImportanciDe = txtImpor.Text;
-            dados.Referente = txtRef.Text;
             txtDataAtual.Text = DateTime.Now.ToString("dd/MM/yyyy");
             dados.Data = txtDataAtual.Text;
 
             MessageBox.Show($"Valor: {dados.ValorRecebido}\n" +
-               $"Recebi (emos) de: {dados.RecebemosDe}\n" +
-               $"CPF: {dados.Cpf}\n" +
-               $"CNPJ: {dados.Cnpj}\n" +
-               $"a importancia de: {dados.ImportanciDe}\n"
-               + $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
-               "Informações", MessageBoxButton.OK, MessageBoxImage.Information);
+                            $"Recebi (emos) de: {dados.RecebemosDe}\n" +
+                            $"CPF: {dados.Cpf}\n" +
+                            $"CNPJ: {dados.Cnpj}\n" +
+                            $"a importancia de: {dados.ImportanciDe}\n" +
+                            $"referente á: {dados.Referente}\n" + $"na data {dados.Data}",
+                            $"Informações", MessageBoxButton.OK, MessageBoxImage.Information);
 
             txtValor.Text = "";
             txtExtenso.Text = "";
@@ -54,12 +56,13 @@ namespace ReciboJanela
             txtRef.Text = "";
         }
 
-        private void butImp_Click(object sender, RoutedEventArgs e)
+        private void ButImp_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog imp = new PrintDialog();
            imp.ShowDialog();
         }
-        private void txtCpf_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
+
+        private void TxtCpf_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             Validacao tmp = new Validacao();
             string tratativa = tmp.RetirarMascara(txtCpf.Text);
@@ -86,11 +89,10 @@ namespace ReciboJanela
 
         }
 
-        private void txtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
+        private void TxtCnpj_TextChanged(object sender, KeyboardFocusChangedEventArgs e)
         {
             Validacao tmp = new Validacao();
             string tratativa = tmp.RetirarMascara(txtCnpj.Text);
-
 
             if (txtCnpj.IsFocused == true)
             {
@@ -103,6 +105,7 @@ namespace ReciboJanela
                 txtCnpj_Erro.Visibility = Visibility.Visible;
                 txtCnpj_Erro.Focus();
             }
+
             else
             {
                 txtCnpj_Erro.Visibility = Visibility.Collapsed;

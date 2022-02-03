@@ -185,8 +185,8 @@
                     <MenuItem Header="_Inserir" Height="40"></MenuItem>
 
                     <MenuItem x:Name="cliente" Header="_Clientes" Height="40" >
-                        <MenuItem Header="Cadastrar" Padding="0"  Width="130" Height="20" Margin="10 0 0 5" Click="addCliente"/>
-                        <MenuItem Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="listCliente"/>
+                        <MenuItem Header="Cadastrar" Padding="0"  Width="130" Height="20" Margin="10 0 0 5" Click="AddCliente"/>
+                        <MenuItem Header="Listar" Padding="0" Width="130" Height="20" Margin="10 0 0 5" Click="ListCliente"/>
                     </MenuItem>
 
 

@@ -37,7 +37,6 @@ namespace ERP.View
             InitializeComponent();
         }
 
-
         private void CadastrarCliente(object sender, System.Windows.RoutedEventArgs e)
         {
 
@@ -67,27 +66,25 @@ namespace ERP.View
             string Logradouro = txtLogadouro.Text;
             string NumeroEndereco = txtNumero.Text;
             Complemento += txtComplementoApt;
-            InserirCliente(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            _ = InserirCliente(Nome, CPF, NumeroEndereco, 
+                               Complemento, CEP, Logradouro, 
+                               Bairro, Localidade, UF);
             MessageBox.Show("Cadastro Efetuado com sucesso!");
             
             ClienteList Cliente = new ClienteList();   
             Cliente.InitializeComponent();      
-           
-            
-       
-
-
 
         }
-        public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+        public async Task InserirCliente(string Nome, string CPF, string NumeroEndereco, 
+                                         string Complemento, string CEP, string Logradouro, 
+                                         string Bairro, string Localidade, string UF)
         {
-             var Insert = await pessoaService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
-                  
-           
+            _ = await pessoaService.InsertAsync(Nome, CPF, NumeroEndereco, Complemento, 
+                                                CEP, Logradouro, Bairro, Localidade, UF);
         }
 
 
-        private void txtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtCpfCnpj_TextChanged(object sender, TextChangedEventArgs e)
         {
             Imprimi imp = new Imprimi();
             string txt = imp.Formatar(txtCpfCnpj.Text);
@@ -104,7 +101,7 @@ namespace ERP.View
             }
         }
 
-        private void txtCpfCnpj_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void TxtCpfCnpj_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
         }

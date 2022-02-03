@@ -14,11 +14,13 @@ namespace ERP.View
         {
             InitializeComponent();
         }
+
         //METODO RESPOSÁVEL POR PREENCHER O RECIBO
         public void PreVisualizarRecibo(string NomeRecebedor, string LogradouroRecebedor, string NumeroEnderecoRecebedor,
-                                         string ComplementoRecebedor, string CEPRecebedor, string BairroRecebedor,
-                                         string cpF_CNPJPagador, double _Valor, string ValorExtenso,
-                                         string Observacao, string CidadeRecebedor, string UFRecebedor, string CPF_CNPJRecebedor, string NomePagador)
+                                        string ComplementoRecebedor, string CEPRecebedor, string BairroRecebedor,
+                                        string cpF_CNPJPagador, double _Valor, string ValorExtenso,
+                                        string Observacao, string CidadeRecebedor, string UFRecebedor, 
+                                        string CPF_CNPJRecebedor, string NomePagador)
         {
             //RECEBEDOR
             iNomeRecebedor.Text = NomeRecebedor;
@@ -46,15 +48,9 @@ namespace ERP.View
 
         }
 
-
         private void GerarReciboPDF()
         {
-
-      
-
             //RECEDOR
-
-
             string NomeRecebedor = iNomeRecebedor.Text;
             string CPF_CNPJRecebedor = iCPF_CNPJRecebedor.Text;
             string ComplementoRecebedor = iComplementoRecebedor.Text;
@@ -74,9 +70,10 @@ namespace ERP.View
 
             ReciboList reciboList = new ReciboList();
             reciboList.GerarPDF(NomeRecebedor, CPF_CNPJRecebedor, ComplementoRecebedor,
-                                 CEPRecebedor, CidadeRecebedor, FRecebedor,
-                                 LogradouroRecebedor, NumeroEnderecoRecebedor,
-                                 BairroRecebedor, NomePagador, cpF_CNPJPagador, Valor, ValorExtenso, Observacao);
+                                CEPRecebedor, CidadeRecebedor, FRecebedor,
+                                LogradouroRecebedor, NumeroEnderecoRecebedor,
+                                BairroRecebedor, NomePagador, cpF_CNPJPagador, Valor, 
+                                ValorExtenso, Observacao);
             this.Close();
 
         }
@@ -93,7 +90,7 @@ namespace ERP.View
             }
         }
 
-        private void butGerarRecibo_Click(object sender, RoutedEventArgs e)
+        private void ButGerarRecibo_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Gerar o PDF?\nLocal - C:\\PDF", "Gerar PDF", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(result == MessageBoxResult.Yes)
@@ -104,7 +101,7 @@ namespace ERP.View
                // this.Close();
         }
 
-        private void butImp_Click(object sender, RoutedEventArgs e)
+        private void ButImp_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog tmp = new PrintDialog();
             tmp.ShowDialog();

@@ -12,7 +12,6 @@ namespace ERP.View
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-
         }
      
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -20,14 +19,14 @@ namespace ERP.View
 
         }
 
-        private void addCliente(object sender, RoutedEventArgs e)
+        private void AddCliente(object sender, RoutedEventArgs e)
         {
 
             Main.Content = new ClienteForm();
 
         }
 
-        private void listCliente(object sender, RoutedEventArgs e)
+        private void ListCliente(object sender, RoutedEventArgs e)
         {
             Main.Content = new ClienteList();
         }
@@ -53,7 +52,7 @@ namespace ERP.View
 
         private void MenuItem_Sair(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 

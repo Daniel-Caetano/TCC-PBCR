@@ -13,12 +13,15 @@ namespace ReciboJanela
 
             //calcula o primeiro dígito do CNPJ
             int soma = 0;
+
             for (int i = 0; i < 12; i++)
                 soma += int.Parse(cnpj[i].ToString()) * fator1[i];
 
             int resto = soma % 11;
+
             if (resto < 2)
                 resto = 0;
+
             else
                 resto = 11 - resto;
 
@@ -35,6 +38,7 @@ namespace ReciboJanela
 
                 if (resto < 2)
                     resto = 0;
+
                 else
                     resto = 11 - resto;
 
@@ -45,6 +49,7 @@ namespace ReciboJanela
             }
             else
              MessageBox.Show("CNPJ Invalido!");
+
             return true;
         }
 
@@ -52,12 +57,14 @@ namespace ReciboJanela
         {
             //validar cpf
             bool cpfValido = true;
+
             //verifica se o cpf tem 11 dígitos
             if (cpf.Length != 11)
             {
                 cpfValido = false;
                 MessageBox.Show("O CPF informado não e valido");
             }
+
             else
             {    //verifica se todos os caracteres de cpf são digitos numéricos
                 for (int i = 0; i < cpf.Length; i++)
@@ -99,18 +106,21 @@ namespace ReciboJanela
                     digVerificador1 += Convert.ToInt32(cpf.Substring(j, 1)) * i;
                     j++;
                 }
+
                 //resto de divisão
                 digVerificador1 = (digVerificador1 * 10) % 11;
                 if (digVerificador1 == 10)
                 {
                     digVerificador1 = 0;
                 }
+
                 //Verifica se o primeiro número cnvergiu com a posição 9 (penultima)
                 if (digVerificador1 != Convert.ToInt32(cpf.Substring(9, 1)))
                 {
                     cpfValido = false;
                     MessageBox.Show("O CPF informado não e valido");
                 }
+
                 //valida o segundo número (dígito) de controle
                 if (cpfValido)
                 {
@@ -120,12 +130,14 @@ namespace ReciboJanela
                         digVerificador2 += Convert.ToInt32(cpf.Substring(j, 1)) * i;
                         j++;
                     }
+
                     //resto da divisão
                     digVerificador2 = (digVerificador2 * 10) % 11;
                     if (digVerificador2 == 10)
                     {
                         digVerificador2 = 0;
                     }
+
                     //verifica se o segundo dígito convergiu com o caractere 10 (última)
                     if (digVerificador2 != Convert.ToInt32(cpf.Substring(10, 1)))
                     {
@@ -136,12 +148,10 @@ namespace ReciboJanela
             }
             return cpfValido;
         }
+
         public string RetirarMascara(string mascara)
         {
             return mascara.Trim().Replace(".", "").Replace("-", "").Replace("/", "");
         }
     }
 }
-
-
-

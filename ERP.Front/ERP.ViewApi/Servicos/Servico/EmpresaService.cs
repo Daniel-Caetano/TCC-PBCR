@@ -16,22 +16,33 @@ namespace ERP.ViewApi.Servicos.Servico
             _apiUrl = "http://localhost:50663";
             _customerService = RestService.For<IEmpresaService>(_apiUrl);
         }
+
         public async Task<IList<EmpresaResponse>> GetAllAsync()
         {
             return await _customerService.GetAllAsync();
         }
+
         public async Task<IList<EmpresaResponse>> GetAsync(string cnpj)
         {
             return await _customerService.GetAsync(cnpj);
         }
-        public async Task<IList<EmpresaResponse>> InsertAsync(string razao, string cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+
+        public async Task<IList<EmpresaResponse>> InsertAsync(string razao, string cnpj, string NumeroEndereco, 
+                                                              string Complemento, string CEP, string Logradouro, 
+                                                              string Bairro, string Localidade, string UF)
         {
-            return await _customerService.InsertAsync(razao, cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            return await _customerService.InsertAsync(razao, cnpj, NumeroEndereco, Complemento, 
+                                                      CEP, Logradouro, Bairro, Localidade, UF);
         }
-        public async Task<IList<EmpresaResponse>> UpdateAsync(string cnpjAtual, string Razao, string Cnpj, string NumeroEndereco, string Complemento, string CEP, string Logradouro, string Bairro, string Localidade, string UF)
+
+        public async Task<IList<EmpresaResponse>> UpdateAsync(string cnpjAtual, string Razao, string Cnpj, 
+                                                              string NumeroEndereco, string Complemento, string CEP, 
+                                                              string Logradouro, string Bairro, string Localidade, string UF)
         {
-            return await _customerService.UpdateAsync(cnpjAtual, Razao, Cnpj, NumeroEndereco, Complemento, CEP, Logradouro, Bairro, Localidade, UF);
+            return await _customerService.UpdateAsync(cnpjAtual, Razao, Cnpj, NumeroEndereco, Complemento, 
+                                                      CEP, Logradouro, Bairro, Localidade, UF);
         }
+
         public async Task DeleteAsync(string cnpj)
         {
             await _customerService.DeleteAsync(cnpj);

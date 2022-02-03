@@ -16,7 +16,7 @@ namespace ERP.Servico.Servicos.Servico
             _stringConexao = stringConexao;
         }
 
-        public bool VerificaNull(string Nome, string CPF, string NumeroEndereco,
+        private bool VerificaNull(string Nome, string CPF, string NumeroEndereco,
                                  string Complemento, string CEP,
                                  string Logradouro, string Bairro,
                                  string Localidade, string UF)
@@ -69,16 +69,16 @@ namespace ERP.Servico.Servicos.Servico
             return true;
         }
 
-        public bool ValidaPessoa(string Nome, string CPF, string NumeroEndereco,
+        private bool ValidaPessoa(string Nome, string CPF, string NumeroEndereco,
                                  string Complemento, string CEP,
                                  string Logradouro, string Bairro,
                                  string Localidade, string UF)
         {
 
-            if (!(VerificaNull(Nome, CPF, NumeroEndereco,
+            if (!VerificaNull(Nome, CPF, NumeroEndereco,
                               Complemento, CEP,
                               Logradouro, Bairro,
-                              Localidade, UF)))
+                              Localidade, UF))
             {
                 Console.WriteLine("Contém dados Nulos");
                 return false;

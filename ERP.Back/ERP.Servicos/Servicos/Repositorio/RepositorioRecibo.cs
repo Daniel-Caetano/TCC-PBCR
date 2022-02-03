@@ -10,7 +10,7 @@ namespace ERP.Servicos
     {
         private readonly string _stringConexao;
 
-        //UTILIZAR ORM (ENTITY)
+        // Utilizar orm (ENTITY)
         public RepositorioRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
@@ -175,15 +175,15 @@ namespace ERP.Servicos
 
             using (var conn = new SqlConnection(_stringConexao))
             {
-                conn.Open(); // abre conexão
+                conn.Open(); // Abre conexão
 
-                // cria objeto do tipo SqlCommand
+                // Cria objeto do tipo SqlCommand
                 using (var command = new SqlCommand(MaxID, conn))
                 {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                    // Variável quantidade recebe o resultado da execução do método ExecuteScalar
                     int ID_Reci = (int)command.ExecuteScalar() + 1;
                 }
-                conn.Close();
+                conn.Close(); // Fecha Conexão
             }
             var sqlReci = new StringBuilder()
                 .AppendLine("INSERT INTO RECIBOS (RECI_TIP, RECI_REC, RECI_REC_DOC, RECI_REC_END, RECI_REC_NUM, RECI_REC_COM, RECI_REC_CEP, " +
