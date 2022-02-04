@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Console", "ERP.Console\ERP.Console.csproj", "{AA016B51-70FC-4CD6-9C6E-82460CE8F877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Servico", "ERP.Servicos\ERP.Servico.csproj", "{3E9DEBFC-3EB6-4E2A-A8A7-13A1B6BF281C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Servico", "ERP.Servicos\ERP.Servico.csproj", "{3E9DEBFC-3EB6-4E2A-A8A7-13A1B6BF281C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Api", "ERP.Api\ERP.Api.csproj", "{5CD5EAF5-4781-452F-B50D-32F02EF7D508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Api", "ERP.Api\ERP.Api.csproj", "{5CD5EAF5-4781-452F-B50D-32F02EF7D508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Console", "ERP.Console\ERP.Console.csproj", "{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA016B51-70FC-4CD6-9C6E-82460CE8F877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA016B51-70FC-4CD6-9C6E-82460CE8F877}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA016B51-70FC-4CD6-9C6E-82460CE8F877}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA016B51-70FC-4CD6-9C6E-82460CE8F877}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E9DEBFC-3EB6-4E2A-A8A7-13A1B6BF281C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E9DEBFC-3EB6-4E2A-A8A7-13A1B6BF281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E9DEBFC-3EB6-4E2A-A8A7-13A1B6BF281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{5CD5EAF5-4781-452F-B50D-32F02EF7D508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CD5EAF5-4781-452F-B50D-32F02EF7D508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD5EAF5-4781-452F-B50D-32F02EF7D508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

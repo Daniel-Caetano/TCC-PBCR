@@ -168,8 +168,8 @@ namespace ERP.Servicos
         }
 
         public void Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
-            string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
-            decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+                              string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
+                              decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
         {
             string MaxID = "SELECT MAX(RECI_ID_PK) FROM RECIBOS";
 
