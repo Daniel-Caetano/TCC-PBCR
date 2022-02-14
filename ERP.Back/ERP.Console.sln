@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Api", "ERP.Api\ERP.Api.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Console", "ERP.Console\ERP.Console.csproj", "{6E79CEE7-1EF9-4307-BD95-2B9F8BA1A008}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{D0FF63E3-36C7-4BAA-B80F-F01DC8BF125C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

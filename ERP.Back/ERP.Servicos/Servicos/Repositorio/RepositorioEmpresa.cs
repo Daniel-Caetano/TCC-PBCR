@@ -222,6 +222,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var reader = command.ExecuteNonQuery();
         }
+
         public bool DeletarEmpresa(Empresa empresaDeletada)
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM EMPRESAS " +
