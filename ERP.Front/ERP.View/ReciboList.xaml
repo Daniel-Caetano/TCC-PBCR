@@ -23,16 +23,25 @@
 
     <Grid Width="1600" Height="900" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1930"/>
+            <ColumnDefinition Width="772.284"/>
+            <ColumnDefinition Width="784.053"/>
+            <ColumnDefinition Width="3.76"/>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="39.485"/>
+            <ColumnDefinition Width="330.418"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="700"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="13*"/>
         </Grid.RowDefinitions>
 
         <!--Campo das Busca-->
 
-        <Grid Margin="0,0,338,0" >
+        <Grid Margin="0,0,1,0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="192*"/>
                 <ColumnDefinition Width="34*"/>
@@ -110,18 +119,18 @@
 
 
         </Grid>
-        <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="250 40  50 30" >
+        <StackPanel   Width="100" HorizontalAlignment="Left" Margin="243,40,0,660" Grid.RowSpan="2" Grid.Column="1" >
             <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="False" x:Name="Receber" Checked="Receber_Checked">
                 Receber
             </CheckBox>
         </StackPanel>
 
-        <StackPanel   Width="100" Height="100" HorizontalAlignment="Center" Margin="0 40  50 30" >
+        <StackPanel   Width="100" HorizontalAlignment="Left" Margin="118,40,0,660" Grid.RowSpan="2" Grid.Column="1" >
             <CheckBox Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="False"  x:Name="Pagar" Checked="Pagar_Checked">
                 Pagar
             </CheckBox>
         </StackPanel>
-        <StackPanel Grid.Row="1"  Height="800" VerticalAlignment="Top" Margin="0,0,338,0">
+        <StackPanel Grid.Row="1"  Height="800" VerticalAlignment="Top" Margin="0,0,1,0" Grid.ColumnSpan="2" Grid.RowSpan="3">
 
             <!--LISTA DE DADOS-->
             <Grid MinHeight="700" MinWidth="800"  MaxHeight="900" MaxWidth="1920" >
@@ -179,7 +188,7 @@
                         <DataGridTemplateColumn Header="Ações">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">                                          
+                                    <StackPanel Orientation="Horizontal">
 
                                         <ToggleButton x:Name="btnVisualizar" Style="{StaticResource MaterialDesignActionAccentToggleButton}"                                                
 

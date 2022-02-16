@@ -14,6 +14,15 @@ namespace ERP.Servico.Servicos.Servico
         public ServicoEmpresa(string stringConexao)
         {
             _stringConexao = stringConexao;
+
+        }
+
+        public List<Empresa> Lista()
+        {
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            var listEmpresa = repositorio.Lista();
+
+            return listEmpresa;
         }
 
         private bool VerificaNull(string razao, string cnpj,
@@ -109,13 +118,6 @@ namespace ERP.Servico.Servicos.Servico
             return true;
         }
 
-        public List<Empresa> Lista()
-        {
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            var listEmpresa = repositorio.Lista();
-
-            return listEmpresa;
-        }
         public List<Empresa> BuscaCnpj(string cnpj)
         {
             try
@@ -212,6 +214,11 @@ namespace ERP.Servico.Servicos.Servico
             {
                 Console.WriteLine("Empresa não existe");
             }
+        }
+
+        public static implicit operator bool(ServicoEmpresa _stringConexao)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ERP.Servico.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -48,6 +49,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 empresas.Add(empresa);
             }
             return empresas;
+            //return null;
         }
 
         public List<Empresa> Lista()
@@ -59,18 +61,27 @@ namespace ERP.Servico.Servicos.Repositorio
             //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
                 .AppendLine(select);
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
 
-            using var conn = new SqlConnection(_stringConexao);
-            //Bloco para conexão com banco de dados com SQL enviado pela string sql
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            var reader = command.ExecuteReader();
-            //fim bloco de conexao 
+                //Bloco para conexão com banco de dados com SQL enviado pela string sql
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                var reader = command.ExecuteReader();
+                //fim bloco de conexao
 
-            //empresas recebe uma lista de objeto do tipo Empresa criado com os valores da tabela do BD
-            List<Empresa> empresas = repositorioEmpresa.RecebeTabela(reader);
+                //empresas recebe uma lista de objeto do tipo Empresa criado com os valores da tabela do BD
+                List<Empresa> empresas = repositorioEmpresa.RecebeTabela(reader);
 
-            return empresas;
+                return empresas;
+            }
+
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Conexão com o Banco de Dados Falhou: ", ex.Message);
+                return null;
+            }
         }
 
         public List<Empresa> BuscaCnpj(string cnpj)
@@ -95,7 +106,7 @@ namespace ERP.Servico.Servicos.Repositorio
             return empresas;
         }
 
-        public void Adicionar(string razao, string cnpj,
+        public bool Adicionar(string razao, string cnpj,
                               string NumeroEndereco, string Complemento, string CEP,
                               string Logradouro, string Bairro, string Localidade, string UF)
         {
@@ -120,7 +131,6 @@ namespace ERP.Servico.Servicos.Repositorio
                             "VALUES(@razao, @cnpj, @ID_end)");
             //FIM variaveis SQL
 
-
             //Estrutura para conectar os parametros '@' do comando sql com variáveis do sistema
             //Crianda a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
             using (var conn = new SqlConnection(_stringConexao))
@@ -135,55 +145,65 @@ namespace ERP.Servico.Servicos.Repositorio
                 var reader = command.ExecuteNonQuery();
             }
 
-            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
-            using (var conn = new SqlConnection(_stringConexao))
+            try
             {
-                conn.Open(); // abre conexão
 
-                // maxCP tem o comando SQL para encontrar o valor maximo de ID
-                using (var command = new SqlCommand(maxCP, conn))
+                //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
+                using (var conn = new SqlConnection(_stringConexao))
                 {
-                    // ID_CEP guarda o ID que será chave estrangeiro em ENDERECOS(@ID_CEP
-                    ID_CEP = (int)command.ExecuteScalar();
+                    conn.Open(); // abre conexão
+
+                    // maxCP tem o comando SQL para encontrar o valor maximo de ID
+                    using (var command = new SqlCommand(maxCP, conn))
+                    {
+                        // ID_CEP guarda o ID que será chave estrangeiro em ENDERECOS(@ID_CEP
+                        ID_CEP = (int)command.ExecuteScalar();
+                    }
+                    conn.Close(); // fecha a conexao
                 }
-                conn.Close(); // fecha a conexao
-            }
 
-            //Crianda a Tabela ENDERECOS que é chave estrangeira em PESSOA
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                //estutura de conexao e relação dos atributos da string sql criada acima
-                conn.Open();
-                var command = new SqlCommand(sqlEnderecos.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
-                command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
-                command.Parameters.AddWithValue("@Complemento", Complemento);
-                var reader = command.ExecuteNonQuery();
-            }
-
-            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de ENDERECOS para colocar como chave estrangeira em EMPRESAS
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open(); // abre conexão
-
-                // maxEND tem o comando SQL para encontrar o valor maximo de ID
-                using (var command = new SqlCommand(maxEND, conn))
+                //Crianda a Tabela ENDERECOS que é chave estrangeira em PESSOA
+                using (var conn = new SqlConnection(_stringConexao))
                 {
-                    // variável quantidade recebe o resultado da execução do método ExecuteScalar
-                    ID_END = (int)command.ExecuteScalar();
+                    //estutura de conexao e relação dos atributos da string sql criada acima
+                    conn.Open();
+                    var command = new SqlCommand(sqlEnderecos.ToString(), conn);
+                    command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
+                    command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
+                    command.Parameters.AddWithValue("@Complemento", Complemento);
+                    var reader = command.ExecuteNonQuery();
                 }
-                conn.Close(); // fecha a conexao
-            }
 
-            //Crianda a tabela Empresa com chave estrangeira de ENDERECO
-            using (var conn = new SqlConnection(_stringConexao))
+                //ESTRUTURA DO MAX para receber qual valor do ultimo ID de ENDERECOS para colocar como chave estrangeira em EMPRESAS
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    conn.Open(); // abre conexão
+
+                    // maxEND tem o comando SQL para encontrar o valor maximo de ID
+                    using (var command = new SqlCommand(maxEND, conn))
+                    {
+                        // variável quantidade recebe o resultado da execução do método ExecuteScalar
+                        ID_END = (int)command.ExecuteScalar();
+                    }
+                    conn.Close(); // fecha a conexao
+                }
+
+                //Crianda a tabela Empresa com chave estrangeira de ENDERECO
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    conn.Open();
+                    var command = new SqlCommand(sqlEmpresa.ToString(), conn);
+                    command.Parameters.AddWithValue("@ID_end", ID_END);
+                    command.Parameters.AddWithValue("@razao", razao);
+                    command.Parameters.AddWithValue("@cnpj", cnpj);
+                    var reader = command.ExecuteNonQuery();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
             {
-                conn.Open();
-                var command = new SqlCommand(sqlEmpresa.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_end", ID_END);
-                command.Parameters.AddWithValue("@razao", razao);
-                command.Parameters.AddWithValue("@cnpj", cnpj);
-                var reader = command.ExecuteNonQuery();
+                throw new Exception(ex.Message);
             }
         }
 

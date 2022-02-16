@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-
-
 namespace ERP.View
 {
     /// <summary>
@@ -47,6 +45,7 @@ namespace ERP.View
 
             dataGridRecibo.ItemsSource = recibos;
         }
+
         //Metodo verifica se o cpf ou cnpj é válido após isso carrega o mesmo na listagem da janela
         public void BuscarRecibo(object sender, RoutedEventArgs e)
         {
