@@ -207,7 +207,7 @@ namespace ERP.Servico.Servicos.Repositorio
             }
         }
 
-        public void Atualizar(string cnpjAtual, string razao, string cnpj,
+        public bool Atualizar(string cnpjAtual, string razao, string cnpj,
                               string NumeroEndereco, string Complemento, string CEP,
                               string Logradouro, string Bairro, string Localidade, string UF)
         {
@@ -224,23 +224,36 @@ namespace ERP.Servico.Servicos.Repositorio
                                                      "SET CODI_BAI = @Bairro, CODI_CEP = @CEP, CODI_LOC = @Localidade, CODI_LOG = @Logradouro, CODI_UF = @UF " +
                                                      "WHERE CODI_ID_PK = @ID_CEP ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@novarazao", razao);
-            command.Parameters.AddWithValue("@novocnpj", cnpj);
-            command.Parameters.AddWithValue("@cnpjatual", cnpjAtual);
-            command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
-            command.Parameters.AddWithValue("@Complemento", Complemento);
-            command.Parameters.AddWithValue("@ID_end", dadosAntigos[0].ID_Endereco);
-            command.Parameters.AddWithValue("@Bairro", Bairro);
-            command.Parameters.AddWithValue("@CEP", CEP);
-            command.Parameters.AddWithValue("@Localidade", Localidade);
-            command.Parameters.AddWithValue("@Logradouro", Logradouro);
-            command.Parameters.AddWithValue("@UF", UF);
-            command.Parameters.AddWithValue("@ID_CEP", dadosAntigos[0].ID_CEP);
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var reader = command.ExecuteNonQuery();
+
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@novarazao", razao);
+                command.Parameters.AddWithValue("@novocnpj", cnpj);
+                command.Parameters.AddWithValue("@cnpjatual", cnpjAtual);
+                command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
+                command.Parameters.AddWithValue("@Complemento", Complemento);
+                command.Parameters.AddWithValue("@ID_end", dadosAntigos[0].ID_Endereco);
+                command.Parameters.AddWithValue("@Bairro", Bairro);
+                command.Parameters.AddWithValue("@CEP", CEP);
+                command.Parameters.AddWithValue("@Localidade", Localidade);
+                command.Parameters.AddWithValue("@Logradouro", Logradouro);
+                command.Parameters.AddWithValue("@UF", UF);
+                command.Parameters.AddWithValue("@ID_CEP", dadosAntigos[0].ID_CEP);
+
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
         public bool DeletarEmpresa(Empresa empresaDeletada)

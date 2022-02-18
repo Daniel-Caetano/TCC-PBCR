@@ -47,5 +47,18 @@ namespace TestesServicos
             // Assert
             Assert.True(adiciona);
         }
+
+        [Fact]
+        public void TestaAtualizarEmpresa()
+        {
+            // Arrange
+            var empresas = new RepositorioEmpresa(_connectionString);
+
+            // Act
+            var atualizar = empresas.Atualizar("", "", "", "", "", "", "", "", "", "");
+
+            // Assert
+            Assert.True(atualizar);
+        }
     }
 }
