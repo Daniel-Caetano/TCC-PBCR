@@ -93,17 +93,26 @@ namespace ERP.Servico.Servicos.Repositorio
             var sql = new StringBuilder()
                 .AppendLine(select + "WHERE EM.EMPR_CNPJ = @cnpj");
 
-            using var conn = new SqlConnection(_stringConexao);
-            //Bloco para conexão com banco de dados com SQL enviado pela string sql
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
-            var reader = command.ExecuteReader();
-            //fim bloco de conexao 
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
 
-            List<Empresa> empresas = repositorioEmpresa.RecebeTabela(reader);
+                //Bloco para conexão com banco de dados com SQL enviado pela string sql
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
 
-            return empresas;
+                _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                var reader = command.ExecuteReader();
+                //fim bloco de conexao 
+
+                List<Empresa> empresas = repositorioEmpresa.RecebeTabela(reader);
+
+                return empresas;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool Adicionar(string razao, string cnpj,
@@ -266,6 +275,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var command = new SqlCommand(sql.ToString(), conn);
             command.Parameters.AddWithValue("@cnpj", empresaDeletada.CNPJ);
+
             var reader = command.ExecuteNonQuery();
 
             return true;
@@ -281,6 +291,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var command = new SqlCommand(sql.ToString(), conn);
             command.Parameters.AddWithValue("@ID_Endereco", empresaDeletada.ID_Endereco);
+
             var reader = command.ExecuteNonQuery();
 
             return true;
@@ -295,12 +306,13 @@ namespace ERP.Servico.Servicos.Repositorio
 
             var command = new SqlCommand(sql.ToString(), conn);
             command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
+
             var reader = command.ExecuteNonQuery();
 
             return true;
         }
 
-        public void Deletar(string cnpj)
+        public bool Deletar(string cnpj)
         {
             var repositorioEmpresa = new RepositorioEmpresa(_stringConexao);
 
@@ -315,9 +327,10 @@ namespace ERP.Servico.Servicos.Repositorio
                                                      "ON CODI_ID_PK = ENDE_CODI_ID_FK " +
                                                      "WHERE EMPR_CNPJ = @cnpj");
 
-            using (var conn = new SqlConnection(_stringConexao))
-            {
+            using var conn = new SqlConnection(_stringConexao);
 
+            try
+            {
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
                 _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
@@ -335,12 +348,18 @@ namespace ERP.Servico.Servicos.Repositorio
                     };
                     empresaDeletada = empresa;
                 }
-            }
 
-            //Estrutura para deletar em cascata manualmente
-            repositorioEmpresa.DeletarEmpresa(empresaDeletada);
-            repositorioEmpresa.DeletarEndereco(empresaDeletada);
-            repositorioEmpresa.DeletarCodigoPostal(empresaDeletada);
+                //Estrutura para deletar em cascata manualmente
+                repositorioEmpresa.DeletarEmpresa(empresaDeletada);
+                repositorioEmpresa.DeletarEndereco(empresaDeletada);
+                repositorioEmpresa.DeletarCodigoPostal(empresaDeletada);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

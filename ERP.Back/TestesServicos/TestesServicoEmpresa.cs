@@ -1,7 +1,7 @@
-using ERP.Servico.Negocio;
-using ERP.Servico.Servicos.Repositorio;
 using System.Collections.Generic;
 using Xunit;
+using ERP.Servico.Servicos.Repositorio;
+using ERP.Servico.Negocio;
 
 namespace TestesServicos
 {
@@ -46,6 +46,7 @@ namespace TestesServicos
 
             // Assert
             Assert.True(adiciona);
+
         }
 
         [Fact]
@@ -59,6 +60,19 @@ namespace TestesServicos
 
             // Assert
             Assert.True(atualizar);
+        }
+
+        [Fact]
+        public void TestaDeletarEmpresa()
+        {
+            // Arrange
+            var empresas = new RepositorioEmpresa(_connectionString);
+
+            // Act
+            var deletar = empresas.Deletar("");
+
+            // Assert
+            Assert.True(deletar);
         }
     }
 }

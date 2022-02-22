@@ -1,4 +1,5 @@
 ﻿using ERP.Servico.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,11 +19,14 @@ namespace ERP.Servico.Servicos.Repositorio
         }
 
         //variavel select que guarda um comando SQL comum entre as funções
-        private readonly string select = "SELECT PE.PESS_ID_PK, PE.PESS_NOM, PE.PESS_CPF, PE.PESS_ENDE_ID_FK, E.ENDE_ID_PK, E.ENDE_NUM, E.ENDE_COM, CP.CODI_ID_PK, CP.CODI_CEP, " +
-                                         "CP.CODI_LOG, CP.CODI_BAI, CP.CODI_LOC, CP.CODI_UF " +
-                                         "FROM PESSOAS PE " +
-                                         "INNER JOIN ENDERECOS E ON ENDE_ID_PK = PE.PESS_ENDE_ID_FK " +
-                                         "INNER JOIN CODIGOS_POSTAIS CP ON CP.CODI_ID_PK = E.ENDE_CODI_ID_FK ";
+        private readonly string select = "SELECT P.PESS_ID_PK, P.PESS_NOM, P.PESS_CPF, P.PESS_ENDE_ID_FK, E.[ENDE_ID_PK], " +
+                                         "E.[ENDE_NUM], E.[ENDE_COM], CP.[CODI_ID_PK], CP.[CODI_CEP], " +
+                                         "CP.[CODI_LOG], CP.[CODI_BAI], CP.[CODI_LOC], CP.[CODI_UF] " +
+                                         "FROM PESSOAS P " +
+                                         "INNER JOIN ENDERECOS E " +
+                                         "ON E.[ENDE_ID_PK] = P.PESS_ENDE_ID_FK " +
+                                         "INNER JOIN CODIGOS_POSTAIS CP " +
+                                         "ON CP.[CODI_ID_PK] = E.[ENDE_CODI_ID_FK] ";
 
         //Função para receber valores da tabela do BD, criada para não precisar repetir o codigo várias vezes
         private List<Pessoa> RecebeTabela(SqlDataReader reader)
@@ -80,14 +84,15 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             //variavel do tipo repositorio criada para chamar a funcao de receber tabela
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
-
-            var pessoas = new List<Pessoa>();
+            _ = new List<Pessoa>();
 
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PE.PESS_CPF = @cpf"); //o comando padrao select será concatenado com a string
+                .AppendLine(select + "WHERE P.PESS_CPF = @cpf "); //o comando padrao select será concatenado com a string
 
-            using (var conn = new SqlConnection(_stringConexao))
+            try
             {
+                using var conn = new SqlConnection(_stringConexao);
+
                 //Bloco para conexão com banco de dados com SQL enviado pela string sql
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
@@ -97,10 +102,15 @@ namespace ERP.Servico.Servicos.Repositorio
                 //fim bloco de conexao 
 
                 //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
-                pessoas = repositorioPessoa.RecebeTabela(reader);
+                List<Pessoa> pessoas = repositorioPessoa.RecebeTabela(reader);
 
+
+                return pessoas;
             }
-            return pessoas;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<Pessoa> BuscaNome(string nome)
@@ -112,7 +122,7 @@ namespace ERP.Servico.Servicos.Repositorio
 
             //sql salva o comando SQL que será enviado para o BD
             var sql = new StringBuilder()
-                .AppendLine(select + "WHERE PE.PESS_NOM = @nome");
+                .AppendLine(select + "WHERE P.PESS_NOM = @nome");
 
             using (var conn = new SqlConnection(_stringConexao))
             {
@@ -131,7 +141,7 @@ namespace ERP.Servico.Servicos.Repositorio
             return pessoas;
         }
 
-        public void Adicionar(string Nome, string CPF,
+        public bool Adicionar(string Nome, string CPF,
            string NumeroEndereco, string Complemento, string CEP,
            string Logradouro, string Bairro, string Localidade, string UF)
         {
@@ -158,73 +168,81 @@ namespace ERP.Servico.Servicos.Repositorio
 
             //FIM variaveis SQL
 
-            //Estrutura para conectar os parametros '@' do comando sql com variáveis do sistema
-            //Crianda a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
-            using (var conn = new SqlConnection(_stringConexao))
+            try
             {
-                conn.Open();
-                var command = new SqlCommand(sqlCEP.ToString(), conn);
-                command.Parameters.AddWithValue("@CEP", CEP);
-                command.Parameters.AddWithValue("@Bairro", Bairro);
-                command.Parameters.AddWithValue("@Localidade", Localidade);
-                command.Parameters.AddWithValue("@Logradouro", Logradouro);
-                command.Parameters.AddWithValue("@UF", UF);
-                var reader = command.ExecuteNonQuery();
-            }
-
-            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open(); // abre conexão com BD
-
-                // maxCP tem o comando SQL para encontrar o valor maximo de ID
-                using (var command = new SqlCommand(maxCP, conn))
+                //Estrutura para conectar os parametros '@' do comando sql com variáveis do sistema
+                //Crianda a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
+                using (var conn = new SqlConnection(_stringConexao))
                 {
-                    // ID_CEP guarda o ID que será chave estrangeiro em ENDERECOS(@ID_CEP
-                    ID_CEP = (int)command.ExecuteScalar();
-
+                    conn.Open();
+                    var command = new SqlCommand(sqlCEP.ToString(), conn);
+                    command.Parameters.AddWithValue("@CEP", CEP);
+                    command.Parameters.AddWithValue("@Bairro", Bairro);
+                    command.Parameters.AddWithValue("@Localidade", Localidade);
+                    command.Parameters.AddWithValue("@Logradouro", Logradouro);
+                    command.Parameters.AddWithValue("@UF", UF);
+                    var reader = command.ExecuteNonQuery();
                 }
-                conn.Close(); // fecha a conexao
-            }
 
-            //Crianda a Tabela ENDERECOS que é chave estrangeira em PESSOA
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                //estutura de conexao e relação dos atributos da string sql criada acima
-                conn.Open();
-                var command = new SqlCommand(sqlEnderecos.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
-                command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
-                command.Parameters.AddWithValue("@Complemento", Complemento);
-                var reader = command.ExecuteNonQuery();//ExecuteNonQuery para enviar dados para o BD
-            }
-
-            //ESTRUTURA DO MAX para receber qual valor do ultimo ID de ENDERECOS para colocar como chave estrangeira em PESSOAS
-            using (var conn = new SqlConnection(_stringConexao))
-            {
-                conn.Open(); // abre conexão
-
-                // maxEND tem o comando SQL para encontrar o valor maximo de ID
-                using (var command = new SqlCommand(maxEND, conn))
+                //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
+                using (var conn = new SqlConnection(_stringConexao))
                 {
-                    ID_END = (int)command.ExecuteScalar(); //comando ExecuteScalar para ler o comando max
-                }
-                conn.Close(); // fecha a conexao
-            }
+                    conn.Open(); // abre conexão com BD
 
-            //Criando a tabela Pessoa com chave estrangeira de ENDERECO
-            using (var conn = new SqlConnection(_stringConexao))
+                    // maxCP tem o comando SQL para encontrar o valor maximo de ID
+                    using (var command = new SqlCommand(maxCP, conn))
+                    {
+                        // ID_CEP guarda o ID que será chave estrangeiro em ENDERECOS(@ID_CEP
+                        ID_CEP = (int)command.ExecuteScalar();
+
+                    }
+                    conn.Close(); // fecha a conexao
+                }
+
+                //Crianda a Tabela ENDERECOS que é chave estrangeira em PESSOA
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    //estutura de conexao e relação dos atributos da string sql criada acima
+                    conn.Open();
+                    var command = new SqlCommand(sqlEnderecos.ToString(), conn);
+                    command.Parameters.AddWithValue("@ID_CEP", ID_CEP);
+                    command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
+                    command.Parameters.AddWithValue("@Complemento", Complemento);
+                    var reader = command.ExecuteNonQuery();//ExecuteNonQuery para enviar dados para o BD
+                }
+
+                //ESTRUTURA DO MAX para receber qual valor do ultimo ID de ENDERECOS para colocar como chave estrangeira em PESSOAS
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    conn.Open(); // abre conexão
+
+                    // maxEND tem o comando SQL para encontrar o valor maximo de ID
+                    using (var command = new SqlCommand(maxEND, conn))
+                    {
+                        ID_END = (int)command.ExecuteScalar(); //comando ExecuteScalar para ler o comando max
+                    }
+                    conn.Close(); // fecha a conexao
+                }
+
+                //Criando a tabela Pessoa com chave estrangeira de ENDERECO
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    conn.Open();
+                    var command = new SqlCommand(sqlEmpresa.ToString(), conn);
+                    command.Parameters.AddWithValue("@ID_end", ID_END);
+                    command.Parameters.AddWithValue("@nome", Nome);
+                    command.Parameters.AddWithValue("@cpf", CPF);
+                    var reader = command.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception ex)
             {
-                conn.Open();
-                var command = new SqlCommand(sqlEmpresa.ToString(), conn);
-                command.Parameters.AddWithValue("@ID_end", ID_END);
-                command.Parameters.AddWithValue("@nome", Nome);
-                command.Parameters.AddWithValue("@cpf", CPF);
-                var reader = command.ExecuteNonQuery();
+                throw new Exception(ex.Message);
             }
         }
 
-        public void Atualizar(string CpfAtual, string Nome, string CPF,
+        public bool Atualizar(string CpfAtual, string Nome, string CPF,
                               string NumeroEndereco, string Complemento,
                               string CEP, string Logradouro, string Bairro,
                               string Localidade, string UF)
@@ -243,29 +261,37 @@ namespace ERP.Servico.Servicos.Repositorio
                                                      "SET CODI_BAI = @Bairro, CODI_CEP = @CEP, CODI_LOC = @Localidade, CODI_LOG = @Logradouro, CODI_UF = @UF " +
                                                      "WHERE CODI_ID_PK = @ID_CEP ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@nome", Nome);
-            command.Parameters.AddWithValue("@cpf", CPF);
-            command.Parameters.AddWithValue("@CpfAtual", CpfAtual);
-            command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
-            command.Parameters.AddWithValue("@Complemento", Complemento);
-            command.Parameters.AddWithValue("@ID_end", dadosAntigos[0].ID_Endereco);
-            command.Parameters.AddWithValue("@Bairro", Bairro);
-            command.Parameters.AddWithValue("@CEP", CEP);
-            command.Parameters.AddWithValue("@Localidade", Localidade);
-            command.Parameters.AddWithValue("@Logradouro", Logradouro);
-            command.Parameters.AddWithValue("@UF", UF);
-            command.Parameters.AddWithValue("@ID_CEP", dadosAntigos[0].ID_CEP);
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@nome", Nome);
+                command.Parameters.AddWithValue("@cpf", CPF);
+                command.Parameters.AddWithValue("@CpfAtual", CpfAtual);
+                command.Parameters.AddWithValue("@NumeroEndereco", NumeroEndereco);
+                command.Parameters.AddWithValue("@Complemento", Complemento);
+                command.Parameters.AddWithValue("@ID_end", dadosAntigos[0].ID_Endereco);
+                command.Parameters.AddWithValue("@Bairro", Bairro);
+                command.Parameters.AddWithValue("@CEP", CEP);
+                command.Parameters.AddWithValue("@Localidade", Localidade);
+                command.Parameters.AddWithValue("@Logradouro", Logradouro);
+                command.Parameters.AddWithValue("@UF", UF);
+                command.Parameters.AddWithValue("@ID_CEP", dadosAntigos[0].ID_CEP);
 
-            var reader = command.ExecuteNonQuery();
+                var reader = command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool DeletarPessoa(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS PE " +
-                                                     "WHERE PE.PESS_CPF = @cpf ");
+            var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS " +
+                                                     "WHERE PESS_CPF = @cpf ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -280,8 +306,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public bool DeletarEndereco(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS EN " +
-                                                     "WHERE EN.ENDE_CODI_ID_FK = @ID_Endereco ");
+            var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
+                                                     "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -296,8 +322,8 @@ namespace ERP.Servico.Servicos.Repositorio
 
         public bool DeletarCodigoPostal(Pessoa pessoaDeletada)
         {
-            var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS CO " +
-                                                     "WHERE CO.CODI_ID_PK = @ID_CEP");
+            var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
+                                                     "WHERE CODI_ID_PK = @ID_CEP");
 
             using var conn = new SqlConnection(_stringConexao);
             conn.Open();
@@ -310,46 +336,55 @@ namespace ERP.Servico.Servicos.Repositorio
             return true;
         }
 
-        public void Deletar(string cpf)
+        public bool Deletar(string CPF)
         {
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
+
             var pessoaDeletada = new Pessoa();
 
             //SQL para pegar o ENDERECO e CODIGO_POSTAL em comum com CPF
-            var sql = new StringBuilder().AppendLine("SELECT PE.PESS_CPF, PE.PESS_ENDE_ID_FK, EN.ENDE_CODI_ID_FK, CO.CODI_ID_PK " +
-                                                     "FROM PESSOAS PE " +
+            var sql = new StringBuilder().AppendLine("SELECT PESS_CPF, PESS_ENDE_ID_FK, EN.[ENDE_CODI_ID_FK], CO.[CODI_ID_PK] " +
+                                                     "FROM PESSOAS " +
                                                      "INNER JOIN ENDERECOS EN " +
-                                                     "ON EN.ENDE_CODI_ID_FK = PE.PESS_ENDE_ID_FK " +
-                                                     "INNER JOIN CODIGOS_POSTAIS CO " +
-                                                     "ON CO.CODI_ID_PK = EN.ENDE_CODI_ID_FK " +
-                                                     "WHERE PE.PESS_CPF = @cpf");
+                                                     "ON EN.[ENDE_CODI_ID_FK] = PESS_ENDE_ID_FK " +
+                                                     "INNER JOIN [CODIGOS_POSTAIS] CO " +
+                                                     "ON CO.[CODI_ID_PK] = EN.[ENDE_CODI_ID_FK] " +
+                                                     "WHERE PESS_CPF = @cpf");
 
-            using (var conn = new SqlConnection(_stringConexao))
+            try
             {
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
-                command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
-                var reader = command.ExecuteReader();
-
-
-                //Salvando as informações para deletar as tabelas certas
-                while (reader.Read())
+                using (var conn = new SqlConnection(_stringConexao))
                 {
-                    var pessoa = new Pessoa
+                    conn.Open();
+                    var command = new SqlCommand(sql.ToString(), conn);
+                    command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = CPF });
+                    var reader = command.ExecuteReader();
+
+
+                    //Salvando as informações para deletar as tabelas certas
+                    while (reader.Read())
                     {
-                        ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_CODI_ID_FK")),//ID do endereco que será deletado
-                        ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK")),//ID do CEP que será deletado
-                        CPF = reader.GetString(reader.GetOrdinal("PESS_CPF"))//CPF da Pessoa que será deletada
-                    };
-                    pessoaDeletada = pessoa;
+                        var pessoa = new Pessoa
+                        {
+                            CPF = reader.GetString(reader.GetOrdinal("PESS_CPF")),//CPF da Pessoa que será deletada
+                            ID_Endereco = reader.GetInt32(reader.GetOrdinal("ENDE_CODI_ID_FK")),//ID do endereco que será deletado
+                            ID_CEP = reader.GetInt32(reader.GetOrdinal("CODI_ID_PK"))//ID do CEP que será deletado
+                        };
+                        pessoaDeletada = pessoa;
+                    }
                 }
+
+                //Estrutura para deletar em cascata manualmente
+                repositorioPessoa.DeletarPessoa(pessoaDeletada);
+                repositorioPessoa.DeletarEndereco(pessoaDeletada);
+                repositorioPessoa.DeletarCodigoPostal(pessoaDeletada);
+
+                return true;
             }
-
-            //Estrutura para deletar em cascata manualmente
-            repositorioPessoa.DeletarPessoa(pessoaDeletada);
-            repositorioPessoa.DeletarEndereco(pessoaDeletada);
-            repositorioPessoa.DeletarCodigoPostal(pessoaDeletada);
-
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

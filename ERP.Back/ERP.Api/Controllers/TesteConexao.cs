@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Text;
-using System.Threading;
 
 namespace ERP.Api.Controllers
 {
@@ -25,7 +24,7 @@ namespace ERP.Api.Controllers
             }
             catch (Exception ex)
             {
-                throw new TimeoutException($"Tempo de tentativa de conexão excedida: {ex.Message}");
+                throw new TimeoutException($"Tentativa de conexão excedida: {ex.Message}");
                 throw new Exception($"Conexão com o Banco de Dados Falhou: {ex.Message}");
             }
         }
