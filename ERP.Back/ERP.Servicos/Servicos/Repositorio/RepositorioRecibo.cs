@@ -82,15 +82,22 @@ namespace ERP.Servicos
             var sql = new StringBuilder()
                 .AppendLine(select);
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            var reader = command.ExecuteReader();
+                var command = new SqlCommand(sql.ToString(), conn);
+                var reader = command.ExecuteReader();
 
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
 
-            return recibos;
+                return recibos;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }            
         }
 
         // Busca por Recibo através do Numero identificado do mesmo
@@ -100,16 +107,24 @@ namespace ERP.Servicos
             var sql = new StringBuilder().
                 AppendLine(select + "WHERE RE.[RECI_ID_PK] = @id ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            _ = command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
+                var command = new SqlCommand(sql.ToString(), conn);
 
-            var reader = command.ExecuteReader();
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                _ = command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
 
-            return recibos;
+                var reader = command.ExecuteReader();
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+
+                return recibos;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         // Lista todos os Recibos do Tipo a Pagar
@@ -119,15 +134,22 @@ namespace ERP.Servicos
             var sql = new StringBuilder()
                 .AppendLine(select + "WHERE RE.[RECI_TIP] = 'A Pagar' ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            var reader = command.ExecuteReader();
+                var command = new SqlCommand(sql.ToString(), conn);
+                var reader = command.ExecuteReader();
 
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
 
-            return recibos;
+                return recibos;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         // Lista todos os Recibos do Tipo a Receber
@@ -137,15 +159,22 @@ namespace ERP.Servicos
             var sql = new StringBuilder()
                 .AppendLine(select + " WHERE RE.[RECI_TIP] = 'A Receber' ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            var reader = command.ExecuteReader();
+                var command = new SqlCommand(sql.ToString(), conn);
+                var reader = command.ExecuteReader();
 
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
 
-            return recibos;
+                return recibos;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         // Busca Recibos por CPF/CNPJ
@@ -155,16 +184,31 @@ namespace ERP.Servicos
             var sql = new StringBuilder()
                 .AppendLine(select + " WHERE RE.[RECI_REC_DOC] = @documento OR RE.[RECI_PAG_DOC] = @documento");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            _ = command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
+                var command = new SqlCommand(sql.ToString(), conn);
+                if(documento != null)
+                {
+                    _ = command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
+                }
+                else 
+                {
+                    documento = "000000000000";
+                    _ = command.Parameters.Add(new SqlParameter("@documento", SqlDbType.VarChar) { Value = documento });
+                }
 
-            var reader = command.ExecuteReader();
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                var reader = command.ExecuteReader();
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
 
-            return recibos;
+                return recibos;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         // Busca Recibos por Nome/Razão Social
@@ -174,16 +218,31 @@ namespace ERP.Servicos
             var sql = new StringBuilder()
                 .AppendLine(select + " WHERE RE.[RECI_REC] = @nome OR RE.[RECI_PAG] = @nome");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                var command = new SqlCommand(sql.ToString(), conn);
 
-            var reader = command.ExecuteReader();
-            List<Recibo> recibos = tabelaRecibo.Tabela(reader);
+                if(nome != null)
+                {
+                    _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                }
+                else
+                {
+                    nome = "000000000000";
+                     _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                }
+                var reader = command.ExecuteReader();
+                List<Recibo> recibos = tabelaRecibo.Tabela(reader);
 
-            return recibos;
+                return recibos;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public bool Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,

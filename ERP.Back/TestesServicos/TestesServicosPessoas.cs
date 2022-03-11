@@ -8,12 +8,17 @@ namespace TestesServicos
     public class TestesServicosPessoas
     {
         protected const string _connectionString = "Server=localhost,1401;Database=ERP;User Id = sa; Password=Tccpbcr123@";
+        private readonly RepositorioPessoa pessoas;
+
+        public TestesServicosPessoas()
+        {
+            pessoas = new RepositorioPessoa(_connectionString);
+        }
 
         [Fact]
         public void TestaListadePessoas()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             List<Pessoa> lista = pessoas.Lista();
@@ -26,7 +31,6 @@ namespace TestesServicos
         public void TestaBuscaCPF()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             List<Pessoa> pessoa = pessoas.BuscaCpf("");
@@ -39,7 +43,6 @@ namespace TestesServicos
         public void TestaBuscaNome()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             List<Pessoa> pessoa = pessoas.BuscaNome("");
@@ -52,7 +55,6 @@ namespace TestesServicos
         public void TestaAdicionarPessoa()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             var adiciona = pessoas.Adicionar("", "", "", "", "", "", "", "", "");
@@ -65,7 +67,6 @@ namespace TestesServicos
         public void TestaAtualizarPessoa()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             var atualiza = pessoas.Atualizar("", "", "", "", "", "", "", "", "", "");
@@ -78,7 +79,6 @@ namespace TestesServicos
         public void TestaDeletarPessoa()
         {
             // Arrange
-            var pessoas = new RepositorioPessoa(_connectionString);
 
             // Act
             var deletar = pessoas.Deletar("");

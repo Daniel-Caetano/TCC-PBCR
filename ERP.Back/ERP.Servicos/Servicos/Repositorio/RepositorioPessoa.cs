@@ -97,19 +97,26 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
 
-                _ = command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+                if (cpf != null)
+                {
+                    _ = command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+                }
+                else
+                {
+                    cpf = "00000000000000";
+                    _ = command.Parameters.Add(new SqlParameter("@cpf", SqlDbType.VarChar) { Value = cpf });
+                }
                 var reader = command.ExecuteReader();
                 //fim bloco de conexao 
 
                 //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
                 List<Pessoa> pessoas = repositorioPessoa.RecebeTabela(reader);
 
-
                 return pessoas;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                throw new Exception(ex.Message);
+                throw new ArgumentNullException(ex.Message);
             }
         }
 
@@ -124,19 +131,34 @@ namespace ERP.Servico.Servicos.Repositorio
             var sql = new StringBuilder()
                 .AppendLine(select + "WHERE P.PESS_NOM = @nome");
 
-            using (var conn = new SqlConnection(_stringConexao))
+            try
             {
-                //Bloco para conexão com banco de dados com SQL enviado pela string sql
-                conn.Open();
-                var command = new SqlCommand(sql.ToString(), conn);
+                using (var conn = new SqlConnection(_stringConexao))
+                {
+                    //Bloco para conexão com banco de dados com SQL enviado pela string sql
+                    conn.Open();
+                    var command = new SqlCommand(sql.ToString(), conn);
 
-                _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
-                var reader = command.ExecuteReader();
-                //fim bloco de conexao 
+                    if (nome != null)
+                    {
+                        _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                    }
+                    else
+                    {
+                        nome = "00000000000000";
+                        _ = command.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar) { Value = nome });
+                    }
+                    var reader = command.ExecuteReader();
+                    //fim bloco de conexao 
 
-                //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
-                pessoas = repositorioPessoa.RecebeTabela(reader);
+                    //pessoas recebe uma lista de objeto do tipo Pessoa criado com os valores da tabela do BD
+                    pessoas = repositorioPessoa.RecebeTabela(reader);
 
+                }
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
             }
             return pessoas;
         }
@@ -293,14 +315,20 @@ namespace ERP.Servico.Servicos.Repositorio
             var sql = new StringBuilder().AppendLine("DELETE FROM PESSOAS " +
                                                      "WHERE PESS_CPF = @cpf ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@cpf", pessoaDeletada.CPF);
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@cpf", pessoaDeletada.CPF);
 
-            var reader = command.ExecuteNonQuery();
-
+                var reader = command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return true;
         }
 
@@ -308,15 +336,20 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
                                                      "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_Endereco", pessoaDeletada.ID_Endereco);
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@ID_Endereco", pessoaDeletada.ID_Endereco);
-
-            var reader = command.ExecuteNonQuery();
-
+                var reader = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return true;
         }
 
@@ -325,14 +358,20 @@ namespace ERP.Servico.Servicos.Repositorio
             var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
                                                      "WHERE CODI_ID_PK = @ID_CEP");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
 
-            var reader = command.ExecuteNonQuery();
-
+                var reader = command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return true;
         }
 

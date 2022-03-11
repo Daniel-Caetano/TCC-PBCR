@@ -129,10 +129,16 @@ namespace ERP.Servico.Servicos.Servico
                 Debug.WriteLine("CNPJ invalido!" + ex.Message);
             }
 
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            var listEmpresa = repositorio.BuscaCnpj(cnpj);
-
-            return listEmpresa;
+            try
+            {
+                var repositorio = new RepositorioEmpresa(_stringConexao);
+                var listEmpresa = repositorio.BuscaCnpj(cnpj);
+                return listEmpresa;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public void Adicionar(string razao, string cnpj,
@@ -155,50 +161,65 @@ namespace ERP.Servico.Servicos.Servico
                               string NumeroEndereco, string Complemento, string CEP,
                               string Logradouro, string Bairro, string Localidade, string UF)
         {
+            try
+            {
+                //estrutura para não sobrescrever os dados antigos com null
+                
+                if(cnpjAtual == null)
+                {
+                    var dadosAntigos = BuscaCnpj(cnpjAtual);
 
-            //estrutura para não sobrescrever os dados antigos com null
-            var dadosAntigos = BuscaCnpj(cnpjAtual);
-            if (novaRazao == null)
-            {
-                novaRazao = dadosAntigos[0].Razao;
-            }
-            if (novoCnpj == null)
-            {
-                novoCnpj = dadosAntigos[0].CNPJ;
-            }
-            if (NumeroEndereco == null)
-            {
-                NumeroEndereco = dadosAntigos[0].NumeroEndereco;
-            }
-            if (Complemento == null)
-            {
-                Complemento = dadosAntigos[0].Complemento;
-            }
-            if (CEP == null)
-            {
-                CEP = dadosAntigos[0].CEP;
-            }
-            if (Logradouro == null)
-            {
-                Logradouro = dadosAntigos[0].Logradouro;
-            }
-            if (Bairro == null)
-            {
-                Bairro = dadosAntigos[0].Bairro;
-            }
-            if (Localidade == null)
-            {
-                Localidade = dadosAntigos[0].Localidade;
-            }
-            if (UF == null)
-            {
-                UF = dadosAntigos[0].UF;
-            }
+                    if (novaRazao == null)
+                    {
+                        novaRazao = dadosAntigos[0].Razao;
+                    }
+                    if (novoCnpj == null)
+                    {
+                        novoCnpj = dadosAntigos[0].CNPJ;
+                    }
+                    if (NumeroEndereco == null)
+                    {
+                        NumeroEndereco = dadosAntigos[0].NumeroEndereco;
+                    }
+                    if (Complemento == null)
+                    {
+                        Complemento = dadosAntigos[0].Complemento;
+                    }
+                    if (CEP == null)
+                    {
+                        CEP = dadosAntigos[0].CEP;
+                    }
+                    if (Logradouro == null)
+                    {
+                        Logradouro = dadosAntigos[0].Logradouro;
+                    }
+                    if (Bairro == null)
+                    {
+                        Bairro = dadosAntigos[0].Bairro;
+                    }
+                    if (Localidade == null)
+                    {
+                        Localidade = dadosAntigos[0].Localidade;
+                    }
+                    if (UF == null)
+                    {
+                        UF = dadosAntigos[0].UF;
+                    }
+                }
+                else
+                {
+                    return;
+                }
 
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj, NumeroEndereco, 
-                                  Complemento, CEP, Logradouro,
-                                  Bairro, Localidade, UF);
+                var repositorio = new RepositorioEmpresa(_stringConexao);
+                repositorio.Atualizar(cnpjAtual, novaRazao, novoCnpj, NumeroEndereco,
+                                      Complemento, CEP, Logradouro,
+                                      Bairro, Localidade, UF);
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public void Deletar(string cnpj)
@@ -216,9 +237,5 @@ namespace ERP.Servico.Servicos.Servico
             }
         }
 
-        public static implicit operator bool(ServicoEmpresa _stringConexao)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

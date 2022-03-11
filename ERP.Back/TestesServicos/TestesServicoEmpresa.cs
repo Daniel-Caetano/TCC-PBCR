@@ -8,12 +8,17 @@ namespace TestesServicos
     public class TestesServicoEmpresa
     {
         protected const string _connectionString = "Server=localhost,1401;Database=ERP;User Id = sa; Password=Tccpbcr123@";
+        private RepositorioEmpresa empresas;
+
+        public TestesServicoEmpresa()
+        {
+            empresas = new RepositorioEmpresa(_connectionString);
+        }
 
         [Fact]
         public void TestaListarTodasEmpresas()
         {
             // Arrange
-            var empresas = new RepositorioEmpresa(_connectionString);
             
             // Act
             List<Empresa> lista = empresas.Lista();
@@ -26,7 +31,6 @@ namespace TestesServicos
         public void TestarPesquisaporCNPJ()
         {
             // Arrange
-            var empresas = new RepositorioEmpresa(_connectionString);
 
             // Act
             List<Empresa> empresa = empresas.BuscaCnpj("");
@@ -39,7 +43,6 @@ namespace TestesServicos
         public void TestaAdicionarEmpresa()
         {
             // Arrange
-            var empresas = new RepositorioEmpresa(_connectionString);
 
             // Act
             var adiciona = empresas.Adicionar("", "", "", "", "", "", "", "", "");
@@ -53,10 +56,9 @@ namespace TestesServicos
         public void TestaAtualizarEmpresa()
         {
             // Arrange
-            var empresas = new RepositorioEmpresa(_connectionString);
 
             // Act
-            var atualizar = empresas.Atualizar("", "", "", "", "", "", "", "", "", "");
+            var atualizar = empresas.Atualizar(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 
             // Assert
             Assert.True(atualizar);
@@ -66,10 +68,9 @@ namespace TestesServicos
         public void TestaDeletarEmpresa()
         {
             // Arrange
-            var empresas = new RepositorioEmpresa(_connectionString);
 
             // Act
-            var deletar = empresas.Deletar("");
+            var deletar = empresas.Deletar(" ");
 
             // Assert
             Assert.True(deletar);

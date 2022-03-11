@@ -13,12 +13,17 @@ namespace TestesServicos
     public class TestesServicosRecibos
     {
         protected const string _connectionString = "Server=localhost,1401;Database=ERP;User Id = sa; Password=Tccpbcr123@";
+        private readonly RepositorioRecibo recibos;
+
+        public TestesServicosRecibos()
+        {
+            recibos = new RepositorioRecibo(_connectionString);
+        }
 
         [Fact]
         public void TestaListaRecibo()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             List<Recibo> lista = recibos.ListaRecibos();
@@ -32,7 +37,6 @@ namespace TestesServicos
         public void TestaBuscaReciboID(int[] ids)
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
             List<Recibo> recibo;
 
             // Act
@@ -48,7 +52,6 @@ namespace TestesServicos
         public void TestaBuscaRecibosPagar()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             List<Recibo> reciboapagar = recibos.BuscaReciboCompletoApagar();
@@ -61,7 +64,6 @@ namespace TestesServicos
         public void TestaBuscaRecibosReceber()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             List<Recibo> reciboareceber = recibos.BuscaReciboCompletoAreceber();
@@ -74,7 +76,6 @@ namespace TestesServicos
         public void TestaBuscaReciboCPF_CNPJ()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             List<Recibo> recibo = recibos.BuscaReciboCPF_CNPJ("");
@@ -87,7 +88,6 @@ namespace TestesServicos
         public void TestaBuscaReciboNome()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             List<Recibo> recibo = recibos.BuscaReciboNome("");
@@ -100,7 +100,6 @@ namespace TestesServicos
         public void TestaAdicionarRecibo()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
 
             // Act
             var recibo = recibos.Adicionar("", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", "", "");
@@ -113,7 +112,6 @@ namespace TestesServicos
         public void TestaDeletarRecibo()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
             var idMAX = recibos.ConexaoIDMAX() - 1;
 
             // Act
@@ -127,7 +125,6 @@ namespace TestesServicos
         public void TestaAtualizarRecibo()
         {
             // Arrange
-            var recibos = new RepositorioRecibo(_connectionString);
             var idMAX = recibos.ConexaoIDMAX() - 1;
 
             // Act

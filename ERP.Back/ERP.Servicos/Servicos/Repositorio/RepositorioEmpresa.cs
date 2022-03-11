@@ -101,7 +101,15 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
 
-                _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                if(cnpj != null)
+                {
+                    _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                }
+                else
+                {
+                    cnpj = "00000000000000";
+                    _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                }
                 var reader = command.ExecuteReader();
                 //fim bloco de conexao 
 
@@ -109,9 +117,9 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 return empresas;
             }
-            catch(Exception ex)
+            catch(ArgumentNullException ex)
             {
-                throw new Exception(ex.Message);
+                throw new ArgumentNullException(ex.Message);
             }
         }
 
@@ -156,7 +164,6 @@ namespace ERP.Servico.Servicos.Repositorio
 
             try
             {
-
                 //ESTRUTURA DO MAX para receber qual valor do ultimo ID de CODIGOS POSTAIS para colocar como chave estrangeira em ENDERECOS
                 using (var conn = new SqlConnection(_stringConexao))
                 {
@@ -238,7 +245,6 @@ namespace ERP.Servico.Servicos.Repositorio
                 using var conn = new SqlConnection(_stringConexao);
                 conn.Open();
 
-
                 var command = new SqlCommand(sql.ToString(), conn);
                 command.Parameters.AddWithValue("@novarazao", razao);
                 command.Parameters.AddWithValue("@novocnpj", cnpj);
@@ -269,16 +275,23 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM EMPRESAS " +
                                                      "WHERE EMPR_CNPJ = @cnpj");
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+                var command = new SqlCommand(sql.ToString(), conn);
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@cnpj", empresaDeletada.CNPJ);
+                _ = command.Parameters.AddWithValue("@cnpj", empresaDeletada.CNPJ);
 
-            var reader = command.ExecuteNonQuery();
+                var reader = command.ExecuteNonQuery();
 
-            return true;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool DeletarEndereco(Empresa empresaDeletada)
@@ -286,30 +299,45 @@ namespace ERP.Servico.Servicos.Repositorio
             var sql = new StringBuilder().AppendLine("DELETE FROM ENDERECOS " +
                                                      "WHERE ENDE_CODI_ID_FK = @ID_Endereco ");
 
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@ID_Endereco", empresaDeletada.ID_Endereco);
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_Endereco", empresaDeletada.ID_Endereco);
 
-            var reader = command.ExecuteNonQuery();
+                var reader = command.ExecuteNonQuery();
 
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool DeletarCodigoPostal(Empresa pessoaDeletada)
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM CODIGOS_POSTAIS " +
                                                      "WHERE CODI_ID_PK = @ID_CEP");
-            using var conn = new SqlConnection(_stringConexao);
-            conn.Open();
 
-            var command = new SqlCommand(sql.ToString(), conn);
-            command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
+            try
+            {
+                using var conn = new SqlConnection(_stringConexao);
+                conn.Open();
 
-            var reader = command.ExecuteNonQuery();
+                var command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("@ID_CEP", pessoaDeletada.ID_CEP);
 
-            return true;
+                var reader = command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool Deletar(string cnpj)
@@ -333,7 +361,17 @@ namespace ERP.Servico.Servicos.Repositorio
             {
                 conn.Open();
                 var command = new SqlCommand(sql.ToString(), conn);
-                _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+
+                if (cnpj != null)
+                {
+                    _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                }
+                else
+                {
+                    cnpj = "00000";
+                    _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
+                }                
+
                 var reader = command.ExecuteReader();
 
                 //Salvando as informações para deletar as tabelas certas
