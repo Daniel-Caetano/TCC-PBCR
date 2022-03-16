@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestesApi", "TestesApi\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestesServicos", "TestesServicos\TestesServicos.csproj", "{C0E4BA54-C79A-4554-ACA4-4AC07F3A7A7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestesWeb", "TestesWeb\TestesWeb.csproj", "{2DC3AFEE-C547-4BAE-8B3E-5C4A5107EFE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestesWebEdge", "TestesWeb\TestesWebEdge.csproj", "{2DC3AFEE-C547-4BAE-8B3E-5C4A5107EFE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programa", "Programa", "{13E7256B-BE07-410B-BA55-E82BCDEF135E}"
 EndProject

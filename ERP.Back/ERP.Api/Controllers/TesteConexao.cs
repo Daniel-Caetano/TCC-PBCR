@@ -20,6 +20,7 @@ namespace ERP.Api.Controllers
                 var command = new SqlCommand(sql.ToString(), conn);
                 var reader = command.ExecuteReader();
                 conn.Close();
+
                 return reader;
             }
             catch (Exception ex)

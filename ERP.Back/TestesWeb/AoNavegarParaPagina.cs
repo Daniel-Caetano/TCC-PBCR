@@ -7,7 +7,7 @@ using TestesWeb.Fixtures;
 using TestesWeb.Helpers;
 using Xunit;
 
-namespace TestesWeb
+namespace TestesWebEdge
 {
     [Collection("Edge")]
     public class AoNavegarParaPagina

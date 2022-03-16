@@ -13,7 +13,7 @@ namespace TestesApi
             // Arrange: Dada Conexão com o banco de dados
             var conexao = new ERP.Api.Controllers.TesteConexao();
 
-            // Act Verificar se a conexão com o banco de dados foi realizada
+            // Act: Verificar se a conexão com o banco de dados foi realizada
             try
             {
                 conexao.ConectarAoBanco();                

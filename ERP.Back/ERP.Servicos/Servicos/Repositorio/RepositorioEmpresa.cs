@@ -104,10 +104,10 @@ namespace ERP.Servico.Servicos.Repositorio
                 if(cnpj != null)
                 {
                     _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
-                }
+               }
                 else
                 {
-                    cnpj = "00000000000000";
+                    cnpj = "";
                     _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 }
                 var reader = command.ExecuteReader();
@@ -117,9 +117,9 @@ namespace ERP.Servico.Servicos.Repositorio
 
                 return empresas;
             }
-            catch(ArgumentNullException ex)
+            catch(InvalidOperationException ex)
             {
-                throw new ArgumentNullException(ex.Message);
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -149,7 +149,7 @@ namespace ERP.Servico.Servicos.Repositorio
             //FIM variaveis SQL
 
             //Estrutura para conectar os parametros '@' do comando sql com variáveis do sistema
-            //Crianda a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
+            //Criada a Tabela CODIGOS_POSTAIS que é chave estrangeira em ENDERECOS
             using (var conn = new SqlConnection(_stringConexao))
             {
                 conn.Open();
@@ -240,8 +240,6 @@ namespace ERP.Servico.Servicos.Repositorio
                                                      "SET CODI_BAI = @Bairro, CODI_CEP = @CEP, CODI_LOC = @Localidade, CODI_LOG = @Logradouro, CODI_UF = @UF " +
                                                      "WHERE CODI_ID_PK = @ID_CEP ");
 
-            try
-            {
                 using var conn = new SqlConnection(_stringConexao);
                 conn.Open();
 
@@ -263,12 +261,6 @@ namespace ERP.Servico.Servicos.Repositorio
                 conn.Close();
 
                 return true;
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
         }
 
         public bool DeletarEmpresa(Empresa empresaDeletada)
@@ -368,7 +360,7 @@ namespace ERP.Servico.Servicos.Repositorio
                 }
                 else
                 {
-                    cnpj = "00000";
+                    cnpj = " ";
                     _ = command.Parameters.Add(new SqlParameter("@cnpj", SqlDbType.VarChar) { Value = cnpj });
                 }                
 
