@@ -84,7 +84,6 @@ namespace ERP.Servico.Servicos.Repositorio
         {
             //variavel do tipo repositorio criada para chamar a funcao de receber tabela
             var repositorioPessoa = new RepositorioPessoa(_stringConexao);
-            _ = new List<Pessoa>();
 
             var sql = new StringBuilder()
                 .AppendLine(select + "WHERE P.PESS_CPF = @cpf "); //o comando padrao select será concatenado com a string
@@ -163,10 +162,12 @@ namespace ERP.Servico.Servicos.Repositorio
             return pessoas;
         }
 
-        public bool Adicionar(string Nome, string CPF,
+        public List<Pessoa> Adicionar(string Nome, string CPF,
            string NumeroEndereco, string Complemento, string CEP,
            string Logradouro, string Bairro, string Localidade, string UF)
         {
+            var pessoa = new RepositorioPessoa(_stringConexao);
+
             //obtendo os Os valores maximo dos ids de CODIGOS POSTAIS E ENDERECOS, para saber qual valor das chaves estrangeiras
             string maxCP = "SELECT MAX(CODI_ID_PK) FROM CODIGOS_POSTAIS";
             string maxEND = "SELECT MAX(ENDE_ID_PK) FROM ENDERECOS";
@@ -256,7 +257,9 @@ namespace ERP.Servico.Servicos.Repositorio
                     command.Parameters.AddWithValue("@cpf", CPF);
                     var reader = command.ExecuteNonQuery();
                 }
-                return true;
+                List<Pessoa> pessoas = pessoa.BuscaCpf(CPF);
+
+                return pessoas;
             }
             catch (Exception ex)
             {

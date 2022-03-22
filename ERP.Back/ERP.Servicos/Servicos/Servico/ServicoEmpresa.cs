@@ -11,24 +11,10 @@ namespace ERP.Servico.Servicos.Servico
     {
         private readonly string _stringConexao;
 
-        public ServicoEmpresa(string stringConexao)
-        {
-            _stringConexao = stringConexao;
-
-        }
-
-        public List<Empresa> Lista()
-        {
-            var repositorio = new RepositorioEmpresa(_stringConexao);
-            var listEmpresa = repositorio.Lista();
-
-            return listEmpresa;
-        }
-
         private bool VerificaNull(string razao, string cnpj,
-                                 string NumeroEndereco, string Complemento,
-                                 string CEP, string Logradouro, string Bairro,
-                                 string Localidade, string UF)
+                         string NumeroEndereco, string Complemento,
+                         string CEP, string Logradouro, string Bairro,
+                         string Localidade, string UF)
         {
 
             if (razao == null)
@@ -80,18 +66,19 @@ namespace ERP.Servico.Servicos.Servico
         }
 
         private bool ValidaEmpresa(string razao, string cnpj,
-                                 string NumeroEndereco, string Complemento,
-                                 string CEP, string Logradouro, string Bairro,
-                                 string Localidade, string UF)
+                         string NumeroEndereco, string Complemento,
+                         string CEP, string Logradouro, string Bairro,
+                         string Localidade, string UF)
         {
 
-            if (!VerificaNull(razao, cnpj, NumeroEndereco, 
-                              Complemento, CEP, Logradouro, 
+            if (!VerificaNull(razao, cnpj, NumeroEndereco,
+                              Complemento, CEP, Logradouro,
                               Bairro, Localidade, UF))
             {
                 Console.WriteLine("Contém dados Nulos");
                 return false;
             }
+
             var empresaNova = BuscaCnpj(cnpj);
 
             if (cnpj.Length != 14)
@@ -116,6 +103,20 @@ namespace ERP.Servico.Servicos.Servico
                 return false;
             }
             return true;
+        }
+
+        public ServicoEmpresa(string stringConexao)
+        {
+            _stringConexao = stringConexao;
+
+        }
+
+        public List<Empresa> Lista()
+        {
+            var repositorio = new RepositorioEmpresa(_stringConexao);
+            var listEmpresa = repositorio.Lista();
+
+            return listEmpresa;
         }
 
         public List<Empresa> BuscaCnpj(string cnpj)

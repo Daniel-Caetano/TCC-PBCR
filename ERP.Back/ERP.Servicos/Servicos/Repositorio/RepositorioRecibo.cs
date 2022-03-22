@@ -22,7 +22,7 @@ namespace ERP.Servicos
         "RE.[RECI_VAL], RE.[RECI_VAL_EXT], RE.[RECI_OBS], RE.[RECI_DAT] " +
         "FROM RECIBOS RE ";
 
-        public int ConexaoIDMAX()
+        public int IDMAX()
         {
             string MaxID = "SELECT MAX(RECI_ID_PK) FROM RECIBOS";
 
@@ -34,7 +34,6 @@ namespace ERP.Servicos
             
             // Variável quantidade recebe o resultado da execução do método ExecuteScalar
             int ID_Reci = (int)command.ExecuteScalar() + 1;
-            Console.WriteLine(ID_Reci);
 
             //conn.Close(); // Fecha Conexão
             return ID_Reci;
@@ -245,13 +244,14 @@ namespace ERP.Servicos
             }
         }
 
-        public bool Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+        public List<Recibo> Adicionar(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
                               string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, 
                               string DocumentoPag, decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
         {
+            var tabela = new RepositorioRecibo(_stringConexao);
             try
             {
-                ConexaoIDMAX();
+                IDMAX();
 
                 var sqlReci = new StringBuilder()
                     .AppendLine("INSERT INTO RECIBOS (RECI_TIP, RECI_REC, RECI_REC_DOC, RECI_REC_END, RECI_REC_NUM, RECI_REC_COM, RECI_REC_CEP, " +
@@ -282,7 +282,9 @@ namespace ERP.Servicos
                     command.Parameters.AddWithValue("@UFrecibo ", UFrecibo);
                     var reader = command.ExecuteNonQuery();
                 }
-                return true;
+                List<Recibo> recibos = tabela.BuscaReciboCompleto(IDMAX());
+
+                return recibos;
             }
             catch(Exception ex)
             {

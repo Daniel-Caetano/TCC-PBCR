@@ -266,7 +266,7 @@ namespace ERP.Servico.Servicos.Repositorio
         public bool DeletarEmpresa(Empresa empresaDeletada)
         {
             var sql = new StringBuilder().AppendLine("DELETE FROM EMPRESAS " +
-                                                     "WHERE EMPR_CNPJ = @cnpj");
+                                                     "WHERE EMPR_CNPJ = @cnpj ");
             try
             {
                 using var conn = new SqlConnection(_stringConexao);
@@ -345,7 +345,7 @@ namespace ERP.Servico.Servicos.Repositorio
                                                      "ON ENDE_CODI_ID_FK = EMPR_ENDE_ID_FK " +
                                                      "INNER JOIN CODIGOS_POSTAIS " +
                                                      "ON CODI_ID_PK = ENDE_CODI_ID_FK " +
-                                                     "WHERE EMPR_CNPJ = @cnpj");
+                                                     "WHERE EMPR_CNPJ = @cnpj ");
 
             using var conn = new SqlConnection(_stringConexao);
 

@@ -100,38 +100,35 @@ namespace TestesServicos
         public void TestaAdicionarRecibo()
         {
             // Arrange
+            var reciboAd = recibos.IDMAX();
+            var reciboDados = recibos.BuscaReciboCompleto(reciboAd);
 
             // Act
-            var recibo = recibos.Adicionar("", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", "", "");
+            var adiciona = recibos.Adicionar("Teste", "", "", "", "", "", "", "", "", "", "", "", 0, "", "", "", "");
 
             // Assert
-            Assert.True(recibo);
+            Assert.Equal(reciboDados, adiciona);
         }
 
         [Fact]
         public void TestaDeletarRecibo()
         {
-            // Arrange
-            var idMAX = recibos.ConexaoIDMAX() - 1;
+            // Arrange: dado ID do recibo existente
 
-            // Act
-            var deletar = recibos.Deletar(idMAX);
 
-            // Assert
-            Assert.True(deletar);
+            // Act: deletar recibo pelo id informado
+
+            // Assert: verificar que o id do recibo deletado não exista no banco de dados
         }
 
         [Fact]
         public void TestaAtualizarRecibo()
         {
-            // Arrange
-            var idMAX = recibos.ConexaoIDMAX() - 1;
+            // Arrange: dado id do recibo
 
-            // Act
-            var atualizar = recibos.Atualizar(idMAX, "", 0, "ABC", "", "", "", "", "", "", "", "", "", "", "", "");
+            // Act: atualizar os dados do recibo
 
-            // Assert
-            Assert.True(atualizar);
+            // Assert: verificar que os dados do recibo foram atualizados
         }
     }
 }

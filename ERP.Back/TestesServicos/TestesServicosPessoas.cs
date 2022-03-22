@@ -57,10 +57,12 @@ namespace TestesServicos
             // Arrange
 
             // Act
-            var adiciona = pessoas.Adicionar("", "", "", "", "", "", "", "", "");
+            var adiciona = pessoas.Adicionar("Luan Evangelista", "98745632123", "123", "Ap 12", "12345678", 
+                                                "Rua", "Amazonia", "Ap de Goiania", "GO");
 
+            var pessoaAd = pessoas.BuscaCpf("98745632123");
             // Assert
-            Assert.True(adiciona);
+            Assert.Equal(adiciona, pessoaAd);
         }
 
         [Fact]

@@ -9,6 +9,115 @@ namespace ERP.Servico.Servicos.Servico
     {
         private readonly string _stringConexao;
 
+        private bool VerificaNulos(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec, 
+                                   string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec, 
+                                   string UFrec, string Pagador, string DocumentoPag, decimal Valor, 
+                                   string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            if(Tipo == null)
+            {
+                Console.WriteLine("Tipo INVÁLIDO");
+                return false;
+            }
+            if (Recebedor == null)
+            {
+                Console.WriteLine("Receber INVÁLIDO");
+                return false;
+            }
+            if (DocumentoRec == null)
+            {
+                Console.WriteLine("Documento do Recebedor é Invalido");
+                return false;
+            }
+            if (EnderecoRec == null)
+            {
+                Console.WriteLine("Endereço do Recebedor é invalido");
+                return false;
+            }
+            if (NumeroEndRec == null)
+            {
+                Console.WriteLine("Numero do Endereço é Invalido");
+                return false;
+            }
+            if (ComplementoRec == null)
+            {
+                Console.WriteLine("Complento Invalido");
+                return false;
+            }
+            if (CEPrec == null)
+            {
+                Console.WriteLine("CEP informado é Invaldio");
+                return false;
+            }
+            if (BairroRec == null)
+            {
+                Console.WriteLine("Bairro Invalido");
+                return false;
+            }
+            if (CidadeRec == null)
+            {
+                Console.WriteLine("Cidade Invalida");
+                return false;
+            }
+            if(UFrec == null)
+            {
+                Console.WriteLine("Estado Invalida");
+                return false;
+            }
+            if(Pagador == null)
+            {
+                Console.WriteLine("Pagador Invalida");
+                return false;
+            }
+            if(DocumentoPag == null)
+            {
+                Console.WriteLine("Documento Invalida");
+                return false;
+            }
+            if(Valor == 0)
+            {
+                Console.WriteLine("Valor Invalido");
+                return false;
+            }
+            if(ValorExtenso == null)
+            {
+                Console.WriteLine("Valor por Extenso Invalido");
+                return false;
+            }
+            if(Observacao == null)
+            {
+                Console.WriteLine("Observação Invalido");
+                return false;
+
+            }
+            if(CidadeRecibo == null)
+            {
+                Console.WriteLine("Cidade Invalida");
+                return false;
+            }
+            if(UFrecibo == null)
+            {
+                Console.WriteLine("Estado Invalido");
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidaRecibo(string Tipo, string Recebedor, string DocumentoRec, string EnderecoRec, string NumeroEndRec,
+                                   string ComplementoRec, string CEPrec, string BairroRec, string CidadeRec,
+                                   string UFrec, string Pagador, string DocumentoPag, decimal Valor,
+                                   string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
+        {
+            if(!VerificaNulos(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec,
+                CidadeRec, UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo))
+            {
+                Console.WriteLine("Os dados informados possuem valores nulos");
+                return false;
+            }
+
+            return true;
+        }
+
         public ServicoRecibo(string stringConexao)
         {
             _stringConexao = stringConexao;
@@ -67,9 +176,17 @@ namespace ERP.Servico.Servicos.Servico
                               string CEPrec, string BairroRec, string CidadeRec, string UFrec, string Pagador, string DocumentoPag,
                               decimal Valor, string ValorExtenso, string Observacao, string CidadeRecibo, string UFrecibo)
         {
-            var repositorio = new RepositorioRecibo(_stringConexao);
-            repositorio.Adicionar(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec, UFrec, Pagador, DocumentoPag,
-                                  Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+            if (ValidaRecibo(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec,
+                CidadeRec, UFrec, Pagador, DocumentoPag, Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo))
+            {
+                var repositorio = new RepositorioRecibo(_stringConexao);
+                repositorio.Adicionar(Tipo, Recebedor, DocumentoRec, EnderecoRec, NumeroEndRec, ComplementoRec, CEPrec, BairroRec, CidadeRec, UFrec, Pagador, DocumentoPag,
+                                      Valor, ValorExtenso, Observacao, CidadeRecibo, UFrecibo);
+            }
+            else
+            {
+                Console.WriteLine("FALHA AO ADICIONAR, CONTÉM DADOS INVÁLIDOS!");
+            }
         }
 
         public void Deletar(int id)
